@@ -1,1 +1,164 @@
-Team Velocity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Wheel of Jeopardy</title>
+
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/fontawesome/css/all.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- title -->
+        <div class="row">
+            <div class="col text-center">
+                <h1>Wheel of Jeopardy</h1>
+            </div>
+        </div>
+        <div class="row">
+            <!-- wheel -->
+            <div class="col-4">
+                <svg height="200" width="200">
+                    <circle cx="100" cy="100" r="90" stroke="black" stroke-width="3" fill="purple" />
+                </svg>
+            </div>
+            <!-- players -->
+            <div class="col-8">
+                <!-- add/remove player button -->
+                <div class="row p-2 text-center setup">
+                    <div class="col">
+                        <button type="button" class="btn btn-success btn-sm">+</button>
+                        <button type="button" class="btn btn-danger btn-sm">-</button>
+                        <span>Add/Remove Players</span>
+                    </div>
+                </div>
+                 <!-- player heads-up -->
+                <div class="row pt-2 pb-2">
+                    <div class="col-4">
+                        <form id="player0">
+                            <input type="text" class="form-control" placeholder="Player 0">
+                            <div>
+                                <i class="fas fa-dollar-sign icon-money"></i>
+                                <span class="points">0</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-coins"></i>
+                                <span class="tokens">0</span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-4">
+                        <form id="player1">
+                            <input type="text" class="form-control" placeholder="Player 1">
+                            <div>
+                                <i class="fas fa-dollar-sign icon-money"></i>
+                                <span class="points">0</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-coins"></i>
+                                <span class="tokens">0</span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-4">
+                        <form id="player2">
+                            <input type="text" class="form-control" placeholder="Player 2">
+                            <div>
+                                <i class="fas fa-dollar-sign icon-money"></i>
+                                <span class="points">0</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-coins"></i>
+                                <span class="tokens">0</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- start game button -->
+        <div class="row p-2">
+            <div class="col text-center">
+                <button id="btn-play" type="button" class="btn btn-outline-primary btn-lg">Let's Play!</button>
+                <button type="button" class="btn btn-outline-secondary btn-lg">Edit Game</button>
+            </div>
+        </div>
+        
+        <!-- board -->
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Category 0</th>
+                        <th scope="col">Category 1</th>
+                        <th scope="col">Category 2</th>
+                        <th scope="col">Category 3</th>
+                        <th scope="col">Category 4</th>
+                        <th scope="col">Category 5</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Col 0 Row 0</td>
+                            <td>Col 1 Row 0</td>
+                            <td>Col 2 Row 0</td>
+                            <td>Col 3 Row 0</td>
+                            <td>Col 4 Row 0</td>
+                            <td>Col 5 Row 0</td>
+                        </tr>
+                        <tr>
+                            <td>Col 0 Row 1</td>
+                            <td>Col 1 Row 1</td>
+                            <td>Col 2 Row 1</td>
+                            <td>Col 3 Row 1</td>
+                            <td>Col 4 Row 1</td>
+                            <td>Col 5 Row 1</td>
+                        </tr>
+                        <tr>
+                            <td>Col 0 Row 2</td>
+                            <td>Col 1 Row 2</td>
+                            <td>Col 2 Row 2</td>
+                            <td>Col 3 Row 2</td>
+                            <td>Col 4 Row 2</td>
+                            <td>Col 5 Row 2</td>
+                        </tr>
+                        <tr>
+                            <td>Col 0 Row 3</td>
+                            <td>Col 1 Row 3</td>
+                            <td>Col 2 Row 3</td>
+                            <td>Col 3 Row 3</td>
+                            <td>Col 4 Row 3</td>
+                            <td>Col 5 Row 3</td>
+                        </tr>
+                        <tr>
+                            <td>Col 0 Row 4</td>
+                            <td>Col 1 Row 4</td>
+                            <td>Col 2 Row 4</td>
+                            <td>Col 3 Row 4</td>
+                            <td>Col 4 Row 4</td>
+                            <td>Col 5 Row 4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            Game Interaction: e.g. Spin, Validate, Select Category
+        </div>
+    </div>
+
+    <script src="lib/jquery/jquery-3.3.1.min.js"></script>
+    <script src="scripts/data.js"></script>
+    <script src="scripts/game.js"></script>
+    <script src="scripts/ui.js"></script>
+
+</body>
+</html>

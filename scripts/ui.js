@@ -1,6 +1,6 @@
 "use strict"
 /**
- * @fileOverview UI setup and interaction.
+ * @file UI setup and interaction.
  */
 
 // globals

@@ -1,6 +1,6 @@
 "use strict"
 /**
- * @fileOverview Classes and logic for the Wheel of Jeopardy game.
+ * @file Classes and logic for the Wheel of Jeopardy game.
  */
 
 
@@ -423,5 +423,12 @@ class Game {
 
     getRound(id){
         return this.rounds[id];
+    }
+}
+
+// node exports
+if( typeof module !== 'undefined' && module.exports ) {
+    module.exports = {
+        Game: Game
     }
 }

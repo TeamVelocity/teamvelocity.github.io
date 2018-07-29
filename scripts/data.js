@@ -387,3 +387,11 @@ let data2 = {
     }
   ]
 }
+
+// node exports
+if( typeof module !== 'undefined' && module.exports ) {
+  module.exports = {
+      data1: data1,
+      data2: data2
+  }
+}

@@ -1,3 +1,9 @@
+"use strict"
+/***
+ * @file Sample data for the wheel of jeopardy game.
+ */
+
+
 let data1 = {
   "columns": 6,
   "rows": 5,

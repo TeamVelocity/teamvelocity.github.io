@@ -1,5 +1,5 @@
 "use strict"
-/**
+/***
  * @file UI setup and interaction.
  */
 

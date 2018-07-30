@@ -1,21 +1,23 @@
 "use strict"
-/**
+/***
  * @file Classes and logic for the Wheel of Jeopardy game.
  */
 
 
 /**
- * Returns a random integer between min and max).
+ * Returns a random integer between min and max.
  * @param {number} max upper bound (exclusive).
- * @param {number} [min=0] lower bound (inclusive).
+ * @param {number} min lower bound (inclusive).
+ * @returns {number} random integer.
  */
 function randomInt(max, min=0) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
 /**
- * Naive shuffle an array, swaps 3 * array.length.
+ * Naive shuffle an array, swaps random slots 3 * array.length times.
  * @param {Object[]} arr an array to shuffle.
+ * @returns {Object[]} shuffled array.
  */
 function shuffleArray(arr){
     for (let j=0; j < arr.length * 3; j++){
@@ -31,6 +33,9 @@ function shuffleArray(arr){
     return arr;
 }
 
+/**
+ * A clue on the WOJ board.
+ */
 class Clue {
     constructor(column, row, question, answer) {
         this.column = column;

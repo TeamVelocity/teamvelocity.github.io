@@ -16,4 +16,4 @@ Documentation is used to generate the API docs.
 First verify there are no errors using lint, then generate the docs
 
         documentation lint scripts/*
-        documentation build src/* -f html -o docs
+        documentation build scripts/* -f html -o docs

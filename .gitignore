@@ -1,3 +1,6 @@
+# coveralls for local build
+.coveralls.yml
+
 # Logs
 logs
 *.log

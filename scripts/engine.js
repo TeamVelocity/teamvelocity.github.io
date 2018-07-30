@@ -7,12 +7,16 @@
 /**
  * Returns a random integer between min and max).
  * @param {number} max upper bound (exclusive).
- * @param {number} min lower bound (inclusive).
+ * @param {number} [min=0] lower bound (inclusive).
  */
 function randomInt(max, min=0) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
+/**
+ * Naive shuffle an array, swaps 3 * array.length.
+ * @param {Object[]} arr an array to shuffle.
+ */
 function shuffleArray(arr){
     for (let j=0; j < arr.length * 3; j++){
         let i1 = randomInt(arr.length);

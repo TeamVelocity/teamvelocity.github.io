@@ -6,14 +6,10 @@ Source code for the Wheel of Jeopardy Game developed by Team Velocity.
 
 ## Developer Tools
 
-### documentation.js
-Documentation is used to generate the API docs.
-        
-        npm install -g documentation
+        # install documentation
+        npm install
 
-## Build Documentation
-
-First verify there are no errors using lint, then generate the docs
-
-        documentation lint scripts/*
-        documentation build scripts/* -f html -o docs
+        # test code, view test coverage, and generate docs
+        npm run test
+        npm run coverage
+        npm run docs

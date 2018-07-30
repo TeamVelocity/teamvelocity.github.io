@@ -1,11 +1,39 @@
 {
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "docs": "./node_modules/.bin/esdoc"
   },
   "devDependencies": {
+    "coveralls": "^3.0.2",
+    "esdoc": "^1.1.0",
+    "esdoc-standard-plugin": "^1.0.0",
     "mocha": "^5.2.0",
-    "nyc": "^12.0.2",
-    "coveralls": "^3.0.2"
+    "nyc": "^12.0.2"
+  },
+  "esdoc": {
+    "source": "./scripts",
+    "destination": "./docs",
+    "plugins": [
+      {
+        "name": "esdoc-standard-plugin",
+        "option": {
+          "undocumentIdentifier": {
+            "enable": false
+          },
+          "unexportedIdentifier": {
+            "enable": true
+          },
+          "brand": {
+            "logo": "assets/logo.png",
+            "title": "Wheel of Jeopardy",
+            "description": "The Wheel of Jeopardy Game by Team Velocity",
+            "repository": "https://github.com/TeamVelocity/teamvelocity.github.io",
+            "site": "http://teamvelocity.github.io",
+            "author": "Team Velocity"
+          }
+        }
+      }
+    ]
   }
 }

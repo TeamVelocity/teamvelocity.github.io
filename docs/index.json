@@ -1,0 +1,2757 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "scripts/.external-ecmascript.js",
+    "static": true,
+    "longname": "scripts/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "scripts/data.js",
+    "content": "\"use strict\"\n/***\n * Sample data for the Wheel of Jeopardy game.\n * \n * Each data object contains JSON of for all clues on the board. Note, use\n * JSON.stringify on the object before trying Board.import.\n * \n * columns: number of columns on the board.\n * rows: number of rows on the board.\n * categories: array of category names.\n * clues: array of clues, zero indexed from top left of board.\n *    column: horizontal index.\n *    row: vertical index.\n *    question: question text.\n *    answer: answer text.\n */\n\n /** @ignore */\n\nlet data1 = {\n  \"columns\": 6,\n  \"rows\": 5,\n  \"categories\":[\n    \"Art and Literature\",\n    \"Food and Drink\",\n    \"General Knowledge\",\n    \"Harry Potter\",\n    \"History\",\n    \"Music\"\n  ],\n  \"clues\": [\n    {\n      \"column\": 0,\n      \"row\": 0,\n      \"question\": \"Who wrote The Green Mile?\",\n      \"answer\": \"Stephen King\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 1,\n      \"question\": \"Who created the cartoon character ‘Garfield’?\",\n      \"answer\": \"Jim Davis\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 2,\n      \"question\": \"In which modern-day country was Rembrandt born?\",\n      \"answer\": \"Netherlands\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 3,\n      \"question\": \"What is Frankenstein’s first name in Mary Shelley’s novel?\",\n      \"answer\": \"Victor\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 4,\n      \"question\": \"How many lines are there in a sonnet?\",\n      \"answer\": \"Fourteen\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 0,\n      \"question\": \"Claret is a dry red wine produced in which region of France?\",\n      \"answer\": \"Bordeaux\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 1,\n      \"question\": \"From which type of flower does a vanilla pod come?\",\n      \"answer\": \"Orchid\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 2,\n      \"question\": \"In which country is the Staropramen brewery?\",\n      \"answer\": \"Czech Republic\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 3,\n      \"question\": \"Which salad vegetable has varieties named ‘White Icicle’, ‘Sparkler’ and ‘Cherry Belle’?\",\n      \"answer\": \"Radish\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 4,\n      \"question\": \"How many standard 750ml bottles of wine would fit into a Methuselah?\",\n      \"answer\": \"Eight\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 0,\n      \"question\": \"When referring to a cash machine, what does ‘ATM’ stand for?\",\n      \"answer\": \"Automated Teller Machine\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 1,\n      \"question\": \"In which group were England in the 2018 FIFA World Cup?\",\n      \"answer\": \"Group G\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 2,\n      \"question\": \"Who was the 2018 Wimbledon Women’s Singles champion?\",\n      \"answer\": \"Angelique Kerber\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 3,\n      \"question\": \"How many sides has a pentacontagon?\",\n      \"answer\": \"50 (A fifty-sided polygon)\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 4,\n      \"question\": \"In which country was Amal Clooney born?\",\n      \"answer\": \"Lebanon\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 0,\n      \"question\": \"What is the street address of Vernon and Petunia Dursley, Harry’s uncle and aunt?\",\n      \"answer\": \"3 Privet Drive\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 1,\n      \"question\": \"How many balls are used in total in a game of Quidditch?\",\n      \"answer\": \"Four\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 2,\n      \"question\": \"Which actress played Dolores Umbridge in the films?\",\n      \"answer\": \"Imelda Staunton\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 3,\n      \"question\": \"Which animal is the mascot of Hufflepuff house?\",\n      \"answer\": \"Badger\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 4,\n      \"question\": \"What type of creature is Aragog?\",\n      \"answer\": \"Acromantula\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 0,\n      \"question\": \"Which two of Henry VIII’s wives were executed?\",\n      \"answer\": \"Anne Boleyn and Kathryn Howard\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 1,\n      \"question\": \"Which English city was once known as Duroliponte?\",\n      \"answer\": \"Cambridge\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 2,\n      \"question\": \"What was the first name of the man after whom the Geiger counter was named?\",\n      \"answer\": \"Hans\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 3,\n      \"question\": \"In which city was RMS Titanic constructed?\",\n      \"answer\": \"Belfast\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 4,\n      \"question\": \"The first successful vaccine was introduced by Edward Jenner in 1796. Which disease did it guard against?\",\n      \"answer\": \"Smallpox\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 0,\n      \"question\": \"Adam Levine in the lead singer of which US pop rock band?\",\n      \"answer\": \"Maroon 4\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 1,\n      \"question\": \"Which British artist can be seen performing “The Hits” show at Caesars Palace in Las Vegas from November 2018?\",\n      \"answer\": \"Rod Stewart\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 2,\n      \"question\": \"Which American rapper was born Shawn Corey Carter in New York City in 1969?\",\n      \"answer\": \"Jay-Z\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 3,\n      \"question\": \"Who performed the song “The A Team” with Ed Sheeran at the 2013 Grammy Awards?\",\n      \"answer\": \"Elton John\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 4,\n      \"question\": \"The ‘Explorer’, the ‘Flying V’ and the ‘Les Paul’ are guitar models by which manufacturers?\",\n      \"answer\": \"Gibson\"\n    }\n  ]\n}\n\nlet data2 = {\n  \"columns\": 6,\n  \"rows\": 5,\n  \"categories\":[\n    \"Entertainment\",\n    \"Food and Drink\",\n    \"General Knowledge\",\n    \"History\",\n    \"Music\",\n    \"Science\"\n  ],\n  \"clues\": [\n    {\n      \"column\": 0,\n      \"row\": 0,\n      \"question\": \"In which US TV series did Kiefer Sutherland play the character of Jack Bauer?\",\n      \"answer\": 24\n    },\n    {\n      \"column\": 0,\n      \"row\": 1,\n      \"question\": \"How many seasons of the hit US comedy ‘Friends’ were made?\",\n      \"answer\": 10\n    },\n    {\n      \"column\": 0,\n      \"row\": 2,\n      \"question\": \"Which nationality was the composer Frederick Chopin?\",\n      \"answer\": \"Polish\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 3,\n      \"question\": \"On which David Bowie album was the track ‘Life on Mars?’ originally found?\",\n      \"answer\": \"Hunky Dory\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 4,\n      \"question\": \"Who released the 2015 album ‘Uptown Special’?\",\n      \"answer\": \"Mark Ronson\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 0,\n      \"question\": \"‘Scrag End’ is the name for a cut of which type of meat?\",\n      \"answer\": \"Lamb or mutton\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 1,\n      \"question\": \"Which came first: McDonalds or KFC?\",\n      \"answer\": \"McDonalds\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 2,\n      \"question\": \"Which mineral water has been marketed with the slogan ‘Live Young’?\",\n      \"answer\": \"Evian\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 3,\n      \"question\": \"What is added to a Martini to make a ‘Dirty Martini’?\",\n      \"answer\": \"Olive brine\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 4,\n      \"question\": \"A Thai dish with  ‘mu’ (or sometimes ‘moo’) would include which type of meat?\",\n      \"answer\": \"Pork\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 0,\n      \"question\": \"Who was the first ever winner of ‘Britain’s Got Talent’?\",\n      \"answer\": \"Paul Potts\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 1,\n      \"question\": \"Which was the first product to be launched by Henry J Heinz and L Clarence Noble in 1869?\",\n      \"answer\": \"Horseradish\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 2,\n      \"question\": \"Of which African country is Khartoum the capital?\",\n      \"answer\": \"Sudan\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 3,\n      \"question\": \"The adjective ‘vespine’ is used to describe which creature?\",\n      \"answer\": \"Wasp\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 4,\n      \"question\": \"In which US state is McCarran International Airport?\",\n      \"answer\": \"Nevada\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 0,\n      \"question\": \"Ulysses S. Grant appears on the front of which denomination of US. currency?\",\n      \"answer\": \"$50 bill\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 1,\n      \"question\": \"The Belgian revolution of 1830-1831 led to their independence from which country?\",\n      \"answer\": \"Netherlands\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 2,\n      \"question\": \"The Battle of Bosworth Field was the last significant battle of which series of civil wars?\",\n      \"answer\": \"Wars of the Roses\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 3,\n      \"question\": \"In which year was Korea divided into North Korea and South Korea?\",\n      \"answer\": 1945\n    },\n    {\n      \"column\": 3,\n      \"row\": 4,\n      \"question\": \"Whose famous last words in 1999 reportedly were, “I finally get to see Marilyn”?\",\n      \"answer\": \"Joe DiMaggio\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 0,\n      \"question\": \"What is the real name of rapper Eminem?\",\n      \"answer\": \"Marshall Bruce Mathers III\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 1,\n      \"question\": \"Who featured on the 2002 single “A Little Less Conversation” with JXL?\",\n      \"answer\": \"Elvis Presley\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 2,\n      \"question\": \"Which original member of Take That released the solo album “In Your Own Time” in 2003?\",\n      \"answer\": \"Mark Owen\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 3,\n      \"question\": \"Which band released 80s albums entitled ‘Speak & Spell’, ‘Black Celebration’ and ‘Music for the Masses’?\",\n      \"answer\": \"Depeche Mode\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 4,\n      \"question\": \"Which two artists duet on the song “Me Against the Music”, released in 2003?\",\n      \"answer\": \"Madonna and Britney Spears\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 0,\n      \"question\": \"The Colorado Beetle is a major pest of which type of crop?\",\n      \"answer\": \"Potato\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 1,\n      \"question\": \"In mathematics, what is the value of π (pi) to two decimal places?\",\n      \"answer\": 2.14\n    },\n    {\n      \"column\": 5,\n      \"row\": 2,\n      \"question\": \"What fraction of a second is a microsecond?\",\n      \"answer\": \"One millionth of a second\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 3,\n      \"question\": \"Approximately what percentage of the Earth’s surface is covered by water: 61%, 71% or 81%?\",\n      \"answer\": \"71%\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 4,\n      \"question\": \"Which number on the pH scale would indicate a neutral substance?\",\n      \"answer\": 7\n    }\n  ]\n}\n\n// node exports\nif( typeof module !== 'undefined' && module.exports ) {\n  module.exports = {\n      data1: data1,\n      data2: data2\n  }\n}",
+    "static": true,
+    "longname": "/Users/bmw/Documents/education/jhu/EN.605.601.81.SU18 Foundations of Software Engineering/teamvelocity.github.io/scripts/data.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "variable",
+    "name": "data1",
+    "memberof": "scripts/data.js",
+    "static": true,
+    "longname": "scripts/data.js~data1",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/data.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 20,
+    "ignore": true,
+    "type": {
+      "types": [
+        "{\"columns\": number, \"rows\": number, \"categories\": *, \"clues\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 50,
+    "kind": "variable",
+    "name": "data2",
+    "memberof": "scripts/data.js",
+    "static": true,
+    "longname": "scripts/data.js~data2",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/data.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 215,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"columns\": number, \"rows\": number, \"categories\": *, \"clues\": *}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "file",
+    "name": "scripts/engine.js",
+    "content": "\"use strict\"\n/***\n * Classes and logic for the Wheel of Jeopardy game.\n */\n\n\n/**\n * Returns a random integer between min and max.\n * @param {number} max upper bound (exclusive).\n * @param {number} min lower bound (inclusive).\n * @returns {number} random integer.\n */\nfunction randomInt(max, min=0) {\n    return Math.floor(Math.random() * (max - min) + min);\n}\n\n/**\n * Naive shuffle an array, swaps random slots 3 * array.length times.\n * @param {Object[]} arr an array to shuffle.\n * @returns {Object[]} shuffled array.\n */\nfunction shuffleArray(arr){\n    for (let j=0; j < arr.length * 3; j++){\n        let i1 = randomInt(arr.length);\n        let i2 = randomInt(arr.length);\n\n        let val1 = arr[i1];\n        let val2 = arr[i2];\n\n        arr[i2] = val1;\n        arr[i1] = val2;\n    }\n    return arr;\n}\n\n/**\n * A single clue, zero indexed from the top left of the board.\n */\nclass Clue {\n    /**\n     * @param {number} column horizontal index on board.\n     * @param {number} row vertical index on board.\n     * @param {string} question the question text.\n     * @param {string} answer the answer text.\n     */\n    constructor(column, row, question, answer) {\n        this.column = column;\n        this.row = row;\n        this.question = question;\n        this.answer = answer;\n\n        /** @type {number} value of the clue. */\n        this.points = 0;\n    }\n}\n\n/** \n * A category of clues on the board. \n */\nclass Category{\n    /**\n     * @param {string} name name of the category.\n     */\n    constructor(name){\n        this.name = name;\n\n        /** @type {Object[]} a list of {@link Clue} objects. */\n        this.clues = [];\n\n        /** \n         * @type {number} number of clues in the category that have been \n         * answered. \n         */\n        this.cluesAnswered = 0;\n    }\n\n    /** @type {boolean} true if all clues in the category have been answered. */\n    get complete(){\n        return this.cluesAnswered >= this.clues.length;\n    }\n\n    /** \n     * Reset clues answered count to 0.\n     */\n    reset(){\n        this.cluesAnswered = 0;\n    }\n\n    /** \n     * Retrieve next unanswered clue in the category, increment cluesAnswered.\n     * If all clues are answered, this will return undefined.\n     * @return {clue} the next unanswered clue.\n     */\n    nextClue(){\n        let clue = this.clues[this.cluesAnswered];\n        this.cluesAnswered++;\n        return clue;\n    }\n}\n\nclass Board {\n    constructor(columns=6, rows=5, basePoints=200) {\n        this.columns;\n        this.rows;\n        this.basePoints = basePoints;\n\n        this.categories;\n        this.cluesAnswered = 0;\n\n        this.init_(columns, rows);\n    }\n\n    get complete(){\n        return this.cluesAnswered >= this.columns * this.rows;\n    }\n\n    get categoryNames(){\n        let names = [];\n        for(let i=0; i<this.categories.length; i++){\n            names.push(this.categories[i].name);\n        }\n        return names;\n    }\n\n    init_(columns=6, rows=5){\n        this.categories = [];\n        this.columns = columns;\n        this.rows = rows;\n\n        for(let i=0; i<this.columns; i++){\n            let category = new Category();\n            this.categories.push(category);\n\n            for(let j=0; j<this.rows; j++){\n                let clue = new Clue();\n                clue.column = i;\n                clue.row = j;\n                clue.points = (j+1) * this.basePoints;\n                category.clues.push(clue);\n            }\n        }\n    }\n\n    reset(){\n        this.cluesAnswered = 0;\n        for(let i=0; i<this.categories.length; i++){\n            this.categories[i].reset();\n        }\n    }\n\n    getCategory(column){\n        return this.categories[column];\n    }\n\n    getClue(column, row){\n        return this.categories[column].clues[row];\n    }\n\n    editCategory(column, name){\n        let category = this.getCategory(column);\n        category.name = name;\n    }\n\n    editClue(column, row, question, answer){\n        let clue = this.getClue(column, row);\n        clue.question = question;\n        clue.answer = answer;\n    }\n\n    nextClue(column) {\n        if (!this.categoryComplete(column)){\n            this.cluesAnswered++;\n            let category = this.getCategory(column);\n            let clue = category.nextClue();\n            return clue;\n        }\n    }\n\n    import(data){\n        data = JSON.parse(data);\n\n        // reinitialize board if columns/rows different\n        if(this.columns != data.columns || this.rows != data.rows){\n            this.init_(data.columns, data.rows);\n        }\n\n        // import category names\n        for(let i=0; i<data.categories.length; i++){\n            this.editCategory(i, data.categories[i]);\n        }\n\n        // import clues\n        for(let i=0; i<data.clues.length; i++){\n            let clue = data.clues[i];\n            this.editClue(clue.column, clue.row, clue.question, clue.answer);\n        }\n    }\n\n    export(){\n        let data = {\n            \"columns\": this.columns,\n            \"rows\": this.rows,\n            \"categories\": this.categoryNames,\n            \"clues\": []\n        };\n\n        for(let i=0; i<this.columns; i++){\n            for(let j=0; j<this.rows; j++){\n                let clue = this.getClue(i, j);\n                data.clues.push({\n                    \"column\": i,\n                    \"row\": j,\n                    \"question\": clue.question,\n                    \"answer\": clue.answer\n                })\n            }\n        }\n\n        data = JSON.stringify(data);\n        return data;\n    }\n}\n\nclass Spin {\n    constructor(slot, sectorNumber, sectorName, isCategory, clue){\n        this.slot = slot;\n        this.sectorNumber = sectorNumber;\n        this.sectorName = sectorName;\n        this.isCategory = isCategory;\n        this.spinAgain = false;\n        this.clue = clue;\n    }\n}\n\nclass Wheel {\n    constructor(board, maxSpins=50) {\n        this.specialSectors = [\n            \"Lose Turn\", \n            \"Free Turn\", \n            \"Bankrupt\", \n            \"Player's Choice\", \n            \"Opponent's Choice\", \n            \"Double Score\"\n        ]\n        this.board = board;\n        this.maxSpins = maxSpins;\n        this.usedSpins = 0;\n        this.slots = [];\n\n        this.assignSectors();\n    }\n\n    get complete(){\n        return this.usedSpins >= this.maxSpins;\n    }\n\n    get sectors(){\n        return this.board.categoryNames.concat(this.specialSectors);\n    }\n\n    reset(){\n        this.usedSpins = 0;\n    }\n\n    assignSectors(){\n        this.slots = [];\n\n        for(let i=0; i<this.sectors.length; i++){\n            this.slots.push(i);\n        }\n    }\n\n    randomizeSectors(){\n        this.slots = shuffleArray(this.slots);\n    }\n\n    getSectorNumber(slot){\n        return this.slots[slot];\n    }\n\n    getSectorName(sectorNumber){\n        return this.sectors[sectorNumber];\n    }\n\n    sectorIsCategory(sectorNumber){\n        if(sectorNumber < this.board.categoryNames.length){\n            return true\n        } else {\n            return false\n        }\n    }\n\n    getRandomSlot(){\n        return randomInt(this.slots.length);\n    }\n\n    spin(){\n        let spin = new Spin();\n        spin.slot = this.getRandomSlot();\n        spin.sectorNumber = this.getSectorNumber(spin.slot);\n        spin.sectorName = this.getSectorName(spin.sectorNumber);\n        spin.isCategory = this.sectorIsCategory(spin.sectorNumber);\n\n        if(spin.isCategory){\n            let category = this.board.getCategory(spin.sectorNumber);\n    \n            if(category.complete){\n                spin.spinAgain = true;\n            } else {\n                let clue = category.nextClue();\n                spin.clue = clue;\n            }\n        }\n        this.usedSpins++;\n        return spin;\n    }\n}\n\n/**\n * A score keeper for a single player and round.\n */\nclass Score {\n    constructor(){\n        /** @type {number} current points for the round. */\n        this.points = 0;\n    }\n\n    /** Reset points to 0. */\n    reset(){\n        this.points = 0;\n    }\n\n    /**\n     * Increase points by a number (sign ignored).\n     * @param {number} points number of points to increase.\n     */\n    increase(points){\n        this.points = this.points + Math.abs(points);\n    }\n\n    /**\n     * Decrease points by a number (sign ignored).\n     * @param {number} points number of points to decrease.\n     */\n    decrease(points){\n        this.points = this.points - Math.abs(points);\n    }\n\n    /** If points are positive, set points to 0. */\n    bankrupt(){\n        if(this.points > 0){ this.points = 0; }\n    }\n\n    /** Double points, even if negative. */\n    double(){\n        this.points = this.points + this.points;\n    }\n}\n\nclass Player {\n    constructor(name) {\n        this.name = name;\n        this.tokens = 0;\n        this.scores = [];\n    }\n\n    get totalScore(){\n        let points = 0;\n        for(i=0; i<this.scores.length; i++){\n            points += this.scores[i].points;\n        }\n        return points;\n    }\n\n    resetTokens(){\n        this.tokens = 0;\n    }\n\n    resetScore(round){\n        this.scores[round] = new Score();\n    }\n\n    getScore(round){\n        return this.scores[round];\n    }\n\n    addToken(){\n        this.tokens += 1;\n    }\n\n    hasToken(){\n        return this.tokens > 0;\n    }\n\n    useToken(){\n        if(this.hasToken){\n            this.tokens--;\n            return true;\n        } else {\n            return false;\n        }\n    }\n}\n\nclass Round {\n    constructor(id, wheel, players, maxTime=20){\n        this.id = id;\n        this.wheel = wheel;\n        this.board = wheel.board;\n        this.players = players;\n        this.maxTime = maxTime;\n        this.currentPlayer = 0\n    }\n\n    get complete(){\n        return this.wheel.complete || this.board.complete\n    }\n\n    start(){\n        this.reset();\n    }\n\n    reset(){\n        this.wheel.reset();\n        this.board.reset();\n        for(let i=0; i<this.players.length; i++){\n            this.players[i].resetScore(this.id);\n        }\n        this.currentPlayer = 0;\n    }\n}\n\nclass Game {\n    constructor() {\n        this.players = [];\n        this.rounds = [];\n        this.currentRound = 0;\n    }\n\n    addPlayer(name){\n        let player = new Player(name);\n        this.players.push(player);\n    }\n\n    getPlayer(id){\n        return this.players[id];\n    }\n\n    editPlayer(id, name){\n        let player = this.getPlayer(id);\n        player.name = name;\n    }\n\n    addRound(){\n        let id = this.rounds.length;\n        let board = new Board();\n        let wheel = new Wheel(board)\n        let round = new Round(id, wheel, this.players)\n        this.rounds.push(round);\n        return round;\n    }\n\n    getRound(id){\n        return this.rounds[id];\n    }\n}\n\n// node exports\nif( typeof module !== 'undefined' && module.exports ) {\n    module.exports = {\n        Game: Game,\n        Round: Round,\n        Player: Player,\n        Score: Score\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/bmw/Documents/education/jhu/EN.605.601.81.SU18 Foundations of Software Engineering/teamvelocity.github.io/scripts/engine.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 52,
+    "kind": "function",
+    "name": "randomInt",
+    "memberof": "scripts/engine.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "scripts/engine.js~randomInt",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": "Returns a random integer between min and max.",
+    "lineNumber": 13,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{number} random integer."
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "max",
+        "description": "upper bound (exclusive)."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "min",
+        "description": "lower bound (inclusive)."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": "random integer."
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "function",
+    "name": "shuffleArray",
+    "memberof": "scripts/engine.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "scripts/engine.js~shuffleArray",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": "Naive shuffle an array, swaps random slots 3 * array.length times.",
+    "lineNumber": 22,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Object[]} shuffled array."
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "arr",
+        "description": "an array to shuffle."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object[]"
+      ],
+      "spread": false,
+      "description": "shuffled array."
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "class",
+    "name": "Clue",
+    "memberof": "scripts/engine.js",
+    "static": true,
+    "longname": "scripts/engine.js~Clue",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": "A single clue, zero indexed from the top left of the board.",
+    "lineNumber": 39,
+    "interface": false
+  },
+  {
+    "__docId__": 55,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "scripts/engine.js~Clue",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Clue#constructor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 46,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "column",
+        "description": "horizontal index on board."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "row",
+        "description": "vertical index on board."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "question",
+        "description": "the question text."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "answer",
+        "description": "the answer text."
+      }
+    ]
+  },
+  {
+    "__docId__": 56,
+    "kind": "member",
+    "name": "column",
+    "memberof": "scripts/engine.js~Clue",
+    "static": false,
+    "longname": "scripts/engine.js~Clue#column",
+    "access": "public",
+    "description": null,
+    "lineNumber": 47,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 57,
+    "kind": "member",
+    "name": "row",
+    "memberof": "scripts/engine.js~Clue",
+    "static": false,
+    "longname": "scripts/engine.js~Clue#row",
+    "access": "public",
+    "description": null,
+    "lineNumber": 48,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 58,
+    "kind": "member",
+    "name": "question",
+    "memberof": "scripts/engine.js~Clue",
+    "static": false,
+    "longname": "scripts/engine.js~Clue#question",
+    "access": "public",
+    "description": null,
+    "lineNumber": 49,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 59,
+    "kind": "member",
+    "name": "answer",
+    "memberof": "scripts/engine.js~Clue",
+    "static": false,
+    "longname": "scripts/engine.js~Clue#answer",
+    "access": "public",
+    "description": null,
+    "lineNumber": 50,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 60,
+    "kind": "member",
+    "name": "points",
+    "memberof": "scripts/engine.js~Clue",
+    "static": false,
+    "longname": "scripts/engine.js~Clue#points",
+    "access": "public",
+    "description": null,
+    "lineNumber": 53,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "class",
+    "name": "Category",
+    "memberof": "scripts/engine.js",
+    "static": true,
+    "longname": "scripts/engine.js~Category",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": "A category of clues on the board. ",
+    "lineNumber": 60,
+    "interface": false
+  },
+  {
+    "__docId__": 62,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "scripts/engine.js~Category",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Category#constructor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 64,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": "name of the category."
+      }
+    ]
+  },
+  {
+    "__docId__": 63,
+    "kind": "member",
+    "name": "name",
+    "memberof": "scripts/engine.js~Category",
+    "static": false,
+    "longname": "scripts/engine.js~Category#name",
+    "access": "public",
+    "description": null,
+    "lineNumber": 65,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 64,
+    "kind": "member",
+    "name": "clues",
+    "memberof": "scripts/engine.js~Category",
+    "static": false,
+    "longname": "scripts/engine.js~Category#clues",
+    "access": "public",
+    "description": null,
+    "lineNumber": 68,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 65,
+    "kind": "member",
+    "name": "cluesAnswered",
+    "memberof": "scripts/engine.js~Category",
+    "static": false,
+    "longname": "scripts/engine.js~Category#cluesAnswered",
+    "access": "public",
+    "description": "",
+    "lineNumber": 74,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 66,
+    "kind": "get",
+    "name": "complete",
+    "memberof": "scripts/engine.js~Category",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Category#complete",
+    "access": "public",
+    "description": null,
+    "lineNumber": 78,
+    "type": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
+    "name": "reset",
+    "memberof": "scripts/engine.js~Category",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Category#reset",
+    "access": "public",
+    "description": "Reset clues answered count to 0.",
+    "lineNumber": 85,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 69,
+    "kind": "method",
+    "name": "nextClue",
+    "memberof": "scripts/engine.js~Category",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Category#nextClue",
+    "access": "public",
+    "description": "Retrieve next unanswered clue in the category, increment cluesAnswered.\nIf all clues are answered, this will return undefined.",
+    "lineNumber": 94,
+    "return": {
+      "nullable": null,
+      "types": [
+        "clue"
+      ],
+      "spread": false,
+      "description": "the next unanswered clue."
+    },
+    "params": []
+  },
+  {
+    "__docId__": 70,
+    "kind": "class",
+    "name": "Board",
+    "memberof": "scripts/engine.js",
+    "static": true,
+    "longname": "scripts/engine.js~Board",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 101,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 71,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 102,
+    "undocument": true,
+    "ignore": true
+  },
+  {
+    "__docId__": 72,
+    "kind": "member",
+    "name": "basePoints",
+    "memberof": "scripts/engine.js~Board",
+    "static": false,
+    "longname": "scripts/engine.js~Board#basePoints",
+    "access": "public",
+    "description": null,
+    "lineNumber": 105,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 73,
+    "kind": "member",
+    "name": "cluesAnswered",
+    "memberof": "scripts/engine.js~Board",
+    "static": false,
+    "longname": "scripts/engine.js~Board#cluesAnswered",
+    "access": "public",
+    "description": null,
+    "lineNumber": 108,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 74,
+    "kind": "get",
+    "name": "complete",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#complete",
+    "access": "public",
+    "description": null,
+    "lineNumber": 113,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 75,
+    "kind": "get",
+    "name": "categoryNames",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#categoryNames",
+    "access": "public",
+    "description": null,
+    "lineNumber": 117,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 76,
+    "kind": "method",
+    "name": "init_",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#init_",
+    "access": "public",
+    "description": null,
+    "lineNumber": 125,
+    "undocument": true,
+    "params": [
+      {
+        "name": "columns",
+        "optional": true,
+        "types": [
+          "number"
+        ],
+        "defaultRaw": 6,
+        "defaultValue": "6"
+      },
+      {
+        "name": "rows",
+        "optional": true,
+        "types": [
+          "number"
+        ],
+        "defaultRaw": 5,
+        "defaultValue": "5"
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 77,
+    "kind": "member",
+    "name": "categories",
+    "memberof": "scripts/engine.js~Board",
+    "static": false,
+    "longname": "scripts/engine.js~Board#categories",
+    "access": "public",
+    "description": null,
+    "lineNumber": 126,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 78,
+    "kind": "member",
+    "name": "columns",
+    "memberof": "scripts/engine.js~Board",
+    "static": false,
+    "longname": "scripts/engine.js~Board#columns",
+    "access": "public",
+    "description": null,
+    "lineNumber": 127,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 79,
+    "kind": "member",
+    "name": "rows",
+    "memberof": "scripts/engine.js~Board",
+    "static": false,
+    "longname": "scripts/engine.js~Board#rows",
+    "access": "public",
+    "description": null,
+    "lineNumber": 128,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 80,
+    "kind": "method",
+    "name": "reset",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#reset",
+    "access": "public",
+    "description": null,
+    "lineNumber": 144,
+    "undocument": true,
+    "params": [],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 82,
+    "kind": "method",
+    "name": "getCategory",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#getCategory",
+    "access": "public",
+    "description": null,
+    "lineNumber": 151,
+    "undocument": true,
+    "params": [
+      {
+        "name": "column",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 83,
+    "kind": "method",
+    "name": "getClue",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#getClue",
+    "access": "public",
+    "description": null,
+    "lineNumber": 155,
+    "undocument": true,
+    "params": [
+      {
+        "name": "column",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "row",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 84,
+    "kind": "method",
+    "name": "editCategory",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#editCategory",
+    "access": "public",
+    "description": null,
+    "lineNumber": 159,
+    "undocument": true,
+    "params": [
+      {
+        "name": "column",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "name",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 85,
+    "kind": "method",
+    "name": "editClue",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#editClue",
+    "access": "public",
+    "description": null,
+    "lineNumber": 164,
+    "undocument": true,
+    "params": [
+      {
+        "name": "column",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "row",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "question",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "answer",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 86,
+    "kind": "method",
+    "name": "nextClue",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#nextClue",
+    "access": "public",
+    "description": null,
+    "lineNumber": 170,
+    "undocument": true,
+    "params": [
+      {
+        "name": "column",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 87,
+    "kind": "method",
+    "name": "import",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#import",
+    "access": "public",
+    "description": null,
+    "lineNumber": 179,
+    "undocument": true,
+    "params": [
+      {
+        "name": "data",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 88,
+    "kind": "method",
+    "name": "export",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#export",
+    "access": "public",
+    "description": null,
+    "lineNumber": 199,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 89,
+    "kind": "class",
+    "name": "Spin",
+    "memberof": "scripts/engine.js",
+    "static": true,
+    "longname": "scripts/engine.js~Spin",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 224,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 90,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "scripts/engine.js~Spin",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Spin#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 225,
+    "undocument": true,
+    "ignore": true
+  },
+  {
+    "__docId__": 91,
+    "kind": "member",
+    "name": "slot",
+    "memberof": "scripts/engine.js~Spin",
+    "static": false,
+    "longname": "scripts/engine.js~Spin#slot",
+    "access": "public",
+    "description": null,
+    "lineNumber": 226,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 92,
+    "kind": "member",
+    "name": "sectorNumber",
+    "memberof": "scripts/engine.js~Spin",
+    "static": false,
+    "longname": "scripts/engine.js~Spin#sectorNumber",
+    "access": "public",
+    "description": null,
+    "lineNumber": 227,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 93,
+    "kind": "member",
+    "name": "sectorName",
+    "memberof": "scripts/engine.js~Spin",
+    "static": false,
+    "longname": "scripts/engine.js~Spin#sectorName",
+    "access": "public",
+    "description": null,
+    "lineNumber": 228,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 94,
+    "kind": "member",
+    "name": "isCategory",
+    "memberof": "scripts/engine.js~Spin",
+    "static": false,
+    "longname": "scripts/engine.js~Spin#isCategory",
+    "access": "public",
+    "description": null,
+    "lineNumber": 229,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 95,
+    "kind": "member",
+    "name": "spinAgain",
+    "memberof": "scripts/engine.js~Spin",
+    "static": false,
+    "longname": "scripts/engine.js~Spin#spinAgain",
+    "access": "public",
+    "description": null,
+    "lineNumber": 230,
+    "undocument": true,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 96,
+    "kind": "member",
+    "name": "clue",
+    "memberof": "scripts/engine.js~Spin",
+    "static": false,
+    "longname": "scripts/engine.js~Spin#clue",
+    "access": "public",
+    "description": null,
+    "lineNumber": 231,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 97,
+    "kind": "class",
+    "name": "Wheel",
+    "memberof": "scripts/engine.js",
+    "static": true,
+    "longname": "scripts/engine.js~Wheel",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 235,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 98,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 236,
+    "undocument": true,
+    "ignore": true
+  },
+  {
+    "__docId__": 99,
+    "kind": "member",
+    "name": "specialSectors",
+    "memberof": "scripts/engine.js~Wheel",
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#specialSectors",
+    "access": "public",
+    "description": null,
+    "lineNumber": 237,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string[]"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 100,
+    "kind": "member",
+    "name": "board",
+    "memberof": "scripts/engine.js~Wheel",
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#board",
+    "access": "public",
+    "description": null,
+    "lineNumber": 245,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 101,
+    "kind": "member",
+    "name": "maxSpins",
+    "memberof": "scripts/engine.js~Wheel",
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#maxSpins",
+    "access": "public",
+    "description": null,
+    "lineNumber": 246,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 102,
+    "kind": "member",
+    "name": "usedSpins",
+    "memberof": "scripts/engine.js~Wheel",
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#usedSpins",
+    "access": "public",
+    "description": null,
+    "lineNumber": 247,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 103,
+    "kind": "member",
+    "name": "slots",
+    "memberof": "scripts/engine.js~Wheel",
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#slots",
+    "access": "public",
+    "description": null,
+    "lineNumber": 248,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 104,
+    "kind": "get",
+    "name": "complete",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#complete",
+    "access": "public",
+    "description": null,
+    "lineNumber": 253,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 105,
+    "kind": "get",
+    "name": "sectors",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#sectors",
+    "access": "public",
+    "description": null,
+    "lineNumber": 257,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 106,
+    "kind": "method",
+    "name": "reset",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#reset",
+    "access": "public",
+    "description": null,
+    "lineNumber": 261,
+    "undocument": true,
+    "params": [],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 108,
+    "kind": "method",
+    "name": "assignSectors",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#assignSectors",
+    "access": "public",
+    "description": null,
+    "lineNumber": 265,
+    "undocument": true,
+    "params": [],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 110,
+    "kind": "method",
+    "name": "randomizeSectors",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#randomizeSectors",
+    "access": "public",
+    "description": null,
+    "lineNumber": 273,
+    "undocument": true,
+    "params": [],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 112,
+    "kind": "method",
+    "name": "getSectorNumber",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#getSectorNumber",
+    "access": "public",
+    "description": null,
+    "lineNumber": 277,
+    "undocument": true,
+    "params": [
+      {
+        "name": "slot",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 113,
+    "kind": "method",
+    "name": "getSectorName",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#getSectorName",
+    "access": "public",
+    "description": null,
+    "lineNumber": 281,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sectorNumber",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 114,
+    "kind": "method",
+    "name": "sectorIsCategory",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#sectorIsCategory",
+    "access": "public",
+    "description": null,
+    "lineNumber": 285,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sectorNumber",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 115,
+    "kind": "method",
+    "name": "getRandomSlot",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#getRandomSlot",
+    "access": "public",
+    "description": null,
+    "lineNumber": 293,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 116,
+    "kind": "method",
+    "name": "spin",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#spin",
+    "access": "public",
+    "description": null,
+    "lineNumber": 297,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 117,
+    "kind": "class",
+    "name": "Score",
+    "memberof": "scripts/engine.js",
+    "static": true,
+    "longname": "scripts/engine.js~Score",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": "A score keeper for a single player and round.",
+    "lineNumber": 322,
+    "interface": false
+  },
+  {
+    "__docId__": 118,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "scripts/engine.js~Score",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Score#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 323,
+    "undocument": true,
+    "ignore": true
+  },
+  {
+    "__docId__": 119,
+    "kind": "member",
+    "name": "points",
+    "memberof": "scripts/engine.js~Score",
+    "static": false,
+    "longname": "scripts/engine.js~Score#points",
+    "access": "public",
+    "description": null,
+    "lineNumber": 325,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 120,
+    "kind": "method",
+    "name": "reset",
+    "memberof": "scripts/engine.js~Score",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Score#reset",
+    "access": "public",
+    "description": "Reset points to 0.",
+    "lineNumber": 329,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 122,
+    "kind": "method",
+    "name": "increase",
+    "memberof": "scripts/engine.js~Score",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Score#increase",
+    "access": "public",
+    "description": "Increase points by a number (sign ignored).",
+    "lineNumber": 337,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "points",
+        "description": "number of points to increase."
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 124,
+    "kind": "method",
+    "name": "decrease",
+    "memberof": "scripts/engine.js~Score",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Score#decrease",
+    "access": "public",
+    "description": "Decrease points by a number (sign ignored).",
+    "lineNumber": 345,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "points",
+        "description": "number of points to decrease."
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 126,
+    "kind": "method",
+    "name": "bankrupt",
+    "memberof": "scripts/engine.js~Score",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Score#bankrupt",
+    "access": "public",
+    "description": "If points are positive, set points to 0.",
+    "lineNumber": 350,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 128,
+    "kind": "method",
+    "name": "double",
+    "memberof": "scripts/engine.js~Score",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Score#double",
+    "access": "public",
+    "description": "Double points, even if negative.",
+    "lineNumber": 355,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 130,
+    "kind": "class",
+    "name": "Player",
+    "memberof": "scripts/engine.js",
+    "static": true,
+    "longname": "scripts/engine.js~Player",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 360,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 131,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "scripts/engine.js~Player",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Player#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 361,
+    "undocument": true,
+    "ignore": true
+  },
+  {
+    "__docId__": 132,
+    "kind": "member",
+    "name": "name",
+    "memberof": "scripts/engine.js~Player",
+    "static": false,
+    "longname": "scripts/engine.js~Player#name",
+    "access": "public",
+    "description": null,
+    "lineNumber": 362,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 133,
+    "kind": "member",
+    "name": "tokens",
+    "memberof": "scripts/engine.js~Player",
+    "static": false,
+    "longname": "scripts/engine.js~Player#tokens",
+    "access": "public",
+    "description": null,
+    "lineNumber": 363,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 134,
+    "kind": "member",
+    "name": "scores",
+    "memberof": "scripts/engine.js~Player",
+    "static": false,
+    "longname": "scripts/engine.js~Player#scores",
+    "access": "public",
+    "description": null,
+    "lineNumber": 364,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 135,
+    "kind": "get",
+    "name": "totalScore",
+    "memberof": "scripts/engine.js~Player",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Player#totalScore",
+    "access": "public",
+    "description": null,
+    "lineNumber": 367,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 136,
+    "kind": "method",
+    "name": "resetTokens",
+    "memberof": "scripts/engine.js~Player",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Player#resetTokens",
+    "access": "public",
+    "description": null,
+    "lineNumber": 375,
+    "undocument": true,
+    "params": [],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 138,
+    "kind": "method",
+    "name": "resetScore",
+    "memberof": "scripts/engine.js~Player",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Player#resetScore",
+    "access": "public",
+    "description": null,
+    "lineNumber": 379,
+    "undocument": true,
+    "params": [
+      {
+        "name": "round",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 139,
+    "kind": "method",
+    "name": "getScore",
+    "memberof": "scripts/engine.js~Player",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Player#getScore",
+    "access": "public",
+    "description": null,
+    "lineNumber": 383,
+    "undocument": true,
+    "params": [
+      {
+        "name": "round",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 140,
+    "kind": "method",
+    "name": "addToken",
+    "memberof": "scripts/engine.js~Player",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Player#addToken",
+    "access": "public",
+    "description": null,
+    "lineNumber": 387,
+    "undocument": true,
+    "params": [],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 142,
+    "kind": "method",
+    "name": "hasToken",
+    "memberof": "scripts/engine.js~Player",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Player#hasToken",
+    "access": "public",
+    "description": null,
+    "lineNumber": 391,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 143,
+    "kind": "method",
+    "name": "useToken",
+    "memberof": "scripts/engine.js~Player",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Player#useToken",
+    "access": "public",
+    "description": null,
+    "lineNumber": 395,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 144,
+    "kind": "class",
+    "name": "Round",
+    "memberof": "scripts/engine.js",
+    "static": true,
+    "longname": "scripts/engine.js~Round",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 405,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 145,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "scripts/engine.js~Round",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Round#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 406,
+    "undocument": true,
+    "ignore": true
+  },
+  {
+    "__docId__": 146,
+    "kind": "member",
+    "name": "id",
+    "memberof": "scripts/engine.js~Round",
+    "static": false,
+    "longname": "scripts/engine.js~Round#id",
+    "access": "public",
+    "description": null,
+    "lineNumber": 407,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 147,
+    "kind": "member",
+    "name": "wheel",
+    "memberof": "scripts/engine.js~Round",
+    "static": false,
+    "longname": "scripts/engine.js~Round#wheel",
+    "access": "public",
+    "description": null,
+    "lineNumber": 408,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 148,
+    "kind": "member",
+    "name": "board",
+    "memberof": "scripts/engine.js~Round",
+    "static": false,
+    "longname": "scripts/engine.js~Round#board",
+    "access": "public",
+    "description": null,
+    "lineNumber": 409,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 149,
+    "kind": "member",
+    "name": "players",
+    "memberof": "scripts/engine.js~Round",
+    "static": false,
+    "longname": "scripts/engine.js~Round#players",
+    "access": "public",
+    "description": null,
+    "lineNumber": 410,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 150,
+    "kind": "member",
+    "name": "maxTime",
+    "memberof": "scripts/engine.js~Round",
+    "static": false,
+    "longname": "scripts/engine.js~Round#maxTime",
+    "access": "public",
+    "description": null,
+    "lineNumber": 411,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 151,
+    "kind": "member",
+    "name": "currentPlayer",
+    "memberof": "scripts/engine.js~Round",
+    "static": false,
+    "longname": "scripts/engine.js~Round#currentPlayer",
+    "access": "public",
+    "description": null,
+    "lineNumber": 412,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 152,
+    "kind": "get",
+    "name": "complete",
+    "memberof": "scripts/engine.js~Round",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Round#complete",
+    "access": "public",
+    "description": null,
+    "lineNumber": 415,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 153,
+    "kind": "method",
+    "name": "start",
+    "memberof": "scripts/engine.js~Round",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Round#start",
+    "access": "public",
+    "description": null,
+    "lineNumber": 419,
+    "undocument": true,
+    "params": [],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 154,
+    "kind": "method",
+    "name": "reset",
+    "memberof": "scripts/engine.js~Round",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Round#reset",
+    "access": "public",
+    "description": null,
+    "lineNumber": 423,
+    "undocument": true,
+    "params": [],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 156,
+    "kind": "class",
+    "name": "Game",
+    "memberof": "scripts/engine.js",
+    "static": true,
+    "longname": "scripts/engine.js~Game",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 433,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 157,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "scripts/engine.js~Game",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Game#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 434,
+    "undocument": true,
+    "ignore": true
+  },
+  {
+    "__docId__": 158,
+    "kind": "member",
+    "name": "players",
+    "memberof": "scripts/engine.js~Game",
+    "static": false,
+    "longname": "scripts/engine.js~Game#players",
+    "access": "public",
+    "description": null,
+    "lineNumber": 435,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 159,
+    "kind": "member",
+    "name": "rounds",
+    "memberof": "scripts/engine.js~Game",
+    "static": false,
+    "longname": "scripts/engine.js~Game#rounds",
+    "access": "public",
+    "description": null,
+    "lineNumber": 436,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 160,
+    "kind": "member",
+    "name": "currentRound",
+    "memberof": "scripts/engine.js~Game",
+    "static": false,
+    "longname": "scripts/engine.js~Game#currentRound",
+    "access": "public",
+    "description": null,
+    "lineNumber": 437,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 161,
+    "kind": "method",
+    "name": "addPlayer",
+    "memberof": "scripts/engine.js~Game",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Game#addPlayer",
+    "access": "public",
+    "description": null,
+    "lineNumber": 440,
+    "undocument": true,
+    "params": [
+      {
+        "name": "name",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 162,
+    "kind": "method",
+    "name": "getPlayer",
+    "memberof": "scripts/engine.js~Game",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Game#getPlayer",
+    "access": "public",
+    "description": null,
+    "lineNumber": 445,
+    "undocument": true,
+    "params": [
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 163,
+    "kind": "method",
+    "name": "editPlayer",
+    "memberof": "scripts/engine.js~Game",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Game#editPlayer",
+    "access": "public",
+    "description": null,
+    "lineNumber": 449,
+    "undocument": true,
+    "params": [
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "name",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 164,
+    "kind": "method",
+    "name": "addRound",
+    "memberof": "scripts/engine.js~Game",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Game#addRound",
+    "access": "public",
+    "description": null,
+    "lineNumber": 454,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 165,
+    "kind": "method",
+    "name": "getRound",
+    "memberof": "scripts/engine.js~Game",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Game#getRound",
+    "access": "public",
+    "description": null,
+    "lineNumber": 463,
+    "undocument": true,
+    "params": [
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 166,
+    "kind": "file",
+    "name": "scripts/ui.js",
+    "content": "\"use strict\"\n/***\n * @file UI setup and interaction.\n */\n\n// globals\nlet game;\nlet round;\n\n$(document).ready(function(){\n    // hide setup view\n    $(\".setup\").hide();\n\n    game = new Game();\n\n    // create default boards\n    let data = [data1, data2];\n\n    for(let i=0; i<data.length; i++){\n        let round = game.addRound();\n\n        round.board.import(JSON.stringify(data[i]));\n        round.wheel.assignSectors();\n        round.wheel.randomizeSectors();    \n    }\n\n    // edit board content if needed\n    round = game.getRound(0);\n    let clue = round.board.getCategory(1).clues[2];\n    clue.question = \"What is the oldest soft drink in America?\";\n    clue.answer = \"Dr. Pepper.\";\n\n\n    // start game\n    $(\"#btn-play\").click(function(){\n        // store players -- should be adjusted for num of players and default names\n        let playerName = $(\"#player0\").find(\"input\").val();\n        game.addPlayer(playerName);\n    })\n\n    // start first round\n    round = game.getRound(0);\n    round.start();\n\n    // player spins\n    console.log(round.currentPlayer);\n    let spin = round.wheel.spin();\n\n    // animate the wheel\n\n    // display outcome\n    console.log(spin);\n\n    // address outcome\n\n    // check if round is over\n    if(round.complete){\n        // end round\n    }\n  });\n",
+    "static": true,
+    "longname": "/Users/bmw/Documents/education/jhu/EN.605.601.81.SU18 Foundations of Software Engineering/teamvelocity.github.io/scripts/ui.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "kind": "index",
+    "content": "[![Build Status](https://travis-ci.org/TeamVelocity/teamvelocity.github.io.svg?branch=master)](https://travis-ci.org/TeamVelocity/teamvelocity.github.io)\n[![Coverage Status](https://coveralls.io/repos/github/TeamVelocity/teamvelocity.github.io/badge.svg?branch=master)](https://coveralls.io/github/TeamVelocity/teamvelocity.github.io?branch=master)\n\n# teamvelocity.github.io\nSource code for the Wheel of Jeopardy Game developed by Team Velocity.\n\n## Developer Tools\n\n        # install documentation\n        npm install\n\n        # test code, view test coverage, and generate docs\n        npm run test\n        npm run coverage\n        npm run docs\n",
+    "longname": "/Users/bmw/Documents/education/jhu/EN.605.601.81.SU18 Foundations of Software Engineering/teamvelocity.github.io/README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n  \"scripts\": {\n    \"test\": \"nyc --reporter=html --reporter=text mocha\",\n    \"coverage\": \"nyc report --reporter=text-lcov | coveralls\",\n    \"docs\": \"./node_modules/.bin/esdoc\"\n  },\n  \"devDependencies\": {\n    \"coveralls\": \"^3.0.2\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"nyc\": \"^12.0.2\"\n  },\n  \"esdoc\": {\n    \"source\": \"./scripts\",\n    \"destination\": \"./docs\",\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\",\n        \"option\": {\n          \"undocumentIdentifier\": {\"enable\": false},\n          \"unexportedIdentifier\": {\"enable\": true},\n          \"brand\": {\n            \"logo\": \"assets/logo.png\",\n            \"title\": \"Wheel of Jeopardy\",\n            \"description\": \"The Wheel of Jeopardy Game by Team Velocity\",\n            \"repository\": \"https://github.com/TeamVelocity/teamvelocity.github.io\",\n            \"site\": \"http://teamvelocity.github.io\",\n            \"author\": \"Team Velocity\"\n          }\n        }\n      }\n    ]\n  }\n}\n",
+    "longname": "/Users/bmw/Documents/education/jhu/EN.605.601.81.SU18 Foundations of Software Engineering/teamvelocity.github.io/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]

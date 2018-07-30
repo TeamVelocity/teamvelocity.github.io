@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">scripts/data.js | Wheel of Jeopardy</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The Wheel of Jeopardy Game by Team Velocity"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Wheel of Jeopardy"><meta property="twitter:description" content="The Wheel of Jeopardy Game by Team Velocity"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/TeamVelocity/teamvelocity.github.io"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Category.html">Category</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Clue.html">Clue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Score.html">Score</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">scripts/data.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;
+/***
+ * Sample data for the Wheel of Jeopardy game.
+ * 
+ * Each data object contains JSON of for all clues on the board. Note, use
+ * JSON.stringify on the object before trying Board.import.
+ * 
+ * columns: number of columns on the board.
+ * rows: number of rows on the board.
+ * categories: array of category names.
+ * clues: array of clues, zero indexed from top left of board.
+ *    column: horizontal index.
+ *    row: vertical index.
+ *    question: question text.
+ *    answer: answer text.
+ */
+
+ /** @ignore */
+
+let data1 = {
+  &quot;columns&quot;: 6,
+  &quot;rows&quot;: 5,
+  &quot;categories&quot;:[
+    &quot;Art and Literature&quot;,
+    &quot;Food and Drink&quot;,
+    &quot;General Knowledge&quot;,
+    &quot;Harry Potter&quot;,
+    &quot;History&quot;,
+    &quot;Music&quot;
+  ],
+  &quot;clues&quot;: [
+    {
+      &quot;column&quot;: 0,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;Who wrote The Green Mile?&quot;,
+      &quot;answer&quot;: &quot;Stephen King&quot;
+    },
+    {
+      &quot;column&quot;: 0,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;Who created the cartoon character &#x2018;Garfield&#x2019;?&quot;,
+      &quot;answer&quot;: &quot;Jim Davis&quot;
+    },
+    {
+      &quot;column&quot;: 0,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;In which modern-day country was Rembrandt born?&quot;,
+      &quot;answer&quot;: &quot;Netherlands&quot;
+    },
+    {
+      &quot;column&quot;: 0,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;What is Frankenstein&#x2019;s first name in Mary Shelley&#x2019;s novel?&quot;,
+      &quot;answer&quot;: &quot;Victor&quot;
+    },
+    {
+      &quot;column&quot;: 0,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;How many lines are there in a sonnet?&quot;,
+      &quot;answer&quot;: &quot;Fourteen&quot;
+    },
+    {
+      &quot;column&quot;: 1,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;Claret is a dry red wine produced in which region of France?&quot;,
+      &quot;answer&quot;: &quot;Bordeaux&quot;
+    },
+    {
+      &quot;column&quot;: 1,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;From which type of flower does a vanilla pod come?&quot;,
+      &quot;answer&quot;: &quot;Orchid&quot;
+    },
+    {
+      &quot;column&quot;: 1,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;In which country is the Staropramen brewery?&quot;,
+      &quot;answer&quot;: &quot;Czech Republic&quot;
+    },
+    {
+      &quot;column&quot;: 1,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;Which salad vegetable has varieties named &#x2018;White Icicle&#x2019;, &#x2018;Sparkler&#x2019; and &#x2018;Cherry Belle&#x2019;?&quot;,
+      &quot;answer&quot;: &quot;Radish&quot;
+    },
+    {
+      &quot;column&quot;: 1,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;How many standard 750ml bottles of wine would fit into a Methuselah?&quot;,
+      &quot;answer&quot;: &quot;Eight&quot;
+    },
+    {
+      &quot;column&quot;: 2,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;When referring to a cash machine, what does &#x2018;ATM&#x2019; stand for?&quot;,
+      &quot;answer&quot;: &quot;Automated Teller Machine&quot;
+    },
+    {
+      &quot;column&quot;: 2,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;In which group were England in the 2018 FIFA World Cup?&quot;,
+      &quot;answer&quot;: &quot;Group G&quot;
+    },
+    {
+      &quot;column&quot;: 2,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;Who was the 2018 Wimbledon Women&#x2019;s Singles champion?&quot;,
+      &quot;answer&quot;: &quot;Angelique Kerber&quot;
+    },
+    {
+      &quot;column&quot;: 2,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;How many sides has a pentacontagon?&quot;,
+      &quot;answer&quot;: &quot;50 (A fifty-sided polygon)&quot;
+    },
+    {
+      &quot;column&quot;: 2,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;In which country was Amal Clooney born?&quot;,
+      &quot;answer&quot;: &quot;Lebanon&quot;
+    },
+    {
+      &quot;column&quot;: 3,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;What is the street address of Vernon and Petunia Dursley, Harry&#x2019;s uncle and aunt?&quot;,
+      &quot;answer&quot;: &quot;3 Privet Drive&quot;
+    },
+    {
+      &quot;column&quot;: 3,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;How many balls are used in total in a game of Quidditch?&quot;,
+      &quot;answer&quot;: &quot;Four&quot;
+    },
+    {
+      &quot;column&quot;: 3,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;Which actress played Dolores Umbridge in the films?&quot;,
+      &quot;answer&quot;: &quot;Imelda Staunton&quot;
+    },
+    {
+      &quot;column&quot;: 3,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;Which animal is the mascot of Hufflepuff house?&quot;,
+      &quot;answer&quot;: &quot;Badger&quot;
+    },
+    {
+      &quot;column&quot;: 3,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;What type of creature is Aragog?&quot;,
+      &quot;answer&quot;: &quot;Acromantula&quot;
+    },
+    {
+      &quot;column&quot;: 4,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;Which two of Henry VIII&#x2019;s wives were executed?&quot;,
+      &quot;answer&quot;: &quot;Anne Boleyn and Kathryn Howard&quot;
+    },
+    {
+      &quot;column&quot;: 4,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;Which English city was once known as Duroliponte?&quot;,
+      &quot;answer&quot;: &quot;Cambridge&quot;
+    },
+    {
+      &quot;column&quot;: 4,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;What was the first name of the man after whom the Geiger counter was named?&quot;,
+      &quot;answer&quot;: &quot;Hans&quot;
+    },
+    {
+      &quot;column&quot;: 4,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;In which city was RMS Titanic constructed?&quot;,
+      &quot;answer&quot;: &quot;Belfast&quot;
+    },
+    {
+      &quot;column&quot;: 4,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;The first successful vaccine was introduced by Edward Jenner in 1796. Which disease did it guard against?&quot;,
+      &quot;answer&quot;: &quot;Smallpox&quot;
+    },
+    {
+      &quot;column&quot;: 5,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;Adam Levine in the lead singer of which US pop rock band?&quot;,
+      &quot;answer&quot;: &quot;Maroon 4&quot;
+    },
+    {
+      &quot;column&quot;: 5,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;Which British artist can be seen performing &#x201C;The Hits&#x201D; show at Caesars Palace in Las Vegas from November 2018?&quot;,
+      &quot;answer&quot;: &quot;Rod Stewart&quot;
+    },
+    {
+      &quot;column&quot;: 5,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;Which American rapper was born Shawn Corey Carter in New York City in 1969?&quot;,
+      &quot;answer&quot;: &quot;Jay-Z&quot;
+    },
+    {
+      &quot;column&quot;: 5,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;Who performed the song &#x201C;The A Team&#x201D; with Ed Sheeran at the 2013 Grammy Awards?&quot;,
+      &quot;answer&quot;: &quot;Elton John&quot;
+    },
+    {
+      &quot;column&quot;: 5,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;The &#x2018;Explorer&#x2019;, the &#x2018;Flying V&#x2019; and the &#x2018;Les Paul&#x2019; are guitar models by which manufacturers?&quot;,
+      &quot;answer&quot;: &quot;Gibson&quot;
+    }
+  ]
+}
+
+let data2 = {
+  &quot;columns&quot;: 6,
+  &quot;rows&quot;: 5,
+  &quot;categories&quot;:[
+    &quot;Entertainment&quot;,
+    &quot;Food and Drink&quot;,
+    &quot;General Knowledge&quot;,
+    &quot;History&quot;,
+    &quot;Music&quot;,
+    &quot;Science&quot;
+  ],
+  &quot;clues&quot;: [
+    {
+      &quot;column&quot;: 0,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;In which US TV series did Kiefer Sutherland play the character of Jack Bauer?&quot;,
+      &quot;answer&quot;: 24
+    },
+    {
+      &quot;column&quot;: 0,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;How many seasons of the hit US comedy &#x2018;Friends&#x2019; were made?&quot;,
+      &quot;answer&quot;: 10
+    },
+    {
+      &quot;column&quot;: 0,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;Which nationality was the composer Frederick Chopin?&quot;,
+      &quot;answer&quot;: &quot;Polish&quot;
+    },
+    {
+      &quot;column&quot;: 0,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;On which David Bowie album was the track &#x2018;Life on Mars?&#x2019; originally found?&quot;,
+      &quot;answer&quot;: &quot;Hunky Dory&quot;
+    },
+    {
+      &quot;column&quot;: 0,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;Who released the 2015 album &#x2018;Uptown Special&#x2019;?&quot;,
+      &quot;answer&quot;: &quot;Mark Ronson&quot;
+    },
+    {
+      &quot;column&quot;: 1,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;&#x2018;Scrag End&#x2019; is the name for a cut of which type of meat?&quot;,
+      &quot;answer&quot;: &quot;Lamb or mutton&quot;
+    },
+    {
+      &quot;column&quot;: 1,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;Which came first: McDonalds or KFC?&quot;,
+      &quot;answer&quot;: &quot;McDonalds&quot;
+    },
+    {
+      &quot;column&quot;: 1,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;Which mineral water has been marketed with the slogan &#x2018;Live Young&#x2019;?&quot;,
+      &quot;answer&quot;: &quot;Evian&quot;
+    },
+    {
+      &quot;column&quot;: 1,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;What is added to a Martini to make a &#x2018;Dirty Martini&#x2019;?&quot;,
+      &quot;answer&quot;: &quot;Olive brine&quot;
+    },
+    {
+      &quot;column&quot;: 1,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;A Thai dish with  &#x2018;mu&#x2019; (or sometimes &#x2018;moo&#x2019;) would include which type of meat?&quot;,
+      &quot;answer&quot;: &quot;Pork&quot;
+    },
+    {
+      &quot;column&quot;: 2,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;Who was the first ever winner of &#x2018;Britain&#x2019;s Got Talent&#x2019;?&quot;,
+      &quot;answer&quot;: &quot;Paul Potts&quot;
+    },
+    {
+      &quot;column&quot;: 2,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;Which was the first product to be launched by Henry J Heinz and L Clarence Noble in 1869?&quot;,
+      &quot;answer&quot;: &quot;Horseradish&quot;
+    },
+    {
+      &quot;column&quot;: 2,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;Of which African country is Khartoum the capital?&quot;,
+      &quot;answer&quot;: &quot;Sudan&quot;
+    },
+    {
+      &quot;column&quot;: 2,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;The adjective &#x2018;vespine&#x2019; is used to describe which creature?&quot;,
+      &quot;answer&quot;: &quot;Wasp&quot;
+    },
+    {
+      &quot;column&quot;: 2,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;In which US state is McCarran International Airport?&quot;,
+      &quot;answer&quot;: &quot;Nevada&quot;
+    },
+    {
+      &quot;column&quot;: 3,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;Ulysses S. Grant appears on the front of which denomination of US. currency?&quot;,
+      &quot;answer&quot;: &quot;$50 bill&quot;
+    },
+    {
+      &quot;column&quot;: 3,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;The Belgian revolution of 1830-1831 led to their independence from which country?&quot;,
+      &quot;answer&quot;: &quot;Netherlands&quot;
+    },
+    {
+      &quot;column&quot;: 3,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;The Battle of Bosworth Field was the last significant battle of which series of civil wars?&quot;,
+      &quot;answer&quot;: &quot;Wars of the Roses&quot;
+    },
+    {
+      &quot;column&quot;: 3,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;In which year was Korea divided into North Korea and South Korea?&quot;,
+      &quot;answer&quot;: 1945
+    },
+    {
+      &quot;column&quot;: 3,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;Whose famous last words in 1999 reportedly were, &#x201C;I finally get to see Marilyn&#x201D;?&quot;,
+      &quot;answer&quot;: &quot;Joe DiMaggio&quot;
+    },
+    {
+      &quot;column&quot;: 4,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;What is the real name of rapper Eminem?&quot;,
+      &quot;answer&quot;: &quot;Marshall Bruce Mathers III&quot;
+    },
+    {
+      &quot;column&quot;: 4,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;Who featured on the 2002 single &#x201C;A Little Less Conversation&#x201D; with JXL?&quot;,
+      &quot;answer&quot;: &quot;Elvis Presley&quot;
+    },
+    {
+      &quot;column&quot;: 4,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;Which original member of Take That released the solo album &#x201C;In Your Own Time&#x201D; in 2003?&quot;,
+      &quot;answer&quot;: &quot;Mark Owen&quot;
+    },
+    {
+      &quot;column&quot;: 4,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;Which band released 80s albums entitled &#x2018;Speak &amp; Spell&#x2019;, &#x2018;Black Celebration&#x2019; and &#x2018;Music for the Masses&#x2019;?&quot;,
+      &quot;answer&quot;: &quot;Depeche Mode&quot;
+    },
+    {
+      &quot;column&quot;: 4,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;Which two artists duet on the song &#x201C;Me Against the Music&#x201D;, released in 2003?&quot;,
+      &quot;answer&quot;: &quot;Madonna and Britney Spears&quot;
+    },
+    {
+      &quot;column&quot;: 5,
+      &quot;row&quot;: 0,
+      &quot;question&quot;: &quot;The Colorado Beetle is a major pest of which type of crop?&quot;,
+      &quot;answer&quot;: &quot;Potato&quot;
+    },
+    {
+      &quot;column&quot;: 5,
+      &quot;row&quot;: 1,
+      &quot;question&quot;: &quot;In mathematics, what is the value of &#x3C0; (pi) to two decimal places?&quot;,
+      &quot;answer&quot;: 2.14
+    },
+    {
+      &quot;column&quot;: 5,
+      &quot;row&quot;: 2,
+      &quot;question&quot;: &quot;What fraction of a second is a microsecond?&quot;,
+      &quot;answer&quot;: &quot;One millionth of a second&quot;
+    },
+    {
+      &quot;column&quot;: 5,
+      &quot;row&quot;: 3,
+      &quot;question&quot;: &quot;Approximately what percentage of the Earth&#x2019;s surface is covered by water: 61%, 71% or 81%?&quot;,
+      &quot;answer&quot;: &quot;71%&quot;
+    },
+    {
+      &quot;column&quot;: 5,
+      &quot;row&quot;: 4,
+      &quot;question&quot;: &quot;Which number on the pH scale would indicate a neutral substance?&quot;,
+      &quot;answer&quot;: 7
+    }
+  ]
+}
+
+// node exports
+if( typeof module !== &apos;undefined&apos; &amp;&amp; module.exports ) {
+  module.exports = {
+      data1: data1,
+      data2: data2
+  }
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,8 +1,21 @@
 "use strict"
 /***
- * @file Sample data for the wheel of jeopardy game.
+ * Sample data for the Wheel of Jeopardy game.
+ * 
+ * Each data object contains JSON of for all clues on the board. Note, use
+ * JSON.stringify on the object before trying Board.import.
+ * 
+ * columns: number of columns on the board.
+ * rows: number of rows on the board.
+ * categories: array of category names.
+ * clues: array of clues, zero indexed from top left of board.
+ *    column: horizontal index.
+ *    row: vertical index.
+ *    question: question text.
+ *    answer: answer text.
  */
 
+ /** @ignore */
 
 let data1 = {
   "columns": 6,

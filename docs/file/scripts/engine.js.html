@@ -1,4 +1,45 @@
-"use strict"
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">scripts/engine.js | Wheel of Jeopardy</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The Wheel of Jeopardy Game by Team Velocity"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Wheel of Jeopardy"><meta property="twitter:description" content="The Wheel of Jeopardy Game by Team Velocity"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/TeamVelocity/teamvelocity.github.io"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Category.html">Category</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Clue.html">Clue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Score.html">Score</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">scripts/engine.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;
 /***
  * Classes and logic for the Wheel of Jeopardy game.
  */
@@ -20,7 +61,7 @@ function randomInt(max, min=0) {
  * @returns {Object[]} shuffled array.
  */
 function shuffleArray(arr){
-    for (let j=0; j < arr.length * 3; j++){
+    for (let j=0; j &lt; arr.length * 3; j++){
         let i1 = randomInt(arr.length);
         let i2 = randomInt(arr.length);
 
@@ -76,7 +117,7 @@ class Category{
 
     /** @type {boolean} true if all clues in the category have been answered. */
     get complete(){
-        return this.cluesAnswered >= this.clues.length;
+        return this.cluesAnswered &gt;= this.clues.length;
     }
 
     /** 
@@ -111,12 +152,12 @@ class Board {
     }
 
     get complete(){
-        return this.cluesAnswered >= this.columns * this.rows;
+        return this.cluesAnswered &gt;= this.columns * this.rows;
     }
 
     get categoryNames(){
         let names = [];
-        for(let i=0; i<this.categories.length; i++){
+        for(let i=0; i&lt;this.categories.length; i++){
             names.push(this.categories[i].name);
         }
         return names;
@@ -127,11 +168,11 @@ class Board {
         this.columns = columns;
         this.rows = rows;
 
-        for(let i=0; i<this.columns; i++){
+        for(let i=0; i&lt;this.columns; i++){
             let category = new Category();
             this.categories.push(category);
 
-            for(let j=0; j<this.rows; j++){
+            for(let j=0; j&lt;this.rows; j++){
                 let clue = new Clue();
                 clue.column = i;
                 clue.row = j;
@@ -143,7 +184,7 @@ class Board {
 
     reset(){
         this.cluesAnswered = 0;
-        for(let i=0; i<this.categories.length; i++){
+        for(let i=0; i&lt;this.categories.length; i++){
             this.categories[i].reset();
         }
     }
@@ -185,12 +226,12 @@ class Board {
         }
 
         // import category names
-        for(let i=0; i<data.categories.length; i++){
+        for(let i=0; i&lt;data.categories.length; i++){
             this.editCategory(i, data.categories[i]);
         }
 
         // import clues
-        for(let i=0; i<data.clues.length; i++){
+        for(let i=0; i&lt;data.clues.length; i++){
             let clue = data.clues[i];
             this.editClue(clue.column, clue.row, clue.question, clue.answer);
         }
@@ -198,20 +239,20 @@ class Board {
 
     export(){
         let data = {
-            "columns": this.columns,
-            "rows": this.rows,
-            "categories": this.categoryNames,
-            "clues": []
+            &quot;columns&quot;: this.columns,
+            &quot;rows&quot;: this.rows,
+            &quot;categories&quot;: this.categoryNames,
+            &quot;clues&quot;: []
         };
 
-        for(let i=0; i<this.columns; i++){
-            for(let j=0; j<this.rows; j++){
+        for(let i=0; i&lt;this.columns; i++){
+            for(let j=0; j&lt;this.rows; j++){
                 let clue = this.getClue(i, j);
                 data.clues.push({
-                    "column": i,
-                    "row": j,
-                    "question": clue.question,
-                    "answer": clue.answer
+                    &quot;column&quot;: i,
+                    &quot;row&quot;: j,
+                    &quot;question&quot;: clue.question,
+                    &quot;answer&quot;: clue.answer
                 })
             }
         }
@@ -235,12 +276,12 @@ class Spin {
 class Wheel {
     constructor(board, maxSpins=50) {
         this.specialSectors = [
-            "Lose Turn", 
-            "Free Turn", 
-            "Bankrupt", 
-            "Player's Choice", 
-            "Opponent's Choice", 
-            "Double Score"
+            &quot;Lose Turn&quot;, 
+            &quot;Free Turn&quot;, 
+            &quot;Bankrupt&quot;, 
+            &quot;Player&apos;s Choice&quot;, 
+            &quot;Opponent&apos;s Choice&quot;, 
+            &quot;Double Score&quot;
         ]
         this.board = board;
         this.maxSpins = maxSpins;
@@ -251,7 +292,7 @@ class Wheel {
     }
 
     get complete(){
-        return this.usedSpins >= this.maxSpins;
+        return this.usedSpins &gt;= this.maxSpins;
     }
 
     get sectors(){
@@ -265,7 +306,7 @@ class Wheel {
     assignSectors(){
         this.slots = [];
 
-        for(let i=0; i<this.sectors.length; i++){
+        for(let i=0; i&lt;this.sectors.length; i++){
             this.slots.push(i);
         }
     }
@@ -283,7 +324,7 @@ class Wheel {
     }
 
     sectorIsCategory(sectorNumber){
-        if(sectorNumber < this.board.categoryNames.length){
+        if(sectorNumber &lt; this.board.categoryNames.length){
             return true
         } else {
             return false
@@ -348,7 +389,7 @@ class Score {
 
     /** If points are positive, set points to 0. */
     bankrupt(){
-        if(this.points > 0){ this.points = 0; }
+        if(this.points &gt; 0){ this.points = 0; }
     }
 
     /** Double points, even if negative. */
@@ -366,7 +407,7 @@ class Player {
 
     get totalScore(){
         let points = 0;
-        for(i=0; i<this.scores.length; i++){
+        for(i=0; i&lt;this.scores.length; i++){
             points += this.scores[i].points;
         }
         return points;
@@ -389,7 +430,7 @@ class Player {
     }
 
     hasToken(){
-        return this.tokens > 0;
+        return this.tokens &gt; 0;
     }
 
     useToken(){
@@ -423,7 +464,7 @@ class Round {
     reset(){
         this.wheel.reset();
         this.board.reset();
-        for(let i=0; i<this.players.length; i++){
+        for(let i=0; i&lt;this.players.length; i++){
             this.players[i].resetScore(this.id);
         }
         this.currentPlayer = 0;
@@ -466,7 +507,7 @@ class Game {
 }
 
 // node exports
-if( typeof module !== 'undefined' && module.exports ) {
+if( typeof module !== &apos;undefined&apos; &amp;&amp; module.exports ) {
     module.exports = {
         Game: Game,
         Round: Round,
@@ -474,3 +515,20 @@ if( typeof module !== 'undefined' && module.exports ) {
         Score: Score
     }
 }
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

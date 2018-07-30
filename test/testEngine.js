@@ -2,6 +2,7 @@ let assert = require('assert');
 let sample_data = require('../scripts/data.js');
 let engine = require('../scripts/engine.js');
 
+/** @test {Game} */
 describe('Game', function(){
   let game;
   let name;
@@ -10,6 +11,7 @@ describe('Game', function(){
     game = new engine.Game();
   });
 
+  /** @test {Game#addPlayer} */
   describe('#addPlayer', function(){
     it('should set player name', function(){
       let name = "john";

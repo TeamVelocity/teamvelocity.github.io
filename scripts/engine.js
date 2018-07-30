@@ -429,6 +429,9 @@ class Game {
 // node exports
 if( typeof module !== 'undefined' && module.exports ) {
     module.exports = {
-        Game: Game
+        Game: Game,
+        Round: Round,
+        Player: Player,
+        Score: Score
     }
 }

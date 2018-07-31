@@ -40,8 +40,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html">Wheel</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-data1">data1</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-data2">data2</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -53,7 +51,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/scripts/engine.js.html#lineNumber362">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/scripts/engine.js.html#lineNumber528">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -73,7 +71,8 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>A player in the WOJ game.</p>
+</div>
   
 
   
@@ -105,7 +104,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
         </p>
       </div>
       <div>
@@ -140,35 +139,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-member-name">name</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-member-scores">scores</a></span></span><span class="code" data-ice="signature">: <span><span>*</span><span>[]</span></span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-member-scores">scores</a></span></span><span class="code" data-ice="signature">: <span><span><a href="class/scripts/engine.js~Score.html">Score</a></span><span>[]</span></span></span>
         </p>
       </div>
       <div>
@@ -224,7 +195,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-get-totalScore">totalScore</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-get-totalScore">totalScore</a></span></span><span class="code" data-ice="signature">: <span>numbner</span></span>
         </p>
       </div>
       <div>
@@ -265,7 +236,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Adds 1 token to the player&apos;s tokens.</p>
+</div>
       </div>
     </td>
     <td>
@@ -287,13 +259,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-method-getScore">getScore</a></span></span><span class="code" data-ice="signature">(round: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-method-getScore">getScore</a></span></span><span class="code" data-ice="signature">(round: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Return the score for a given round number.</p>
+</div>
       </div>
     </td>
     <td>
@@ -321,7 +294,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Checks if the player has any tokens.</p>
+</div>
       </div>
     </td>
     <td>
@@ -343,13 +317,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-method-resetScore">resetScore</a></span></span><span class="code" data-ice="signature">(round: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-method-resetScore">resetScore</a></span></span><span class="code" data-ice="signature">(round: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p> Reset score for round to 0.</p>
+</div>
       </div>
     </td>
     <td>
@@ -377,7 +352,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Sets the player&apos;s tokens to 0.</p>
+</div>
       </div>
     </td>
     <td>
@@ -405,7 +381,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Deduct a token, if the player has one.</p>
+</div>
       </div>
     </td>
     <td>
@@ -431,11 +408,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber363">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber532">source</a></span></span>
     </span>
   </h3>
 
@@ -446,7 +423,24 @@
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">name</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>the players name.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -470,49 +464,6 @@
 <div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-name">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">name</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber364">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-member-scores">
     <span class="access" data-ice="access">public</span>
     
@@ -520,11 +471,11 @@
     
     
     
-    <span class="code" data-ice="name">scores</span><span class="code" data-ice="signature">: <span><span>*</span><span>[]</span></span></span>
+    <span class="code" data-ice="name">scores</span><span class="code" data-ice="signature">: <span><span><a href="class/scripts/engine.js~Score.html">Score</a></span><span>[]</span></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber366">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber544">source</a></span></span>
     </span>
   </h3>
 
@@ -567,7 +518,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber365">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber538">source</a></span></span>
     </span>
   </h3>
 
@@ -606,11 +557,11 @@
     
     
     
-    <span class="code" data-ice="name">totalScore</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">totalScore</span><span class="code" data-ice="signature">: <span>numbner</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber369">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber548">source</a></span></span>
     </span>
   </h3>
 
@@ -656,14 +607,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber389">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber581">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Adds 1 token to the player&apos;s tokens.</p>
+</div>
 
   
 
@@ -695,18 +647,19 @@
     
     
     
-    <span class="code" data-ice="name">getScore</span><span class="code" data-ice="signature">(round: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">getScore</span><span class="code" data-ice="signature">(round: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber385">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber574">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Return the score for a given round number.</p>
+</div>
 
   
 
@@ -720,9 +673,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">round</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>number of the round, 0 is round 1.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -734,8 +688,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>score for the given round number.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -770,14 +725,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber393">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber589">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Checks if the player has any tokens.</p>
+</div>
 
   
 
@@ -790,7 +746,8 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-desc" data-ice="returnDescription"><p>true if the player has at least one token.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -821,18 +778,19 @@
     
     
     
-    <span class="code" data-ice="name">resetScore</span><span class="code" data-ice="signature">(round: <span>*</span>)</span>
+    <span class="code" data-ice="name">resetScore</span><span class="code" data-ice="signature">(round: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber381">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber565">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Reset score for round to 0.</p>
+</div>
 
   
 
@@ -846,9 +804,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">round</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>number of the round, 0 is round 1.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -884,14 +843,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber377">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber557">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Sets the player&apos;s tokens to 0.</p>
+</div>
 
   
 
@@ -927,14 +887,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber397">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber597">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Deduct a token, if the player has one.</p>
+</div>
 
   
 
@@ -947,7 +908,8 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          
+          <td class="return-desc" data-ice="returnDescription"><p>false if the player does not have a token to use.</p>
+</td>
         </tr>
       </tbody>
     </table>

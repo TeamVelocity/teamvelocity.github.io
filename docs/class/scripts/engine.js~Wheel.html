@@ -40,8 +40,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html">Wheel</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-data1">data1</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-data2">data2</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -53,7 +51,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/scripts/engine.js.html#lineNumber237">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/scripts/engine.js.html#lineNumber343">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -73,7 +71,13 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>A WOJ wheel for a specific board and maximum spins. The number of slots on
+the wheel will be the number of categories + the number of special sectors
+(6). Slots are fixed on the wheel. Each special and category is a sector.
+Each sector can be randomly assigned to a slot on the wheel. Categories are
+always populated in the sector list first, followed by special sectors, i.e.
+category 0 on the board is always sector 0 on the wheel.</p>
+</div>
   
 
   
@@ -105,7 +109,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(board: <span><a href="class/scripts/engine.js~Board.html">Board</a></span>, maxSpins: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
         </p>
       </div>
       <div>
@@ -130,7 +134,7 @@
     <td>
       <span class="access" data-ice="access">public</span>
       
-      
+      <span class="kind" data-ice="kind">get</span>
       
       <span class="override" data-ice="override"></span>
     </td>
@@ -140,7 +144,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-member-board">board</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-get-complete">complete</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -168,7 +172,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-get-complete">complete</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-get-sectors">sectors</a></span></span><span class="code" data-ice="signature">: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
         </p>
       </div>
       <div>
@@ -196,63 +200,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-member-maxSpins">maxSpins</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-get-sectors">sectors</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-member-slots">slots</a></span></span><span class="code" data-ice="signature">: <span><span>*</span><span>[]</span></span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-member-slots">slots</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -349,7 +297,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Assigns sectors numbers to each slot ordered by categories then special.</p>
+</div>
       </div>
     </td>
     <td>
@@ -371,13 +320,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-method-getRandomSlot">getRandomSlot</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-method-getRandomSlot">getRandomSlot</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Return a random slot number from the wheel.</p>
+</div>
       </div>
     </td>
     <td>
@@ -399,13 +349,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-method-getSectorName">getSectorName</a></span></span><span class="code" data-ice="signature">(sectorNumber: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-method-getSectorName">getSectorName</a></span></span><span class="code" data-ice="signature">(sectorNumber: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Get sector name for the specific sector number.</p>
+</div>
       </div>
     </td>
     <td>
@@ -427,13 +378,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-method-getSectorNumber">getSectorNumber</a></span></span><span class="code" data-ice="signature">(slot: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-method-getSectorNumber">getSectorNumber</a></span></span><span class="code" data-ice="signature">(slot: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Get sector number at a specific slot number.</p>
+</div>
       </div>
     </td>
     <td>
@@ -461,7 +413,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Randomizes sectors in the slots.</p>
+</div>
       </div>
     </td>
     <td>
@@ -489,7 +442,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Resets used spins to 0.</p>
+</div>
       </div>
     </td>
     <td>
@@ -511,13 +465,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-method-sectorIsCategory">sectorIsCategory</a></span></span><span class="code" data-ice="signature">(sectorNumber: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-method-sectorIsCategory">sectorIsCategory</a></span></span><span class="code" data-ice="signature">(sectorNumber: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Check if the sector is a category (vs a special sector).</p>
+</div>
       </div>
     </td>
     <td>
@@ -539,13 +494,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-method-spin">spin</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html#instance-method-spin">spin</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/scripts/engine.js~Spin.html">Spin</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Spins the wheel and returns a random sector.</p>
+</div>
       </div>
     </td>
     <td>
@@ -571,11 +527,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(board: <span><a href="class/scripts/engine.js~Board.html">Board</a></span>, maxSpins: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber238">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber348">source</a></span></span>
     </span>
   </h3>
 
@@ -586,7 +542,32 @@
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">board</td>
+      <td data-ice="type" class="code"><span><a href="class/scripts/engine.js~Board.html">Board</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>an initialized WOJ board.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">maxSpins</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 50</li></ul></td>
+      <td data-ice="description"><p>the max spins allowed.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -610,49 +591,6 @@
 <div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-board">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">board</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber247">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-get-complete">
     <span class="access" data-ice="access">public</span>
     
@@ -660,54 +598,11 @@
     
     
     
-    <span class="code" data-ice="name">complete</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">complete</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber255">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-maxSpins">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">maxSpins</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber248">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber378">source</a></span></span>
     </span>
   </h3>
 
@@ -746,11 +641,11 @@
     
     
     
-    <span class="code" data-ice="name">sectors</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">sectors</span><span class="code" data-ice="signature">: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber259">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber386">source</a></span></span>
     </span>
   </h3>
 
@@ -789,11 +684,11 @@
     
     
     
-    <span class="code" data-ice="name">slots</span><span class="code" data-ice="signature">: <span><span>*</span><span>[]</span></span></span>
+    <span class="code" data-ice="name">slots</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber250">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber372">source</a></span></span>
     </span>
   </h3>
 
@@ -836,7 +731,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber239">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber355">source</a></span></span>
     </span>
   </h3>
 
@@ -879,7 +774,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber249">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber367">source</a></span></span>
     </span>
   </h3>
 
@@ -925,14 +820,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber267">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber400">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Assigns sectors numbers to each slot ordered by categories then special.</p>
+</div>
 
   
 
@@ -964,18 +860,19 @@
     
     
     
-    <span class="code" data-ice="name">getRandomSlot</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">getRandomSlot</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber295">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber450">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Return a random slot number from the wheel.</p>
+</div>
 
   
 
@@ -987,8 +884,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>a random slot number.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1019,18 +917,19 @@
     
     
     
-    <span class="code" data-ice="name">getSectorName</span><span class="code" data-ice="signature">(sectorNumber: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">getSectorName</span><span class="code" data-ice="signature">(sectorNumber: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber283">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber429">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Get sector name for the specific sector number.</p>
+</div>
 
   
 
@@ -1044,9 +943,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">sectorNumber</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>sector number.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1058,8 +958,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>sector name for the sector number.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1090,18 +991,19 @@
     
     
     
-    <span class="code" data-ice="name">getSectorNumber</span><span class="code" data-ice="signature">(slot: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">getSectorNumber</span><span class="code" data-ice="signature">(slot: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber279">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber420">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Get sector number at a specific slot number.</p>
+</div>
 
   
 
@@ -1115,9 +1017,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">slot</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>slot number in the wheel.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1129,8 +1032,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>sector number at the specified slot.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1165,14 +1069,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber275">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber411">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Randomizes sectors in the slots.</p>
+</div>
 
   
 
@@ -1208,14 +1113,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber263">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber393">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Resets used spins to 0.</p>
+</div>
 
   
 
@@ -1247,18 +1153,19 @@
     
     
     
-    <span class="code" data-ice="name">sectorIsCategory</span><span class="code" data-ice="signature">(sectorNumber: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="code" data-ice="name">sectorIsCategory</span><span class="code" data-ice="signature">(sectorNumber: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber287">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber438">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Check if the sector is a category (vs a special sector).</p>
+</div>
 
   
 
@@ -1272,9 +1179,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">sectorNumber</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>number of the sector.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1287,7 +1195,8 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          
+          <td class="return-desc" data-ice="returnDescription"><p>true if the sector is a category.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1318,18 +1227,21 @@
     
     
     
-    <span class="code" data-ice="name">spin</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">spin</span><span class="code" data-ice="signature">(): <span><a href="class/scripts/engine.js~Spin.html">Spin</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber299">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber460">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Spins the wheel and returns a random sector. Populates the <span><a href="class/scripts/engine.js~Spin.html">Spin</a></span>
+object with the spin results and depending on the outcome, adjusts points
+or retrieves the next clue.</p>
+</div>
 
   
 
@@ -1341,8 +1253,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="class/scripts/engine.js~Spin.html">Spin</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>object summarizing result of the spin.</p>
+</td>
         </tr>
       </tbody>
     </table>

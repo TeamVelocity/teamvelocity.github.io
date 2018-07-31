@@ -566,60 +566,8 @@
   {
     "__docId__": 48,
     "kind": "file",
-    "name": "scripts/data.js",
-    "content": "\"use strict\"\n/***\n * Sample data for the Wheel of Jeopardy game.\n * \n * Each data object contains JSON of for all clues on the board. Note, use\n * JSON.stringify on the object before trying Board.import.\n * \n * columns: number of columns on the board.\n * rows: number of rows on the board.\n * categories: array of category names.\n * clues: array of clues, zero indexed from top left of board.\n *    column: horizontal index.\n *    row: vertical index.\n *    question: question text.\n *    answer: answer text.\n */\n\n /** @ignore */\n\nlet data1 = {\n  \"columns\": 6,\n  \"rows\": 5,\n  \"categories\":[\n    \"Art and Literature\",\n    \"Food and Drink\",\n    \"General Knowledge\",\n    \"Harry Potter\",\n    \"History\",\n    \"Music\"\n  ],\n  \"clues\": [\n    {\n      \"column\": 0,\n      \"row\": 0,\n      \"question\": \"Who wrote The Green Mile?\",\n      \"answer\": \"Stephen King\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 1,\n      \"question\": \"Who created the cartoon character ‘Garfield’?\",\n      \"answer\": \"Jim Davis\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 2,\n      \"question\": \"In which modern-day country was Rembrandt born?\",\n      \"answer\": \"Netherlands\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 3,\n      \"question\": \"What is Frankenstein’s first name in Mary Shelley’s novel?\",\n      \"answer\": \"Victor\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 4,\n      \"question\": \"How many lines are there in a sonnet?\",\n      \"answer\": \"Fourteen\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 0,\n      \"question\": \"Claret is a dry red wine produced in which region of France?\",\n      \"answer\": \"Bordeaux\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 1,\n      \"question\": \"From which type of flower does a vanilla pod come?\",\n      \"answer\": \"Orchid\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 2,\n      \"question\": \"In which country is the Staropramen brewery?\",\n      \"answer\": \"Czech Republic\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 3,\n      \"question\": \"Which salad vegetable has varieties named ‘White Icicle’, ‘Sparkler’ and ‘Cherry Belle’?\",\n      \"answer\": \"Radish\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 4,\n      \"question\": \"How many standard 750ml bottles of wine would fit into a Methuselah?\",\n      \"answer\": \"Eight\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 0,\n      \"question\": \"When referring to a cash machine, what does ‘ATM’ stand for?\",\n      \"answer\": \"Automated Teller Machine\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 1,\n      \"question\": \"In which group were England in the 2018 FIFA World Cup?\",\n      \"answer\": \"Group G\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 2,\n      \"question\": \"Who was the 2018 Wimbledon Women’s Singles champion?\",\n      \"answer\": \"Angelique Kerber\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 3,\n      \"question\": \"How many sides has a pentacontagon?\",\n      \"answer\": \"50 (A fifty-sided polygon)\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 4,\n      \"question\": \"In which country was Amal Clooney born?\",\n      \"answer\": \"Lebanon\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 0,\n      \"question\": \"What is the street address of Vernon and Petunia Dursley, Harry’s uncle and aunt?\",\n      \"answer\": \"3 Privet Drive\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 1,\n      \"question\": \"How many balls are used in total in a game of Quidditch?\",\n      \"answer\": \"Four\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 2,\n      \"question\": \"Which actress played Dolores Umbridge in the films?\",\n      \"answer\": \"Imelda Staunton\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 3,\n      \"question\": \"Which animal is the mascot of Hufflepuff house?\",\n      \"answer\": \"Badger\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 4,\n      \"question\": \"What type of creature is Aragog?\",\n      \"answer\": \"Acromantula\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 0,\n      \"question\": \"Which two of Henry VIII’s wives were executed?\",\n      \"answer\": \"Anne Boleyn and Kathryn Howard\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 1,\n      \"question\": \"Which English city was once known as Duroliponte?\",\n      \"answer\": \"Cambridge\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 2,\n      \"question\": \"What was the first name of the man after whom the Geiger counter was named?\",\n      \"answer\": \"Hans\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 3,\n      \"question\": \"In which city was RMS Titanic constructed?\",\n      \"answer\": \"Belfast\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 4,\n      \"question\": \"The first successful vaccine was introduced by Edward Jenner in 1796. Which disease did it guard against?\",\n      \"answer\": \"Smallpox\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 0,\n      \"question\": \"Adam Levine in the lead singer of which US pop rock band?\",\n      \"answer\": \"Maroon 4\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 1,\n      \"question\": \"Which British artist can be seen performing “The Hits” show at Caesars Palace in Las Vegas from November 2018?\",\n      \"answer\": \"Rod Stewart\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 2,\n      \"question\": \"Which American rapper was born Shawn Corey Carter in New York City in 1969?\",\n      \"answer\": \"Jay-Z\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 3,\n      \"question\": \"Who performed the song “The A Team” with Ed Sheeran at the 2013 Grammy Awards?\",\n      \"answer\": \"Elton John\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 4,\n      \"question\": \"The ‘Explorer’, the ‘Flying V’ and the ‘Les Paul’ are guitar models by which manufacturers?\",\n      \"answer\": \"Gibson\"\n    }\n  ]\n}\n\nlet data2 = {\n  \"columns\": 6,\n  \"rows\": 5,\n  \"categories\":[\n    \"Entertainment\",\n    \"Food and Drink\",\n    \"General Knowledge\",\n    \"History\",\n    \"Music\",\n    \"Science\"\n  ],\n  \"clues\": [\n    {\n      \"column\": 0,\n      \"row\": 0,\n      \"question\": \"In which US TV series did Kiefer Sutherland play the character of Jack Bauer?\",\n      \"answer\": 24\n    },\n    {\n      \"column\": 0,\n      \"row\": 1,\n      \"question\": \"How many seasons of the hit US comedy ‘Friends’ were made?\",\n      \"answer\": 10\n    },\n    {\n      \"column\": 0,\n      \"row\": 2,\n      \"question\": \"Which nationality was the composer Frederick Chopin?\",\n      \"answer\": \"Polish\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 3,\n      \"question\": \"On which David Bowie album was the track ‘Life on Mars?’ originally found?\",\n      \"answer\": \"Hunky Dory\"\n    },\n    {\n      \"column\": 0,\n      \"row\": 4,\n      \"question\": \"Who released the 2015 album ‘Uptown Special’?\",\n      \"answer\": \"Mark Ronson\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 0,\n      \"question\": \"‘Scrag End’ is the name for a cut of which type of meat?\",\n      \"answer\": \"Lamb or mutton\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 1,\n      \"question\": \"Which came first: McDonalds or KFC?\",\n      \"answer\": \"McDonalds\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 2,\n      \"question\": \"Which mineral water has been marketed with the slogan ‘Live Young’?\",\n      \"answer\": \"Evian\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 3,\n      \"question\": \"What is added to a Martini to make a ‘Dirty Martini’?\",\n      \"answer\": \"Olive brine\"\n    },\n    {\n      \"column\": 1,\n      \"row\": 4,\n      \"question\": \"A Thai dish with  ‘mu’ (or sometimes ‘moo’) would include which type of meat?\",\n      \"answer\": \"Pork\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 0,\n      \"question\": \"Who was the first ever winner of ‘Britain’s Got Talent’?\",\n      \"answer\": \"Paul Potts\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 1,\n      \"question\": \"Which was the first product to be launched by Henry J Heinz and L Clarence Noble in 1869?\",\n      \"answer\": \"Horseradish\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 2,\n      \"question\": \"Of which African country is Khartoum the capital?\",\n      \"answer\": \"Sudan\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 3,\n      \"question\": \"The adjective ‘vespine’ is used to describe which creature?\",\n      \"answer\": \"Wasp\"\n    },\n    {\n      \"column\": 2,\n      \"row\": 4,\n      \"question\": \"In which US state is McCarran International Airport?\",\n      \"answer\": \"Nevada\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 0,\n      \"question\": \"Ulysses S. Grant appears on the front of which denomination of US. currency?\",\n      \"answer\": \"$50 bill\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 1,\n      \"question\": \"The Belgian revolution of 1830-1831 led to their independence from which country?\",\n      \"answer\": \"Netherlands\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 2,\n      \"question\": \"The Battle of Bosworth Field was the last significant battle of which series of civil wars?\",\n      \"answer\": \"Wars of the Roses\"\n    },\n    {\n      \"column\": 3,\n      \"row\": 3,\n      \"question\": \"In which year was Korea divided into North Korea and South Korea?\",\n      \"answer\": 1945\n    },\n    {\n      \"column\": 3,\n      \"row\": 4,\n      \"question\": \"Whose famous last words in 1999 reportedly were, “I finally get to see Marilyn”?\",\n      \"answer\": \"Joe DiMaggio\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 0,\n      \"question\": \"What is the real name of rapper Eminem?\",\n      \"answer\": \"Marshall Bruce Mathers III\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 1,\n      \"question\": \"Who featured on the 2002 single “A Little Less Conversation” with JXL?\",\n      \"answer\": \"Elvis Presley\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 2,\n      \"question\": \"Which original member of Take That released the solo album “In Your Own Time” in 2003?\",\n      \"answer\": \"Mark Owen\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 3,\n      \"question\": \"Which band released 80s albums entitled ‘Speak & Spell’, ‘Black Celebration’ and ‘Music for the Masses’?\",\n      \"answer\": \"Depeche Mode\"\n    },\n    {\n      \"column\": 4,\n      \"row\": 4,\n      \"question\": \"Which two artists duet on the song “Me Against the Music”, released in 2003?\",\n      \"answer\": \"Madonna and Britney Spears\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 0,\n      \"question\": \"The Colorado Beetle is a major pest of which type of crop?\",\n      \"answer\": \"Potato\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 1,\n      \"question\": \"In mathematics, what is the value of π (pi) to two decimal places?\",\n      \"answer\": 2.14\n    },\n    {\n      \"column\": 5,\n      \"row\": 2,\n      \"question\": \"What fraction of a second is a microsecond?\",\n      \"answer\": \"One millionth of a second\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 3,\n      \"question\": \"Approximately what percentage of the Earth’s surface is covered by water: 61%, 71% or 81%?\",\n      \"answer\": \"71%\"\n    },\n    {\n      \"column\": 5,\n      \"row\": 4,\n      \"question\": \"Which number on the pH scale would indicate a neutral substance?\",\n      \"answer\": 7\n    }\n  ]\n}\n\n// node exports\nif( typeof module !== 'undefined' && module.exports ) {\n  module.exports = {\n      data1: data1,\n      data2: data2\n  }\n}",
-    "static": true,
-    "longname": "/Users/bmw/Documents/education/jhu/EN.605.601.81.SU18 Foundations of Software Engineering/teamvelocity.github.io/scripts/data.js",
-    "access": "public",
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 49,
-    "kind": "variable",
-    "name": "data1",
-    "memberof": "scripts/data.js",
-    "static": true,
-    "longname": "scripts/data.js~data1",
-    "access": "public",
-    "export": false,
-    "importPath": "./scripts/data.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 20,
-    "ignore": true,
-    "type": {
-      "types": [
-        "{\"columns\": number, \"rows\": number, \"categories\": *, \"clues\": *}"
-      ]
-    }
-  },
-  {
-    "__docId__": 50,
-    "kind": "variable",
-    "name": "data2",
-    "memberof": "scripts/data.js",
-    "static": true,
-    "longname": "scripts/data.js~data2",
-    "access": "public",
-    "export": false,
-    "importPath": "./scripts/data.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 215,
-    "undocument": true,
-    "type": {
-      "types": [
-        "{\"columns\": number, \"rows\": number, \"categories\": *, \"clues\": *}"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 51,
-    "kind": "file",
     "name": "scripts/engine.js",
-    "content": "\"use strict\"\n/***\n * Classes and logic for the Wheel of Jeopardy game.\n */\n\n\n/**\n * Returns a random integer between min and max.\n * @param {number} max upper bound (exclusive).\n * @param {number} min lower bound (inclusive).\n * @returns {number} random integer.\n */\nfunction randomInt(max, min=0) {\n    return Math.floor(Math.random() * (max - min) + min);\n}\n\n/**\n * Naive shuffle an array, swaps random slots 3 * array.length times.\n * @param {Object[]} arr an array to shuffle.\n * @returns {Object[]} shuffled array.\n */\nfunction shuffleArray(arr){\n    for (let j=0; j < arr.length * 3; j++){\n        let i1 = randomInt(arr.length);\n        let i2 = randomInt(arr.length);\n\n        let val1 = arr[i1];\n        let val2 = arr[i2];\n\n        arr[i2] = val1;\n        arr[i1] = val2;\n    }\n    return arr;\n}\n\n/**\n * A single clue, zero indexed from the top left of the board.\n */\nclass Clue {\n    /**\n     * @param {number} column horizontal index on board.\n     * @param {number} row vertical index on board.\n     * @param {string} question the question text.\n     * @param {string} answer the answer text.\n     */\n    constructor(column, row, question, answer) {\n        this.column = column;\n        this.row = row;\n        this.question = question;\n        this.answer = answer;\n\n        /** @type {number} value of the clue. */\n        this.points = 0;\n    }\n}\n\n/** \n * A category of clues on the board. \n */\nclass Category{\n    /**\n     * @param {string} name name of the category.\n     */\n    constructor(name){\n        this.name = name;\n\n        /** @type {Object[]} a list of {@link Clue} objects. */\n        this.clues = [];\n\n        /** \n         * @type {number} number of clues in the category that have been \n         * answered. \n         */\n        this.cluesAnswered = 0;\n    }\n\n    /** @type {boolean} true if all clues in the category have been answered. */\n    get complete(){\n        return this.cluesAnswered >= this.clues.length;\n    }\n\n    /** \n     * Reset clues answered count to 0.\n     */\n    reset(){\n        this.cluesAnswered = 0;\n    }\n\n    /** \n     * Retrieve next unanswered clue in the category, increment cluesAnswered.\n     * If all clues are answered, this will return undefined.\n     * @return {clue} the next unanswered clue.\n     */\n    nextClue(){\n        let clue = this.clues[this.cluesAnswered];\n        this.cluesAnswered++;\n        return clue;\n    }\n}\n\nclass Board {\n    constructor(columns=6, rows=5, basePoints=200) {\n        this.columns;\n        this.rows;\n        this.basePoints = basePoints;\n\n        this.categories;\n        this.cluesAnswered = 0;\n\n        this.init_(columns, rows);\n    }\n\n    get complete(){\n        return this.cluesAnswered >= this.columns * this.rows;\n    }\n\n    get categoryNames(){\n        let names = [];\n        for(let i=0; i<this.categories.length; i++){\n            names.push(this.categories[i].name);\n        }\n        return names;\n    }\n\n    init_(columns=6, rows=5){\n        this.categories = [];\n        this.columns = columns;\n        this.rows = rows;\n\n        for(let i=0; i<this.columns; i++){\n            let category = new Category();\n            this.categories.push(category);\n\n            for(let j=0; j<this.rows; j++){\n                let clue = new Clue();\n                clue.column = i;\n                clue.row = j;\n                clue.points = (j+1) * this.basePoints;\n                category.clues.push(clue);\n            }\n        }\n    }\n\n    reset(){\n        this.cluesAnswered = 0;\n        for(let i=0; i<this.categories.length; i++){\n            this.categories[i].reset();\n        }\n    }\n\n    getCategory(column){\n        return this.categories[column];\n    }\n\n    getClue(column, row){\n        return this.categories[column].clues[row];\n    }\n\n    editCategory(column, name){\n        let category = this.getCategory(column);\n        category.name = name;\n    }\n\n    editClue(column, row, question, answer){\n        let clue = this.getClue(column, row);\n        clue.question = question;\n        clue.answer = answer;\n    }\n\n    nextClue(column) {\n        if (!this.categoryComplete(column)){\n            this.cluesAnswered++;\n            let category = this.getCategory(column);\n            let clue = category.nextClue();\n            return clue;\n        }\n    }\n\n    import(data){\n        data = JSON.parse(data);\n\n        // reinitialize board if columns/rows different\n        if(this.columns != data.columns || this.rows != data.rows){\n            this.init_(data.columns, data.rows);\n        }\n\n        // import category names\n        for(let i=0; i<data.categories.length; i++){\n            this.editCategory(i, data.categories[i]);\n        }\n\n        // import clues\n        for(let i=0; i<data.clues.length; i++){\n            let clue = data.clues[i];\n            this.editClue(clue.column, clue.row, clue.question, clue.answer);\n        }\n    }\n\n    export(){\n        let data = {\n            \"columns\": this.columns,\n            \"rows\": this.rows,\n            \"categories\": this.categoryNames,\n            \"clues\": []\n        };\n\n        for(let i=0; i<this.columns; i++){\n            for(let j=0; j<this.rows; j++){\n                let clue = this.getClue(i, j);\n                data.clues.push({\n                    \"column\": i,\n                    \"row\": j,\n                    \"question\": clue.question,\n                    \"answer\": clue.answer\n                })\n            }\n        }\n\n        data = JSON.stringify(data);\n        return data;\n    }\n}\n\nclass Spin {\n    constructor(slot, sectorNumber, sectorName, isCategory, clue){\n        this.slot = slot;\n        this.sectorNumber = sectorNumber;\n        this.sectorName = sectorName;\n        this.isCategory = isCategory;\n        this.spinAgain = false;\n        this.clue = clue;\n    }\n}\n\nclass Wheel {\n    constructor(board, maxSpins=50) {\n        this.specialSectors = [\n            \"Lose Turn\", \n            \"Free Turn\", \n            \"Bankrupt\", \n            \"Player's Choice\", \n            \"Opponent's Choice\", \n            \"Double Score\"\n        ]\n        this.board = board;\n        this.maxSpins = maxSpins;\n        this.usedSpins = 0;\n        this.slots = [];\n\n        this.assignSectors();\n    }\n\n    get complete(){\n        return this.usedSpins >= this.maxSpins;\n    }\n\n    get sectors(){\n        return this.board.categoryNames.concat(this.specialSectors);\n    }\n\n    reset(){\n        this.usedSpins = 0;\n    }\n\n    assignSectors(){\n        this.slots = [];\n\n        for(let i=0; i<this.sectors.length; i++){\n            this.slots.push(i);\n        }\n    }\n\n    randomizeSectors(){\n        this.slots = shuffleArray(this.slots);\n    }\n\n    getSectorNumber(slot){\n        return this.slots[slot];\n    }\n\n    getSectorName(sectorNumber){\n        return this.sectors[sectorNumber];\n    }\n\n    sectorIsCategory(sectorNumber){\n        if(sectorNumber < this.board.categoryNames.length){\n            return true\n        } else {\n            return false\n        }\n    }\n\n    getRandomSlot(){\n        return randomInt(this.slots.length);\n    }\n\n    spin(){\n        let spin = new Spin();\n        spin.slot = this.getRandomSlot();\n        spin.sectorNumber = this.getSectorNumber(spin.slot);\n        spin.sectorName = this.getSectorName(spin.sectorNumber);\n        spin.isCategory = this.sectorIsCategory(spin.sectorNumber);\n\n        if(spin.isCategory){\n            let category = this.board.getCategory(spin.sectorNumber);\n    \n            if(category.complete){\n                spin.spinAgain = true;\n            } else {\n                let clue = category.nextClue();\n                spin.clue = clue;\n            }\n        }\n        this.usedSpins++;\n        return spin;\n    }\n}\n\n/**\n * A score keeper for a single player and round.\n */\nclass Score {\n    constructor(){\n        /** @type {number} current points for the round. */\n        this.points = 0;\n    }\n\n    /** Reset points to 0. */\n    reset(){\n        this.points = 0;\n    }\n\n    /**\n     * Increase points by a number (sign ignored).\n     * @param {number} points number of points to increase.\n     */\n    increase(points){\n        this.points = this.points + Math.abs(points);\n    }\n\n    /**\n     * Decrease points by a number (sign ignored).\n     * @param {number} points number of points to decrease.\n     */\n    decrease(points){\n        this.points = this.points - Math.abs(points);\n    }\n\n    /** If points are positive, set points to 0. */\n    bankrupt(){\n        if(this.points > 0){ this.points = 0; }\n    }\n\n    /** Double points, even if negative. */\n    double(){\n        this.points = this.points + this.points;\n    }\n}\n\nclass Player {\n    constructor(name) {\n        this.name = name;\n        this.tokens = 0;\n        this.scores = [];\n    }\n\n    get totalScore(){\n        let points = 0;\n        for(i=0; i<this.scores.length; i++){\n            points += this.scores[i].points;\n        }\n        return points;\n    }\n\n    resetTokens(){\n        this.tokens = 0;\n    }\n\n    resetScore(round){\n        this.scores[round] = new Score();\n    }\n\n    getScore(round){\n        return this.scores[round];\n    }\n\n    addToken(){\n        this.tokens += 1;\n    }\n\n    hasToken(){\n        return this.tokens > 0;\n    }\n\n    useToken(){\n        if(this.hasToken){\n            this.tokens--;\n            return true;\n        } else {\n            return false;\n        }\n    }\n}\n\nclass Round {\n    constructor(id, wheel, players, maxTime=20){\n        this.id = id;\n        this.wheel = wheel;\n        this.board = wheel.board;\n        this.players = players;\n        this.maxTime = maxTime;\n        this.currentPlayer = 0\n    }\n\n    get complete(){\n        return this.wheel.complete || this.board.complete\n    }\n\n    start(){\n        this.reset();\n    }\n\n    reset(){\n        this.wheel.reset();\n        this.board.reset();\n        for(let i=0; i<this.players.length; i++){\n            this.players[i].resetScore(this.id);\n        }\n        this.currentPlayer = 0;\n    }\n}\n\nclass Game {\n    constructor() {\n        this.players = [];\n        this.rounds = [];\n        this.currentRound = 0;\n    }\n\n    addPlayer(name){\n        let player = new Player(name);\n        this.players.push(player);\n    }\n\n    getPlayer(id){\n        return this.players[id];\n    }\n\n    editPlayer(id, name){\n        let player = this.getPlayer(id);\n        player.name = name;\n    }\n\n    addRound(){\n        let id = this.rounds.length;\n        let board = new Board();\n        let wheel = new Wheel(board)\n        let round = new Round(id, wheel, this.players)\n        this.rounds.push(round);\n        return round;\n    }\n\n    getRound(id){\n        return this.rounds[id];\n    }\n}\n\n// node exports\nif( typeof module !== 'undefined' && module.exports ) {\n    module.exports = {\n        Game: Game,\n        Round: Round,\n        Player: Player,\n        Score: Score\n    }\n}\n",
+    "content": "\"use strict\"\n/***\n * Classes and logic for the Wheel of Jeopardy (WOJ) game.\n */\n\n\n/**\n * Returns a random integer between min and max.\n * @param {number} max upper bound (exclusive).\n * @param {number} min lower bound (inclusive).\n * @returns {number} random integer.\n */\nfunction randomInt(max, min=0) {\n    return Math.floor(Math.random() * (max - min) + min);\n}\n\n/**\n * Naive shuffle an array, swaps random slots 3 * array.length times.\n * @param {Object[]} arr an array to shuffle.\n * @returns {Object[]} shuffled array.\n */\nfunction shuffleArray(arr){\n    for (let j=0; j < arr.length * 3; j++){\n        let i1 = randomInt(arr.length);\n        let i2 = randomInt(arr.length);\n\n        let val1 = arr[i1];\n        let val2 = arr[i2];\n\n        arr[i2] = val1;\n        arr[i1] = val2;\n    }\n    return arr;\n}\n\n/**\n * A single clue, zero indexed from the top left of the board.\n */\nclass Clue {\n    /**\n     * @param {number} column horizontal index on board.\n     * @param {number} row vertical index on board.\n     * @param {string} question the question text.\n     * @param {string} answer the answer text.\n     */\n    constructor(column, row, question, answer) {\n        this.column = column;\n        this.row = row;\n        this.question = question;\n        this.answer = answer;\n\n        /** @type {number} value of the clue. */\n        this.points = 0;\n    }\n}\n\n/** \n * A category of clues on the board. \n */\nclass Category{\n    /**\n     * @param {string} name name of the category.\n     */\n    constructor(name){\n        this.name = name;\n\n        /** @type {Object[]} a list of {@link Clue} objects. */\n        this.clues = [];\n\n        /** \n         * @type {number} number of clues in the category that have been \n         * answered. \n         */\n        this.cluesAnswered = 0;\n    }\n\n    /** @type {boolean} true if all clues in the category have been answered. */\n    get complete(){\n        return this.cluesAnswered >= this.clues.length;\n    }\n\n    /** \n     * Reset clues answered count to 0.\n     */\n    reset(){\n        this.cluesAnswered = 0;\n    }\n\n    /** \n     * Retrieve next unanswered clue in the category, increment cluesAnswered.\n     * If all clues are answered, this will return undefined.\n     * @return {clue} the next unanswered clue.\n     */\n    nextClue(){\n        let clue = this.clues[this.cluesAnswered];\n        this.cluesAnswered++;\n        return clue;\n    }\n}\n\n/**\n * A WOJ board with column * row clues arranged in a grid. The top left\n * corner is indexed at 0. Each column is a {@link Category} and each row in a \n * category is a {@link Clue}. All categories must have the same number of \n * clues. Each clue in the first row has {@link Board#basePoints}. Each clue in\n * the next row equals the sum of the clue value in the prior row plus \n * basePoints.\n */\nclass Board {\n    /**\n     * @param {number} [columns=6] number of columns on the board. \n     * @param {number} [rows=5] number of rows on the board.\n     * @param {number} [basePoints=200] point value of each clues in the first \n     * row.\n     */\n    constructor(columns=6, rows=5, basePoints=200) {\n        this.columns;\n        this.rows;\n        this.basePoints = basePoints;\n\n        /** \n         * @type {Category[]} an array of Categories indexed by column \n         * position. \n         */\n        this.categories;\n\n        /** \n         * @type {number} number of clues on the board that have been \n         * answered.\n         */\n        this.cluesAnswered = 0;\n\n        this.init_(columns, rows);\n    }\n\n    /** @type {boolean} true if all clues on the board have been answered. */\n    get complete(){\n        return this.cluesAnswered >= this.columns * this.rows;\n    }\n\n    /**\n     *  @type {string[]} an array of category names indexed by column position.\n     */\n    get categoryNames(){\n        let names = [];\n        for(let i=0; i<this.categories.length; i++){\n            names.push(this.categories[i].name);\n        }\n        return names;\n    }\n\n    /**\n     * Initializes an empty board of size columns * rows with {@link Clue}'s.\n     * @private\n     * @param {number} columns number of columns on the board. \n     * @param {number} rows number of rows on the board.\n     */\n    init_(columns, rows){\n        this.categories = [];\n        this.columns = columns;\n        this.rows = rows;\n\n        for(let i=0; i<this.columns; i++){\n            let category = new Category();\n            this.categories.push(category);\n\n            for(let j=0; j<this.rows; j++){\n                let clue = new Clue();\n                clue.column = i;\n                clue.row = j;\n                clue.points = (j+1) * this.basePoints;\n                category.clues.push(clue);\n            }\n        }\n    }\n\n    /** \n     * Resets each category in the board and sets cluesAnswered count to 0.\n     */\n    reset(){\n        this.cluesAnswered = 0;\n        for(let i=0; i<this.categories.length; i++){\n            this.categories[i].reset();\n        }\n    }\n\n    /**\n     * Returns a category at the specified column.\n     * @param {number} column column index of the category.\n     * @return {Category} category at the specified column.\n     */\n    getCategory(column){\n        return this.categories[column];\n    }\n\n    /**\n     * Returns a clue at the specified column and row.\n     * @param {number} column column index of the clue.\n     * @param {number} row row index of the clue.\n     * @return {Clue} clue at the specified column and row.\n     */\n    getClue(column, row){\n        return this.categories[column].clues[row];\n    }\n\n    /**\n     * Edit the name of a category at column index.\n     * @param {number} column column index of the category.\n     * @param {string} name new category name.\n     */\n    editCategory(column, name){\n        let category = this.getCategory(column);\n        category.name = name;\n    }\n\n    /**\n     * Edit the question and answer of a clue at column and row index.\n     * @param {number} column column index of the clue.\n     * @param {number} row row index of the clue.\n     * @param {string} question new question text.\n     * @param {string} answer new answer text.\n     */\n    editClue(column, row, question, answer){\n        let clue = this.getClue(column, row);\n        clue.question = question;\n        clue.answer = answer;\n    }\n\n    /** \n     * Retrieve next unanswered clue in the category at column and increment\n     * cluesAnswered. If all clues are answered, this will return undefined.\n     * @param {number} column column index of the category.\n     * @return {clue} the next unanswered clue.\n     */\n    nextClue(column) {\n        if (!this.categoryComplete(column)){\n            this.cluesAnswered++;\n            let category = this.getCategory(column);\n            let clue = category.nextClue();\n            return clue;\n        }\n    }\n\n    /**\n     * Import JSON board, initializing board and setting categories and clues.\n     * Data should be a string. Use JSON.stringify if data is an object literal.\n     * \n     * @param {string} data board JSON.\n     * @param {number} data.columns number of columns.\n     * @param {numnber} data.rows number of rows.\n     * @param {string[]} data.categories array of category names.\n     * @param {Object[]} data.clues array of clues, zero indexed from top left\n     * of board\n     * @param {number} data.clues.column column index of the clue.\n     * @param {number} data.clues.row row index of the clue.\n     * @param {string} data.clues.question new question text.\n     * @param {string} data.clues.answer new answer text.\n     * \n     * @see /scripts/data.js\n     */\n    import(data){\n        let data = JSON.parse(data);\n\n        // reinitialize board if columns/rows different\n        if(this.columns != data.columns || this.rows != data.rows){\n            this.init_(data.columns, data.rows);\n        }\n\n        // import category names\n        for(let i=0; i<data.categories.length; i++){\n            this.editCategory(i, data.categories[i]);\n        }\n\n        // import clues\n        for(let i=0; i<data.clues.length; i++){\n            let clue = data.clues[i];\n            this.editClue(clue.column, clue.row, clue.question, clue.answer);\n        }\n    }\n\n    /**\n     * Export board content to JSON board string. See {@link Board.import} for\n     * details on JSON board structure.\n     * @returns {string} serialized board.\n     */\n    export(){\n        let data = {\n            \"columns\": this.columns,\n            \"rows\": this.rows,\n            \"categories\": this.categoryNames,\n            \"clues\": []\n        };\n\n        for(let i=0; i<this.columns; i++){\n            for(let j=0; j<this.rows; j++){\n                let clue = this.getClue(i, j);\n                data.clues.push({\n                    \"column\": i,\n                    \"row\": j,\n                    \"question\": clue.question,\n                    \"answer\": clue.answer\n                })\n            }\n        }\n\n        data = JSON.stringify(data);\n        return data;\n    }\n}\n\n/** Result of a wheel spin. */\nclass Spin {\n    /**\n     * @param {number} slot wheel slot number where spin landed.\n     * @param {number} sectorNumber corresponding sector number located at slot.\n     * @param {string} sectorName corresponding sector name located at slot.\n     * @param {boolean} isCategory true if sector is category.\n     * @param {Clue} clue if isCategory is true and spinAgain is false, next\n     * clue in the category.\n     */\n    constructor(slot, sectorNumber, sectorName, isCategory, clue){\n        this.slot = slot;\n        this.sectorNumber = sectorNumber;\n        this.sectorName = sectorName;\n        this.isCategory = isCategory;\n        this.clue = clue;\n\n        /**\n         * @type {boolean} true if category is complete.\n         */\n        this.spinAgain = false;\n    }\n}\n\n/** \n * A WOJ wheel for a specific board and maximum spins. The number of slots on\n * the wheel will be the number of categories + the number of special sectors\n * (6). Slots are fixed on the wheel. Each special and category is a sector.\n * Each sector can be randomly assigned to a slot on the wheel. Categories are\n * always populated in the sector list first, followed by special sectors, i.e.\n * category 0 on the board is always sector 0 on the wheel.\n */\nclass Wheel {\n    /**\n     * @param {Board} board an initialized WOJ board.\n     * @param {number} [maxSpins=50] the max spins allowed.\n     */\n    constructor(board, maxSpins=50) {\n        this.board = board;\n        this.maxSpins = maxSpins;\n\n        /**\n         * @type {string[]} a list of six special sectors.\n         */\n        this.specialSectors = [\n            \"Lose Turn\", \n            \"Free Turn\", \n            \"Bankrupt\", \n            \"Player's Choice\", \n            \"Opponent's Choice\", \n            \"Double Score\"\n        ]\n\n        /**\n         * @type {number} number of spins used.\n         */\n        this.usedSpins = 0;\n\n        /**\n         * @type {number} sector numbers in each slot.\n         */\n        this.slots = [];\n\n        this.assignSectors();\n    }\n\n    /** @type {boolean} true if all spins have been used. */\n    get complete(){\n        return this.usedSpins >= this.maxSpins;\n    }\n\n    /**\n     * @type {string[]} array of ordered sector names: categories + special\n     * sectors.\n     */\n    get sectors(){\n        return this.board.categoryNames.concat(this.specialSectors);\n    }\n\n    /** \n     * Resets used spins to 0.\n     */\n    reset(){\n        this.usedSpins = 0;\n    }\n\n    /**\n     * Assigns sectors numbers to each slot ordered by categories then special.\n     */\n    assignSectors(){\n        this.slots = [];\n\n        for(let i=0; i<this.sectors.length; i++){\n            this.slots.push(i);\n        }\n    }\n\n    /**\n     * Randomizes sectors in the slots.\n     */\n    randomizeSectors(){\n        this.slots = shuffleArray(this.slots);\n    }\n\n    /**\n     * Get sector number at a specific slot number.\n     * @param {number} slot slot number in the wheel.\n     * @return {number} sector number at the specified slot.\n     */\n    getSectorNumber(slot){\n        return this.slots[slot];\n    }\n\n    /**\n     * Get sector name for the specific sector number.\n     * @param {number} sectorNumber sector number.\n     * @return {number} sector name for the sector number.\n     */\n    getSectorName(sectorNumber){\n        return this.sectors[sectorNumber];\n    }\n\n    /**\n     * Check if the sector is a category (vs a special sector).\n     * @param {number} sectorNumber number of the sector.\n     * @return {boolean} true if the sector is a category.\n     */\n    sectorIsCategory(sectorNumber){\n        if(sectorNumber < this.board.categoryNames.length){\n            return true\n        } else {\n            return false\n        }\n    }\n\n    /**\n     * Return a random slot number from the wheel.\n     * @returns {number} a random slot number.\n     */\n    getRandomSlot(){\n        return randomInt(this.slots.length);\n    }\n\n    /**\n     * Spins the wheel and returns a random sector. Populates the {@link Spin}\n     * object with the spin results and depending on the outcome, adjusts points\n     * or retrieves the next clue.\n     * @returns {Spin} object summarizing result of the spin.\n     */\n    spin(){\n        let spin = new Spin();\n        spin.slot = this.getRandomSlot();\n        spin.sectorNumber = this.getSectorNumber(spin.slot);\n        spin.sectorName = this.getSectorName(spin.sectorNumber);\n        spin.isCategory = this.sectorIsCategory(spin.sectorNumber);\n\n        if(spin.isCategory){\n            let category = this.board.getCategory(spin.sectorNumber);\n    \n            if(category.complete){\n                spin.spinAgain = true;\n            } else {\n                let clue = category.nextClue();\n                spin.clue = clue;\n            }\n        }\n        this.usedSpins++;\n        return spin;\n    }\n}\n\n/**\n * A score keeper for a single player and round.\n */\nclass Score {\n    constructor(){\n        /** \n         * @type {number} current points for the round. \n         */\n        this.points = 0;\n    }\n\n    /** Reset points to 0. */\n    reset(){\n        this.points = 0;\n    }\n\n    /**\n     * Increase points by a number (sign ignored).\n     * @param {number} points number of points to increase.\n     */\n    increase(points){\n        this.points = this.points + Math.abs(points);\n    }\n\n    /**\n     * Decrease points by a number (sign ignored).\n     * @param {number} points number of points to decrease.\n     */\n    decrease(points){\n        this.points = this.points - Math.abs(points);\n    }\n\n    /** If points are positive, set points to 0. */\n    bankrupt(){\n        if(this.points > 0){ this.points = 0; }\n    }\n\n    /** Double points, even if negative. */\n    double(){\n        this.points = this.points + this.points;\n    }\n}\n\n/**\n * A player in the WOJ game.\n */\nclass Player {\n    /**\n     * @param {string} [name] the players name.\n     */\n    constructor(name) {\n        this.name = name;\n\n        /**\n         * @type {number} number of tokens (free turns).\n         */\n        this.tokens = 0;\n\n        /**\n         * @type {Score[]} array of scores, indexed by round number, i.e. 0 is\n         * the first round.\n         */\n        this.scores = [];\n    }\n\n    /** @type {numbner} sum of points for all rounds. */\n    get totalScore(){\n        let points = 0;\n        for(i=0; i<this.scores.length; i++){\n            points += this.scores[i].points;\n        }\n        return points;\n    }\n\n    /** Sets the player's tokens to 0. */\n    resetTokens(){\n        this.tokens = 0;\n    }\n\n    /**\n     *  Reset score for round to 0.\n     * @param {number} round number of the round, 0 is round 1.\n     */\n    resetScore(round){\n        this.scores[round] = new Score();\n    }\n\n    /**\n     * Return the score for a given round number.\n     * @param {number} round number of the round, 0 is round 1.\n     * @returns {number} score for the given round number.\n     */\n    getScore(round){\n        return this.scores[round];\n    }\n\n    /**\n     * Adds 1 token to the player's tokens.\n     */\n    addToken(){\n        this.tokens += 1;\n    }\n\n    /**\n     * Checks if the player has any tokens.\n     * @returns true if the player has at least one token.\n     */\n    hasToken(){\n        return this.tokens > 0;\n    }\n\n    /**\n     * Deduct a token, if the player has one.\n     * @returns {boolean} false if the player does not have a token to use.\n     */\n    useToken(){\n        if(this.hasToken){\n            this.tokens--;\n            return true;\n        } else {\n            return false;\n        }\n    }\n}\n\n/**\n * A round in the WOJ game. The standard game is played with two rounds. The\n * round ID must be unique and is used to store and access the round in the\n * games round list.\n * @todo fix round id so it is auto-assigned / inked to array index.\n */\nclass Round {\n    /**\n     * @param {number} id A unique numeric ID for the round.\n     * @param {Wheel} wheel a wheel for the round.\n     * @param {Player[]} players an array of players in the game.\n     * @param {number} [maxTime=20] maximum time to answer a question in\n     * seconds.\n     */\n    constructor(id, wheel, players, maxTime=20){\n        this.id = id;\n        this.wheel = wheel;\n        this.players = players;\n        this.maxTime = maxTime;\n\n        /**\n         * @type {Board} a board for the round.\n         */\n        this.board = wheel.board;\n\n        /**\n         * @type {number} player id of the player currently spinning.\n         */\n        this.currentPlayer = 0\n    }\n\n    /** @type {boolean} true if the round is complete. */\n    get complete(){\n        return this.wheel.complete || this.board.complete\n    }\n\n    /**\n     * Start the WOJ round.\n     */\n    start(){\n        this.reset();\n    }\n\n    /**\n     * Resets the current round by reseting the wheel, board, and player scores.\n     */\n    reset(){\n        this.wheel.reset();\n        this.board.reset();\n        for(let i=0; i<this.players.length; i++){\n            this.players[i].resetScore(this.id);\n        }\n        this.currentPlayer = 0;\n    }\n}\n\n/**\n * The WOJ game. Supports creation of board, wheel, and players which are\n * used to track game play. This class should be used to create games and add\n * rounds to ensure proper functionality.\n * \n * @example\n * let game = new Game();\n * \n * // create default boards\n * let data = [data1, data2];\n * \n * for(let i=0; i<data.length; i++){\n *      let round = game.addRound();\n *      round.board.import(JSON.stringify(data[i]));\n *      round.wheel.assignSectors();\n *      round.wheel.randomizeSectors();    \n * }\n * \n * // edit board content if needed\n * round = game.getRound(0);\n * let clue = round.board.getCategory(1).clues[2];\n * clue.question = \"What is the oldest soft drink in America?\";\n * clue.answer = \"Dr. Pepper.\";\n * \n * // start game\n * game.addPlayer(\"John\");\n * game.addPlayer(\"Jane\");\n * \n * // start first round\n * round = game.getRound(0);\n * round.start();\n * \n * // player spins\n * console.log(round.currentPlayer);\n * let spin = round.wheel.spin();\n * console.log(spin);\n * console.log(round.complete);\n */\nclass Game {\n    constructor() {\n        /** @type {Player[]} array of players. */\n        this.players = [];\n\n        /** @type {Rounds[]} array of rounds. */\n        this.rounds = [];\n\n        /** @type {number} current round number. */\n        this.currentRound = 0;\n    }\n\n    /** \n     * Add a player to the game\n     * @param {string} name the players name.\n     */\n    addPlayer(name){\n        let player = new Player(name);\n        this.players.push(player);\n    }\n\n    /**\n     * Retrieve a player.\n     * @param {number} id the players id number, player one is id: 0.\n     * @returns {Player} the player at index number.\n     */\n    getPlayer(id){\n        return this.players[id];\n    }\n\n    /**\n     * Retrieve and edit a player.\n     * @param {number} id the players id number, player one is id: 0.\n     * @param {string} name the players name.\n     */    \n    editPlayer(id, name){\n        let player = this.getPlayer(id);\n        player.name = name;\n    }\n\n    /**\n     * Add and initialize a game round with an empty wheel and board.\n     * @returns {Round} a game round.\n     */\n    addRound(){\n        let id = this.rounds.length;\n        let board = new Board();\n        let wheel = new Wheel(board)\n        let round = new Round(id, wheel, this.players)\n        this.rounds.push(round);\n        return round;\n    }\n\n    /**\n     * Retrieve a game round by id.\n     * @param {Round} id the rounds id number, round one is id: 0\n     */\n    getRound(id){\n        return this.rounds[id];\n    }\n}\n\n// node exports\nif( typeof module !== 'undefined' && module.exports ) {\n    module.exports = {\n        Game: Game,\n        Round: Round,\n        Player: Player,\n        Score: Score\n    }\n}\n",
     "static": true,
     "longname": "/Users/bmw/Documents/education/jhu/EN.605.601.81.SU18 Foundations of Software Engineering/teamvelocity.github.io/scripts/engine.js",
     "access": "public",
@@ -627,7 +575,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 52,
+    "__docId__": 49,
     "kind": "function",
     "name": "randomInt",
     "memberof": "scripts/engine.js",
@@ -679,7 +627,7 @@
     }
   },
   {
-    "__docId__": 53,
+    "__docId__": 50,
     "kind": "function",
     "name": "shuffleArray",
     "memberof": "scripts/engine.js",
@@ -721,7 +669,7 @@
     }
   },
   {
-    "__docId__": 54,
+    "__docId__": 51,
     "kind": "class",
     "name": "Clue",
     "memberof": "scripts/engine.js",
@@ -736,7 +684,7 @@
     "interface": false
   },
   {
-    "__docId__": 55,
+    "__docId__": 52,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "scripts/engine.js~Clue",
@@ -791,7 +739,7 @@
     ]
   },
   {
-    "__docId__": 56,
+    "__docId__": 53,
     "kind": "member",
     "name": "column",
     "memberof": "scripts/engine.js~Clue",
@@ -809,7 +757,7 @@
     "ignore": true
   },
   {
-    "__docId__": 57,
+    "__docId__": 54,
     "kind": "member",
     "name": "row",
     "memberof": "scripts/engine.js~Clue",
@@ -827,7 +775,7 @@
     "ignore": true
   },
   {
-    "__docId__": 58,
+    "__docId__": 55,
     "kind": "member",
     "name": "question",
     "memberof": "scripts/engine.js~Clue",
@@ -845,7 +793,7 @@
     "ignore": true
   },
   {
-    "__docId__": 59,
+    "__docId__": 56,
     "kind": "member",
     "name": "answer",
     "memberof": "scripts/engine.js~Clue",
@@ -863,7 +811,7 @@
     "ignore": true
   },
   {
-    "__docId__": 60,
+    "__docId__": 57,
     "kind": "member",
     "name": "points",
     "memberof": "scripts/engine.js~Clue",
@@ -882,7 +830,7 @@
     }
   },
   {
-    "__docId__": 61,
+    "__docId__": 58,
     "kind": "class",
     "name": "Category",
     "memberof": "scripts/engine.js",
@@ -897,7 +845,7 @@
     "interface": false
   },
   {
-    "__docId__": 62,
+    "__docId__": 59,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "scripts/engine.js~Category",
@@ -922,7 +870,7 @@
     ]
   },
   {
-    "__docId__": 63,
+    "__docId__": 60,
     "kind": "member",
     "name": "name",
     "memberof": "scripts/engine.js~Category",
@@ -940,7 +888,7 @@
     "ignore": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 61,
     "kind": "member",
     "name": "clues",
     "memberof": "scripts/engine.js~Category",
@@ -959,7 +907,7 @@
     }
   },
   {
-    "__docId__": 65,
+    "__docId__": 62,
     "kind": "member",
     "name": "cluesAnswered",
     "memberof": "scripts/engine.js~Category",
@@ -978,7 +926,7 @@
     }
   },
   {
-    "__docId__": 66,
+    "__docId__": 63,
     "kind": "get",
     "name": "complete",
     "memberof": "scripts/engine.js~Category",
@@ -999,7 +947,7 @@
     }
   },
   {
-    "__docId__": 67,
+    "__docId__": 64,
     "kind": "method",
     "name": "reset",
     "memberof": "scripts/engine.js~Category",
@@ -1014,7 +962,7 @@
     "return": null
   },
   {
-    "__docId__": 69,
+    "__docId__": 66,
     "kind": "method",
     "name": "nextClue",
     "memberof": "scripts/engine.js~Category",
@@ -1036,7 +984,7 @@
     "params": []
   },
   {
-    "__docId__": 70,
+    "__docId__": 67,
     "kind": "class",
     "name": "Board",
     "memberof": "scripts/engine.js",
@@ -1046,14 +994,12 @@
     "export": false,
     "importPath": "./scripts/engine.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 101,
-    "undocument": true,
-    "interface": false,
-    "ignore": true
+    "description": "A WOJ board with column * row clues arranged in a grid. The top left\ncorner is indexed at 0. Each column is a {@link Category} and each row in a \ncategory is a {@link Clue}. All categories must have the same number of \nclues. Each clue in the first row has {@link Board#basePoints}. Each clue in\nthe next row equals the sum of the clue value in the prior row plus \nbasePoints.",
+    "lineNumber": 109,
+    "interface": false
   },
   {
-    "__docId__": 71,
+    "__docId__": 68,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "scripts/engine.js~Board",
@@ -1062,13 +1008,49 @@
     "static": false,
     "longname": "scripts/engine.js~Board#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 102,
-    "undocument": true,
-    "ignore": true
+    "description": "",
+    "lineNumber": 116,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "6",
+        "defaultRaw": 6,
+        "name": "columns",
+        "description": "number of columns on the board."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "5",
+        "defaultRaw": 5,
+        "name": "rows",
+        "description": "number of rows on the board."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "200",
+        "defaultRaw": 200,
+        "name": "basePoints",
+        "description": "point value of each clues in the first \nrow."
+      }
+    ]
   },
   {
-    "__docId__": 72,
+    "__docId__": 69,
     "kind": "member",
     "name": "basePoints",
     "memberof": "scripts/engine.js~Board",
@@ -1076,7 +1058,7 @@
     "longname": "scripts/engine.js~Board#basePoints",
     "access": "public",
     "description": null,
-    "lineNumber": 105,
+    "lineNumber": 119,
     "undocument": true,
     "type": {
       "types": [
@@ -1086,25 +1068,26 @@
     "ignore": true
   },
   {
-    "__docId__": 73,
+    "__docId__": 70,
     "kind": "member",
     "name": "cluesAnswered",
     "memberof": "scripts/engine.js~Board",
     "static": false,
     "longname": "scripts/engine.js~Board#cluesAnswered",
     "access": "public",
-    "description": null,
-    "lineNumber": 108,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 131,
     "type": {
+      "nullable": null,
       "types": [
         "number"
-      ]
-    },
-    "ignore": true
+      ],
+      "spread": false,
+      "description": null
+    }
   },
   {
-    "__docId__": 74,
+    "__docId__": 71,
     "kind": "get",
     "name": "complete",
     "memberof": "scripts/engine.js~Board",
@@ -1114,17 +1097,18 @@
     "longname": "scripts/engine.js~Board#complete",
     "access": "public",
     "description": null,
-    "lineNumber": 113,
-    "undocument": true,
+    "lineNumber": 137,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+        "boolean"
+      ],
+      "spread": false,
+      "description": null
+    }
   },
   {
-    "__docId__": 75,
+    "__docId__": 72,
     "kind": "get",
     "name": "categoryNames",
     "memberof": "scripts/engine.js~Board",
@@ -1133,8 +1117,81 @@
     "static": false,
     "longname": "scripts/engine.js~Board#categoryNames",
     "access": "public",
+    "description": "",
+    "lineNumber": 144,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 73,
+    "kind": "method",
+    "name": "init_",
+    "memberof": "scripts/engine.js~Board",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Board#init_",
+    "access": "private",
+    "description": "Initializes an empty board of size columns * rows with {@link Clue}'s.",
+    "lineNumber": 158,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "columns",
+        "description": "number of columns on the board."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "rows",
+        "description": "number of rows on the board."
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 74,
+    "kind": "member",
+    "name": "categories",
+    "memberof": "scripts/engine.js~Board",
+    "static": false,
+    "longname": "scripts/engine.js~Board#categories",
+    "access": "public",
     "description": null,
-    "lineNumber": 117,
+    "lineNumber": 159,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 75,
+    "kind": "member",
+    "name": "columns",
+    "memberof": "scripts/engine.js~Board",
+    "static": false,
+    "longname": "scripts/engine.js~Board#columns",
+    "access": "public",
+    "description": null,
+    "lineNumber": 160,
     "undocument": true,
     "type": {
       "types": [
@@ -1145,78 +1202,6 @@
   },
   {
     "__docId__": 76,
-    "kind": "method",
-    "name": "init_",
-    "memberof": "scripts/engine.js~Board",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Board#init_",
-    "access": "public",
-    "description": null,
-    "lineNumber": 125,
-    "undocument": true,
-    "params": [
-      {
-        "name": "columns",
-        "optional": true,
-        "types": [
-          "number"
-        ],
-        "defaultRaw": 6,
-        "defaultValue": "6"
-      },
-      {
-        "name": "rows",
-        "optional": true,
-        "types": [
-          "number"
-        ],
-        "defaultRaw": 5,
-        "defaultValue": "5"
-      }
-    ],
-    "return": null,
-    "ignore": true
-  },
-  {
-    "__docId__": 77,
-    "kind": "member",
-    "name": "categories",
-    "memberof": "scripts/engine.js~Board",
-    "static": false,
-    "longname": "scripts/engine.js~Board#categories",
-    "access": "public",
-    "description": null,
-    "lineNumber": 126,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*[]"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 78,
-    "kind": "member",
-    "name": "columns",
-    "memberof": "scripts/engine.js~Board",
-    "static": false,
-    "longname": "scripts/engine.js~Board#columns",
-    "access": "public",
-    "description": null,
-    "lineNumber": 127,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 79,
     "kind": "member",
     "name": "rows",
     "memberof": "scripts/engine.js~Board",
@@ -1224,7 +1209,7 @@
     "longname": "scripts/engine.js~Board#rows",
     "access": "public",
     "description": null,
-    "lineNumber": 128,
+    "lineNumber": 161,
     "undocument": true,
     "type": {
       "types": [
@@ -1234,7 +1219,7 @@
     "ignore": true
   },
   {
-    "__docId__": 80,
+    "__docId__": 77,
     "kind": "method",
     "name": "reset",
     "memberof": "scripts/engine.js~Board",
@@ -1243,15 +1228,13 @@
     "static": false,
     "longname": "scripts/engine.js~Board#reset",
     "access": "public",
-    "description": null,
-    "lineNumber": 144,
-    "undocument": true,
+    "description": "Resets each category in the board and sets cluesAnswered count to 0.",
+    "lineNumber": 180,
     "params": [],
-    "return": null,
-    "ignore": true
+    "return": null
   },
   {
-    "__docId__": 82,
+    "__docId__": 79,
     "kind": "method",
     "name": "getCategory",
     "memberof": "scripts/engine.js~Board",
@@ -1260,26 +1243,31 @@
     "static": false,
     "longname": "scripts/engine.js~Board#getCategory",
     "access": "public",
-    "description": null,
-    "lineNumber": 151,
-    "undocument": true,
+    "description": "Returns a category at the specified column.",
+    "lineNumber": 192,
     "params": [
       {
-        "name": "column",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "column",
+        "description": "column index of the category."
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+        "Category"
+      ],
+      "spread": false,
+      "description": "category at the specified column."
+    }
   },
   {
-    "__docId__": 83,
+    "__docId__": 80,
     "kind": "method",
     "name": "getClue",
     "memberof": "scripts/engine.js~Board",
@@ -1288,32 +1276,41 @@
     "static": false,
     "longname": "scripts/engine.js~Board#getClue",
     "access": "public",
-    "description": null,
-    "lineNumber": 155,
-    "undocument": true,
+    "description": "Returns a clue at the specified column and row.",
+    "lineNumber": 202,
     "params": [
       {
-        "name": "column",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "column",
+        "description": "column index of the clue."
       },
       {
-        "name": "row",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "row",
+        "description": "row index of the clue."
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+        "Clue"
+      ],
+      "spread": false,
+      "description": "clue at the specified column and row."
+    }
   },
   {
-    "__docId__": 84,
+    "__docId__": 81,
     "kind": "method",
     "name": "editCategory",
     "memberof": "scripts/engine.js~Board",
@@ -1322,28 +1319,34 @@
     "static": false,
     "longname": "scripts/engine.js~Board#editCategory",
     "access": "public",
-    "description": null,
-    "lineNumber": 159,
-    "undocument": true,
+    "description": "Edit the name of a category at column index.",
+    "lineNumber": 211,
     "params": [
       {
-        "name": "column",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "column",
+        "description": "column index of the category."
       },
       {
-        "name": "name",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": "new category name."
       }
     ],
-    "return": null,
-    "ignore": true
+    "return": null
   },
   {
-    "__docId__": 85,
+    "__docId__": 82,
     "kind": "method",
     "name": "editClue",
     "memberof": "scripts/engine.js~Board",
@@ -1352,40 +1355,54 @@
     "static": false,
     "longname": "scripts/engine.js~Board#editClue",
     "access": "public",
-    "description": null,
-    "lineNumber": 164,
-    "undocument": true,
+    "description": "Edit the question and answer of a clue at column and row index.",
+    "lineNumber": 223,
     "params": [
       {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
         "name": "column",
-        "types": [
-          "*"
-        ]
+        "description": "column index of the clue."
       },
       {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
         "name": "row",
-        "types": [
-          "*"
-        ]
+        "description": "row index of the clue."
       },
       {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
         "name": "question",
-        "types": [
-          "*"
-        ]
+        "description": "new question text."
       },
       {
-        "name": "answer",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "answer",
+        "description": "new answer text."
       }
     ],
-    "return": null,
-    "ignore": true
+    "return": null
   },
   {
-    "__docId__": 86,
+    "__docId__": 83,
     "kind": "method",
     "name": "nextClue",
     "memberof": "scripts/engine.js~Board",
@@ -1394,26 +1411,31 @@
     "static": false,
     "longname": "scripts/engine.js~Board#nextClue",
     "access": "public",
-    "description": null,
-    "lineNumber": 170,
-    "undocument": true,
+    "description": "Retrieve next unanswered clue in the category at column and increment\ncluesAnswered. If all clues are answered, this will return undefined.",
+    "lineNumber": 235,
     "params": [
       {
-        "name": "column",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "column",
+        "description": "column index of the category."
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+        "clue"
+      ],
+      "spread": false,
+      "description": "the next unanswered clue."
+    }
   },
   {
-    "__docId__": 87,
+    "__docId__": 84,
     "kind": "method",
     "name": "import",
     "memberof": "scripts/engine.js~Board",
@@ -1422,22 +1444,107 @@
     "static": false,
     "longname": "scripts/engine.js~Board#import",
     "access": "public",
-    "description": null,
-    "lineNumber": 179,
-    "undocument": true,
+    "description": "Import JSON board, initializing board and setting categories and clues.\nData should be a string. Use JSON.stringify if data is an object literal.",
+    "see": [
+      "/scripts/data.js"
+    ],
+    "lineNumber": 261,
     "params": [
       {
-        "name": "data",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "board JSON."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.columns",
+        "description": "number of columns."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "numnber"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.rows",
+        "description": "number of rows."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.categories",
+        "description": "array of category names."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.clues",
+        "description": "array of clues, zero indexed from top left\nof board"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.clues.column",
+        "description": "column index of the clue."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.clues.row",
+        "description": "row index of the clue."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.clues.question",
+        "description": "new question text."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.clues.answer",
+        "description": "new answer text."
       }
     ],
-    "return": null,
-    "ignore": true
+    "return": null
   },
   {
-    "__docId__": 88,
+    "__docId__": 85,
     "kind": "method",
     "name": "export",
     "memberof": "scripts/engine.js~Board",
@@ -1446,19 +1553,26 @@
     "static": false,
     "longname": "scripts/engine.js~Board#export",
     "access": "public",
-    "description": null,
-    "lineNumber": 199,
-    "undocument": true,
-    "params": [],
+    "description": "Export board content to JSON board string. See {@link Board.import} for\ndetails on JSON board structure.",
+    "lineNumber": 286,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{string} serialized board."
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": "serialized board."
     },
-    "ignore": true
+    "params": []
   },
   {
-    "__docId__": 89,
+    "__docId__": 86,
     "kind": "class",
     "name": "Spin",
     "memberof": "scripts/engine.js",
@@ -1468,14 +1582,12 @@
     "export": false,
     "importPath": "./scripts/engine.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 224,
-    "undocument": true,
-    "interface": false,
-    "ignore": true
+    "description": "Result of a wheel spin.",
+    "lineNumber": 312,
+    "interface": false
   },
   {
-    "__docId__": 90,
+    "__docId__": 87,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "scripts/engine.js~Spin",
@@ -1484,13 +1596,63 @@
     "static": false,
     "longname": "scripts/engine.js~Spin#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 225,
-    "undocument": true,
-    "ignore": true
+    "description": "",
+    "lineNumber": 321,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "slot",
+        "description": "wheel slot number where spin landed."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "sectorNumber",
+        "description": "corresponding sector number located at slot."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "sectorName",
+        "description": "corresponding sector name located at slot."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "isCategory",
+        "description": "true if sector is category."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Clue"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "clue",
+        "description": "if isCategory is true and spinAgain is false, next\nclue in the category."
+      }
+    ]
   },
   {
-    "__docId__": 91,
+    "__docId__": 88,
     "kind": "member",
     "name": "slot",
     "memberof": "scripts/engine.js~Spin",
@@ -1498,7 +1660,61 @@
     "longname": "scripts/engine.js~Spin#slot",
     "access": "public",
     "description": null,
-    "lineNumber": 226,
+    "lineNumber": 322,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 89,
+    "kind": "member",
+    "name": "sectorNumber",
+    "memberof": "scripts/engine.js~Spin",
+    "static": false,
+    "longname": "scripts/engine.js~Spin#sectorNumber",
+    "access": "public",
+    "description": null,
+    "lineNumber": 323,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 90,
+    "kind": "member",
+    "name": "sectorName",
+    "memberof": "scripts/engine.js~Spin",
+    "static": false,
+    "longname": "scripts/engine.js~Spin#sectorName",
+    "access": "public",
+    "description": null,
+    "lineNumber": 324,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 91,
+    "kind": "member",
+    "name": "isCategory",
+    "memberof": "scripts/engine.js~Spin",
+    "static": false,
+    "longname": "scripts/engine.js~Spin#isCategory",
+    "access": "public",
+    "description": null,
+    "lineNumber": 325,
     "undocument": true,
     "type": {
       "types": [
@@ -1510,13 +1726,13 @@
   {
     "__docId__": 92,
     "kind": "member",
-    "name": "sectorNumber",
+    "name": "clue",
     "memberof": "scripts/engine.js~Spin",
     "static": false,
-    "longname": "scripts/engine.js~Spin#sectorNumber",
+    "longname": "scripts/engine.js~Spin#clue",
     "access": "public",
     "description": null,
-    "lineNumber": 227,
+    "lineNumber": 326,
     "undocument": true,
     "type": {
       "types": [
@@ -1528,67 +1744,84 @@
   {
     "__docId__": 93,
     "kind": "member",
-    "name": "sectorName",
-    "memberof": "scripts/engine.js~Spin",
-    "static": false,
-    "longname": "scripts/engine.js~Spin#sectorName",
-    "access": "public",
-    "description": null,
-    "lineNumber": 228,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 94,
-    "kind": "member",
-    "name": "isCategory",
-    "memberof": "scripts/engine.js~Spin",
-    "static": false,
-    "longname": "scripts/engine.js~Spin#isCategory",
-    "access": "public",
-    "description": null,
-    "lineNumber": 229,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 95,
-    "kind": "member",
     "name": "spinAgain",
     "memberof": "scripts/engine.js~Spin",
     "static": false,
     "longname": "scripts/engine.js~Spin#spinAgain",
     "access": "public",
-    "description": null,
-    "lineNumber": 230,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 331,
     "type": {
+      "nullable": null,
       "types": [
         "boolean"
-      ]
-    },
-    "ignore": true
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 94,
+    "kind": "class",
+    "name": "Wheel",
+    "memberof": "scripts/engine.js",
+    "static": true,
+    "longname": "scripts/engine.js~Wheel",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": "A WOJ wheel for a specific board and maximum spins. The number of slots on\nthe wheel will be the number of categories + the number of special sectors\n(6). Slots are fixed on the wheel. Each special and category is a sector.\nEach sector can be randomly assigned to a slot on the wheel. Categories are\nalways populated in the sector list first, followed by special sectors, i.e.\ncategory 0 on the board is always sector 0 on the wheel.",
+    "lineNumber": 343,
+    "interface": false
+  },
+  {
+    "__docId__": 95,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#constructor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 348,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Board"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "board",
+        "description": "an initialized WOJ board."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "50",
+        "defaultRaw": 50,
+        "name": "maxSpins",
+        "description": "the max spins allowed."
+      }
+    ]
   },
   {
     "__docId__": 96,
     "kind": "member",
-    "name": "clue",
-    "memberof": "scripts/engine.js~Spin",
+    "name": "board",
+    "memberof": "scripts/engine.js~Wheel",
     "static": false,
-    "longname": "scripts/engine.js~Spin#clue",
+    "longname": "scripts/engine.js~Wheel#board",
     "access": "public",
     "description": null,
-    "lineNumber": 231,
+    "lineNumber": 349,
     "undocument": true,
     "type": {
       "types": [
@@ -1599,74 +1832,6 @@
   },
   {
     "__docId__": 97,
-    "kind": "class",
-    "name": "Wheel",
-    "memberof": "scripts/engine.js",
-    "static": true,
-    "longname": "scripts/engine.js~Wheel",
-    "access": "public",
-    "export": false,
-    "importPath": "./scripts/engine.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 235,
-    "undocument": true,
-    "interface": false,
-    "ignore": true
-  },
-  {
-    "__docId__": 98,
-    "kind": "constructor",
-    "name": "constructor",
-    "memberof": "scripts/engine.js~Wheel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#constructor",
-    "access": "public",
-    "description": null,
-    "lineNumber": 236,
-    "undocument": true,
-    "ignore": true
-  },
-  {
-    "__docId__": 99,
-    "kind": "member",
-    "name": "specialSectors",
-    "memberof": "scripts/engine.js~Wheel",
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#specialSectors",
-    "access": "public",
-    "description": null,
-    "lineNumber": 237,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string[]"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 100,
-    "kind": "member",
-    "name": "board",
-    "memberof": "scripts/engine.js~Wheel",
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#board",
-    "access": "public",
-    "description": null,
-    "lineNumber": 245,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 101,
     "kind": "member",
     "name": "maxSpins",
     "memberof": "scripts/engine.js~Wheel",
@@ -1674,7 +1839,7 @@
     "longname": "scripts/engine.js~Wheel#maxSpins",
     "access": "public",
     "description": null,
-    "lineNumber": 246,
+    "lineNumber": 350,
     "undocument": true,
     "type": {
       "types": [
@@ -1684,298 +1849,34 @@
     "ignore": true
   },
   {
-    "__docId__": 102,
+    "__docId__": 98,
+    "kind": "member",
+    "name": "specialSectors",
+    "memberof": "scripts/engine.js~Wheel",
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#specialSectors",
+    "access": "public",
+    "description": "",
+    "lineNumber": 355,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 99,
     "kind": "member",
     "name": "usedSpins",
     "memberof": "scripts/engine.js~Wheel",
     "static": false,
     "longname": "scripts/engine.js~Wheel#usedSpins",
     "access": "public",
-    "description": null,
-    "lineNumber": 247,
-    "undocument": true,
-    "type": {
-      "types": [
-        "number"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 103,
-    "kind": "member",
-    "name": "slots",
-    "memberof": "scripts/engine.js~Wheel",
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#slots",
-    "access": "public",
-    "description": null,
-    "lineNumber": 248,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*[]"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 104,
-    "kind": "get",
-    "name": "complete",
-    "memberof": "scripts/engine.js~Wheel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#complete",
-    "access": "public",
-    "description": null,
-    "lineNumber": 253,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 105,
-    "kind": "get",
-    "name": "sectors",
-    "memberof": "scripts/engine.js~Wheel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#sectors",
-    "access": "public",
-    "description": null,
-    "lineNumber": 257,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 106,
-    "kind": "method",
-    "name": "reset",
-    "memberof": "scripts/engine.js~Wheel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#reset",
-    "access": "public",
-    "description": null,
-    "lineNumber": 261,
-    "undocument": true,
-    "params": [],
-    "return": null,
-    "ignore": true
-  },
-  {
-    "__docId__": 108,
-    "kind": "method",
-    "name": "assignSectors",
-    "memberof": "scripts/engine.js~Wheel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#assignSectors",
-    "access": "public",
-    "description": null,
-    "lineNumber": 265,
-    "undocument": true,
-    "params": [],
-    "return": null,
-    "ignore": true
-  },
-  {
-    "__docId__": 110,
-    "kind": "method",
-    "name": "randomizeSectors",
-    "memberof": "scripts/engine.js~Wheel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#randomizeSectors",
-    "access": "public",
-    "description": null,
-    "lineNumber": 273,
-    "undocument": true,
-    "params": [],
-    "return": null,
-    "ignore": true
-  },
-  {
-    "__docId__": 112,
-    "kind": "method",
-    "name": "getSectorNumber",
-    "memberof": "scripts/engine.js~Wheel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#getSectorNumber",
-    "access": "public",
-    "description": null,
-    "lineNumber": 277,
-    "undocument": true,
-    "params": [
-      {
-        "name": "slot",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 113,
-    "kind": "method",
-    "name": "getSectorName",
-    "memberof": "scripts/engine.js~Wheel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#getSectorName",
-    "access": "public",
-    "description": null,
-    "lineNumber": 281,
-    "undocument": true,
-    "params": [
-      {
-        "name": "sectorNumber",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 114,
-    "kind": "method",
-    "name": "sectorIsCategory",
-    "memberof": "scripts/engine.js~Wheel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#sectorIsCategory",
-    "access": "public",
-    "description": null,
-    "lineNumber": 285,
-    "undocument": true,
-    "params": [
-      {
-        "name": "sectorNumber",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "return": {
-      "types": [
-        "boolean"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 115,
-    "kind": "method",
-    "name": "getRandomSlot",
-    "memberof": "scripts/engine.js~Wheel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#getRandomSlot",
-    "access": "public",
-    "description": null,
-    "lineNumber": 293,
-    "undocument": true,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 116,
-    "kind": "method",
-    "name": "spin",
-    "memberof": "scripts/engine.js~Wheel",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Wheel#spin",
-    "access": "public",
-    "description": null,
-    "lineNumber": 297,
-    "undocument": true,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 117,
-    "kind": "class",
-    "name": "Score",
-    "memberof": "scripts/engine.js",
-    "static": true,
-    "longname": "scripts/engine.js~Score",
-    "access": "public",
-    "export": false,
-    "importPath": "./scripts/engine.js",
-    "importStyle": null,
-    "description": "A score keeper for a single player and round.",
-    "lineNumber": 322,
-    "interface": false
-  },
-  {
-    "__docId__": 118,
-    "kind": "constructor",
-    "name": "constructor",
-    "memberof": "scripts/engine.js~Score",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "scripts/engine.js~Score#constructor",
-    "access": "public",
-    "description": null,
-    "lineNumber": 323,
-    "undocument": true,
-    "ignore": true
-  },
-  {
-    "__docId__": 119,
-    "kind": "member",
-    "name": "points",
-    "memberof": "scripts/engine.js~Score",
-    "static": false,
-    "longname": "scripts/engine.js~Score#points",
-    "access": "public",
-    "description": null,
-    "lineNumber": 325,
+    "description": "",
+    "lineNumber": 367,
     "type": {
       "nullable": null,
       "types": [
@@ -1986,7 +1887,317 @@
     }
   },
   {
-    "__docId__": 120,
+    "__docId__": 100,
+    "kind": "member",
+    "name": "slots",
+    "memberof": "scripts/engine.js~Wheel",
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#slots",
+    "access": "public",
+    "description": "",
+    "lineNumber": 372,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 101,
+    "kind": "get",
+    "name": "complete",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#complete",
+    "access": "public",
+    "description": null,
+    "lineNumber": 378,
+    "type": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 102,
+    "kind": "get",
+    "name": "sectors",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#sectors",
+    "access": "public",
+    "description": "",
+    "lineNumber": 386,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 103,
+    "kind": "method",
+    "name": "reset",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#reset",
+    "access": "public",
+    "description": "Resets used spins to 0.",
+    "lineNumber": 393,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 105,
+    "kind": "method",
+    "name": "assignSectors",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#assignSectors",
+    "access": "public",
+    "description": "Assigns sectors numbers to each slot ordered by categories then special.",
+    "lineNumber": 400,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 107,
+    "kind": "method",
+    "name": "randomizeSectors",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#randomizeSectors",
+    "access": "public",
+    "description": "Randomizes sectors in the slots.",
+    "lineNumber": 411,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 109,
+    "kind": "method",
+    "name": "getSectorNumber",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#getSectorNumber",
+    "access": "public",
+    "description": "Get sector number at a specific slot number.",
+    "lineNumber": 420,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "slot",
+        "description": "slot number in the wheel."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": "sector number at the specified slot."
+    }
+  },
+  {
+    "__docId__": 110,
+    "kind": "method",
+    "name": "getSectorName",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#getSectorName",
+    "access": "public",
+    "description": "Get sector name for the specific sector number.",
+    "lineNumber": 429,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "sectorNumber",
+        "description": "sector number."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": "sector name for the sector number."
+    }
+  },
+  {
+    "__docId__": 111,
+    "kind": "method",
+    "name": "sectorIsCategory",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#sectorIsCategory",
+    "access": "public",
+    "description": "Check if the sector is a category (vs a special sector).",
+    "lineNumber": 438,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "sectorNumber",
+        "description": "number of the sector."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": "true if the sector is a category."
+    }
+  },
+  {
+    "__docId__": 112,
+    "kind": "method",
+    "name": "getRandomSlot",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#getRandomSlot",
+    "access": "public",
+    "description": "Return a random slot number from the wheel.",
+    "lineNumber": 450,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{number} a random slot number."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": "a random slot number."
+    },
+    "params": []
+  },
+  {
+    "__docId__": 113,
+    "kind": "method",
+    "name": "spin",
+    "memberof": "scripts/engine.js~Wheel",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Wheel#spin",
+    "access": "public",
+    "description": "Spins the wheel and returns a random sector. Populates the {@link Spin}\nobject with the spin results and depending on the outcome, adjusts points\nor retrieves the next clue.",
+    "lineNumber": 460,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Spin} object summarizing result of the spin."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Spin"
+      ],
+      "spread": false,
+      "description": "object summarizing result of the spin."
+    },
+    "params": []
+  },
+  {
+    "__docId__": 114,
+    "kind": "class",
+    "name": "Score",
+    "memberof": "scripts/engine.js",
+    "static": true,
+    "longname": "scripts/engine.js~Score",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/engine.js",
+    "importStyle": null,
+    "description": "A score keeper for a single player and round.",
+    "lineNumber": 485,
+    "interface": false
+  },
+  {
+    "__docId__": 115,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "scripts/engine.js~Score",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "scripts/engine.js~Score#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 486,
+    "undocument": true,
+    "ignore": true
+  },
+  {
+    "__docId__": 116,
+    "kind": "member",
+    "name": "points",
+    "memberof": "scripts/engine.js~Score",
+    "static": false,
+    "longname": "scripts/engine.js~Score#points",
+    "access": "public",
+    "description": "",
+    "lineNumber": 490,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 117,
     "kind": "method",
     "name": "reset",
     "memberof": "scripts/engine.js~Score",
@@ -1996,12 +2207,12 @@
     "longname": "scripts/engine.js~Score#reset",
     "access": "public",
     "description": "Reset points to 0.",
-    "lineNumber": 329,
+    "lineNumber": 494,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 122,
+    "__docId__": 119,
     "kind": "method",
     "name": "increase",
     "memberof": "scripts/engine.js~Score",
@@ -2011,7 +2222,7 @@
     "longname": "scripts/engine.js~Score#increase",
     "access": "public",
     "description": "Increase points by a number (sign ignored).",
-    "lineNumber": 337,
+    "lineNumber": 502,
     "params": [
       {
         "nullable": null,
@@ -2027,7 +2238,7 @@
     "return": null
   },
   {
-    "__docId__": 124,
+    "__docId__": 121,
     "kind": "method",
     "name": "decrease",
     "memberof": "scripts/engine.js~Score",
@@ -2037,7 +2248,7 @@
     "longname": "scripts/engine.js~Score#decrease",
     "access": "public",
     "description": "Decrease points by a number (sign ignored).",
-    "lineNumber": 345,
+    "lineNumber": 510,
     "params": [
       {
         "nullable": null,
@@ -2053,7 +2264,7 @@
     "return": null
   },
   {
-    "__docId__": 126,
+    "__docId__": 123,
     "kind": "method",
     "name": "bankrupt",
     "memberof": "scripts/engine.js~Score",
@@ -2063,12 +2274,12 @@
     "longname": "scripts/engine.js~Score#bankrupt",
     "access": "public",
     "description": "If points are positive, set points to 0.",
-    "lineNumber": 350,
+    "lineNumber": 515,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 128,
+    "__docId__": 125,
     "kind": "method",
     "name": "double",
     "memberof": "scripts/engine.js~Score",
@@ -2078,12 +2289,12 @@
     "longname": "scripts/engine.js~Score#double",
     "access": "public",
     "description": "Double points, even if negative.",
-    "lineNumber": 355,
+    "lineNumber": 520,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 130,
+    "__docId__": 127,
     "kind": "class",
     "name": "Player",
     "memberof": "scripts/engine.js",
@@ -2093,14 +2304,12 @@
     "export": false,
     "importPath": "./scripts/engine.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 360,
-    "undocument": true,
-    "interface": false,
-    "ignore": true
+    "description": "A player in the WOJ game.",
+    "lineNumber": 528,
+    "interface": false
   },
   {
-    "__docId__": 131,
+    "__docId__": 128,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "scripts/engine.js~Player",
@@ -2109,13 +2318,23 @@
     "static": false,
     "longname": "scripts/engine.js~Player#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 361,
-    "undocument": true,
-    "ignore": true
+    "description": "",
+    "lineNumber": 532,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "name",
+        "description": "the players name."
+      }
+    ]
   },
   {
-    "__docId__": 132,
+    "__docId__": 129,
     "kind": "member",
     "name": "name",
     "memberof": "scripts/engine.js~Player",
@@ -2123,7 +2342,7 @@
     "longname": "scripts/engine.js~Player#name",
     "access": "public",
     "description": null,
-    "lineNumber": 362,
+    "lineNumber": 533,
     "undocument": true,
     "type": {
       "types": [
@@ -2133,43 +2352,45 @@
     "ignore": true
   },
   {
-    "__docId__": 133,
+    "__docId__": 130,
     "kind": "member",
     "name": "tokens",
     "memberof": "scripts/engine.js~Player",
     "static": false,
     "longname": "scripts/engine.js~Player#tokens",
     "access": "public",
-    "description": null,
-    "lineNumber": 363,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 538,
     "type": {
+      "nullable": null,
       "types": [
         "number"
-      ]
-    },
-    "ignore": true
+      ],
+      "spread": false,
+      "description": null
+    }
   },
   {
-    "__docId__": 134,
+    "__docId__": 131,
     "kind": "member",
     "name": "scores",
     "memberof": "scripts/engine.js~Player",
     "static": false,
     "longname": "scripts/engine.js~Player#scores",
     "access": "public",
-    "description": null,
-    "lineNumber": 364,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 544,
     "type": {
+      "nullable": null,
       "types": [
-        "*[]"
-      ]
-    },
-    "ignore": true
+        "Score[]"
+      ],
+      "spread": false,
+      "description": null
+    }
   },
   {
-    "__docId__": 135,
+    "__docId__": 132,
     "kind": "get",
     "name": "totalScore",
     "memberof": "scripts/engine.js~Player",
@@ -2179,17 +2400,18 @@
     "longname": "scripts/engine.js~Player#totalScore",
     "access": "public",
     "description": null,
-    "lineNumber": 367,
-    "undocument": true,
+    "lineNumber": 548,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+        "numbner"
+      ],
+      "spread": false,
+      "description": null
+    }
   },
   {
-    "__docId__": 136,
+    "__docId__": 133,
     "kind": "method",
     "name": "resetTokens",
     "memberof": "scripts/engine.js~Player",
@@ -2198,15 +2420,13 @@
     "static": false,
     "longname": "scripts/engine.js~Player#resetTokens",
     "access": "public",
-    "description": null,
-    "lineNumber": 375,
-    "undocument": true,
+    "description": "Sets the player's tokens to 0.",
+    "lineNumber": 557,
     "params": [],
-    "return": null,
-    "ignore": true
+    "return": null
   },
   {
-    "__docId__": 138,
+    "__docId__": 135,
     "kind": "method",
     "name": "resetScore",
     "memberof": "scripts/engine.js~Player",
@@ -2215,22 +2435,24 @@
     "static": false,
     "longname": "scripts/engine.js~Player#resetScore",
     "access": "public",
-    "description": null,
-    "lineNumber": 379,
-    "undocument": true,
+    "description": " Reset score for round to 0.",
+    "lineNumber": 565,
     "params": [
       {
-        "name": "round",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "round",
+        "description": "number of the round, 0 is round 1."
       }
     ],
-    "return": null,
-    "ignore": true
+    "return": null
   },
   {
-    "__docId__": 139,
+    "__docId__": 136,
     "kind": "method",
     "name": "getScore",
     "memberof": "scripts/engine.js~Player",
@@ -2239,26 +2461,37 @@
     "static": false,
     "longname": "scripts/engine.js~Player#getScore",
     "access": "public",
-    "description": null,
-    "lineNumber": 383,
-    "undocument": true,
+    "description": "Return the score for a given round number.",
+    "lineNumber": 574,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{number} score for the given round number."
+      }
+    ],
     "params": [
       {
-        "name": "round",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "round",
+        "description": "number of the round, 0 is round 1."
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+        "number"
+      ],
+      "spread": false,
+      "description": "score for the given round number."
+    }
   },
   {
-    "__docId__": 140,
+    "__docId__": 137,
     "kind": "method",
     "name": "addToken",
     "memberof": "scripts/engine.js~Player",
@@ -2267,15 +2500,13 @@
     "static": false,
     "longname": "scripts/engine.js~Player#addToken",
     "access": "public",
-    "description": null,
-    "lineNumber": 387,
-    "undocument": true,
+    "description": "Adds 1 token to the player's tokens.",
+    "lineNumber": 581,
     "params": [],
-    "return": null,
-    "ignore": true
+    "return": null
   },
   {
-    "__docId__": 142,
+    "__docId__": 139,
     "kind": "method",
     "name": "hasToken",
     "memberof": "scripts/engine.js~Player",
@@ -2284,19 +2515,26 @@
     "static": false,
     "longname": "scripts/engine.js~Player#hasToken",
     "access": "public",
-    "description": null,
-    "lineNumber": 391,
-    "undocument": true,
-    "params": [],
+    "description": "Checks if the player has any tokens.",
+    "lineNumber": 589,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "true if the player has at least one token."
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
+      ],
+      "spread": false,
+      "description": "true if the player has at least one token."
     },
-    "ignore": true
+    "params": []
   },
   {
-    "__docId__": 143,
+    "__docId__": 140,
     "kind": "method",
     "name": "useToken",
     "memberof": "scripts/engine.js~Player",
@@ -2305,19 +2543,26 @@
     "static": false,
     "longname": "scripts/engine.js~Player#useToken",
     "access": "public",
-    "description": null,
-    "lineNumber": 395,
-    "undocument": true,
-    "params": [],
+    "description": "Deduct a token, if the player has one.",
+    "lineNumber": 597,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{boolean} false if the player does not have a token to use."
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "boolean"
-      ]
+      ],
+      "spread": false,
+      "description": "false if the player does not have a token to use."
     },
-    "ignore": true
+    "params": []
   },
   {
-    "__docId__": 144,
+    "__docId__": 141,
     "kind": "class",
     "name": "Round",
     "memberof": "scripts/engine.js",
@@ -2327,14 +2572,15 @@
     "export": false,
     "importPath": "./scripts/engine.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 405,
-    "undocument": true,
-    "interface": false,
-    "ignore": true
+    "description": "A round in the WOJ game. The standard game is played with two rounds. The\nround ID must be unique and is used to store and access the round in the\ngames round list.",
+    "lineNumber": 613,
+    "todo": [
+      "fix round id so it is auto-assigned / inked to array index."
+    ],
+    "interface": false
   },
   {
-    "__docId__": 145,
+    "__docId__": 142,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "scripts/engine.js~Round",
@@ -2343,13 +2589,55 @@
     "static": false,
     "longname": "scripts/engine.js~Round#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 406,
-    "undocument": true,
-    "ignore": true
+    "description": "",
+    "lineNumber": 621,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "A unique numeric ID for the round."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Wheel"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "wheel",
+        "description": "a wheel for the round."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Player[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "players",
+        "description": "an array of players in the game."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "20",
+        "defaultRaw": 20,
+        "name": "maxTime",
+        "description": "maximum time to answer a question in\nseconds."
+      }
+    ]
   },
   {
-    "__docId__": 146,
+    "__docId__": 143,
     "kind": "member",
     "name": "id",
     "memberof": "scripts/engine.js~Round",
@@ -2357,7 +2645,61 @@
     "longname": "scripts/engine.js~Round#id",
     "access": "public",
     "description": null,
-    "lineNumber": 407,
+    "lineNumber": 622,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 144,
+    "kind": "member",
+    "name": "wheel",
+    "memberof": "scripts/engine.js~Round",
+    "static": false,
+    "longname": "scripts/engine.js~Round#wheel",
+    "access": "public",
+    "description": null,
+    "lineNumber": 623,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 145,
+    "kind": "member",
+    "name": "players",
+    "memberof": "scripts/engine.js~Round",
+    "static": false,
+    "longname": "scripts/engine.js~Round#players",
+    "access": "public",
+    "description": null,
+    "lineNumber": 624,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 146,
+    "kind": "member",
+    "name": "maxTime",
+    "memberof": "scripts/engine.js~Round",
+    "static": false,
+    "longname": "scripts/engine.js~Round#maxTime",
+    "access": "public",
+    "description": null,
+    "lineNumber": 625,
     "undocument": true,
     "type": {
       "types": [
@@ -2369,95 +2711,43 @@
   {
     "__docId__": 147,
     "kind": "member",
-    "name": "wheel",
-    "memberof": "scripts/engine.js~Round",
-    "static": false,
-    "longname": "scripts/engine.js~Round#wheel",
-    "access": "public",
-    "description": null,
-    "lineNumber": 408,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 148,
-    "kind": "member",
     "name": "board",
     "memberof": "scripts/engine.js~Round",
     "static": false,
     "longname": "scripts/engine.js~Round#board",
     "access": "public",
-    "description": null,
-    "lineNumber": 409,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 630,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+        "Board"
+      ],
+      "spread": false,
+      "description": null
+    }
   },
   {
-    "__docId__": 149,
-    "kind": "member",
-    "name": "players",
-    "memberof": "scripts/engine.js~Round",
-    "static": false,
-    "longname": "scripts/engine.js~Round#players",
-    "access": "public",
-    "description": null,
-    "lineNumber": 410,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 150,
-    "kind": "member",
-    "name": "maxTime",
-    "memberof": "scripts/engine.js~Round",
-    "static": false,
-    "longname": "scripts/engine.js~Round#maxTime",
-    "access": "public",
-    "description": null,
-    "lineNumber": 411,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 151,
+    "__docId__": 148,
     "kind": "member",
     "name": "currentPlayer",
     "memberof": "scripts/engine.js~Round",
     "static": false,
     "longname": "scripts/engine.js~Round#currentPlayer",
     "access": "public",
-    "description": null,
-    "lineNumber": 412,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 635,
     "type": {
+      "nullable": null,
       "types": [
         "number"
-      ]
-    },
-    "ignore": true
+      ],
+      "spread": false,
+      "description": null
+    }
   },
   {
-    "__docId__": 152,
+    "__docId__": 149,
     "kind": "get",
     "name": "complete",
     "memberof": "scripts/engine.js~Round",
@@ -2467,17 +2757,18 @@
     "longname": "scripts/engine.js~Round#complete",
     "access": "public",
     "description": null,
-    "lineNumber": 415,
-    "undocument": true,
+    "lineNumber": 639,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+        "boolean"
+      ],
+      "spread": false,
+      "description": null
+    }
   },
   {
-    "__docId__": 153,
+    "__docId__": 150,
     "kind": "method",
     "name": "start",
     "memberof": "scripts/engine.js~Round",
@@ -2486,15 +2777,13 @@
     "static": false,
     "longname": "scripts/engine.js~Round#start",
     "access": "public",
-    "description": null,
-    "lineNumber": 419,
-    "undocument": true,
+    "description": "Start the WOJ round.",
+    "lineNumber": 646,
     "params": [],
-    "return": null,
-    "ignore": true
+    "return": null
   },
   {
-    "__docId__": 154,
+    "__docId__": 151,
     "kind": "method",
     "name": "reset",
     "memberof": "scripts/engine.js~Round",
@@ -2503,15 +2792,13 @@
     "static": false,
     "longname": "scripts/engine.js~Round#reset",
     "access": "public",
-    "description": null,
-    "lineNumber": 423,
-    "undocument": true,
+    "description": "Resets the current round by reseting the wheel, board, and player scores.",
+    "lineNumber": 653,
     "params": [],
-    "return": null,
-    "ignore": true
+    "return": null
   },
   {
-    "__docId__": 156,
+    "__docId__": 153,
     "kind": "class",
     "name": "Game",
     "memberof": "scripts/engine.js",
@@ -2521,14 +2808,15 @@
     "export": false,
     "importPath": "./scripts/engine.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 433,
-    "undocument": true,
-    "interface": false,
-    "ignore": true
+    "description": "The WOJ game. Supports creation of board, wheel, and players which are\nused to track game play. This class should be used to create games and add\nrounds to ensure proper functionality.",
+    "examples": [
+      "let game = new Game();\n\n// create default boards\nlet data = [data1, data2];\n\nfor(let i=0; i<data.length; i++){\n     let round = game.addRound();\n     round.board.import(JSON.stringify(data[i]));\n     round.wheel.assignSectors();\n     round.wheel.randomizeSectors();    \n}\n\n// edit board content if needed\nround = game.getRound(0);\nlet clue = round.board.getCategory(1).clues[2];\nclue.question = \"What is the oldest soft drink in America?\";\nclue.answer = \"Dr. Pepper.\";\n\n// start game\ngame.addPlayer(\"John\");\ngame.addPlayer(\"Jane\");\n\n// start first round\nround = game.getRound(0);\nround.start();\n\n// player spins\nconsole.log(round.currentPlayer);\nlet spin = round.wheel.spin();\nconsole.log(spin);\nconsole.log(round.complete);"
+    ],
+    "lineNumber": 701,
+    "interface": false
   },
   {
-    "__docId__": 157,
+    "__docId__": 154,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "scripts/engine.js~Game",
@@ -2538,12 +2826,12 @@
     "longname": "scripts/engine.js~Game#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 434,
+    "lineNumber": 702,
     "undocument": true,
     "ignore": true
   },
   {
-    "__docId__": 158,
+    "__docId__": 155,
     "kind": "member",
     "name": "players",
     "memberof": "scripts/engine.js~Game",
@@ -2551,17 +2839,18 @@
     "longname": "scripts/engine.js~Game#players",
     "access": "public",
     "description": null,
-    "lineNumber": 435,
-    "undocument": true,
+    "lineNumber": 704,
     "type": {
+      "nullable": null,
       "types": [
-        "*[]"
-      ]
-    },
-    "ignore": true
+        "Player[]"
+      ],
+      "spread": false,
+      "description": null
+    }
   },
   {
-    "__docId__": 159,
+    "__docId__": 156,
     "kind": "member",
     "name": "rounds",
     "memberof": "scripts/engine.js~Game",
@@ -2569,17 +2858,18 @@
     "longname": "scripts/engine.js~Game#rounds",
     "access": "public",
     "description": null,
-    "lineNumber": 436,
-    "undocument": true,
+    "lineNumber": 707,
     "type": {
+      "nullable": null,
       "types": [
-        "*[]"
-      ]
-    },
-    "ignore": true
+        "Rounds[]"
+      ],
+      "spread": false,
+      "description": null
+    }
   },
   {
-    "__docId__": 160,
+    "__docId__": 157,
     "kind": "member",
     "name": "currentRound",
     "memberof": "scripts/engine.js~Game",
@@ -2587,17 +2877,18 @@
     "longname": "scripts/engine.js~Game#currentRound",
     "access": "public",
     "description": null,
-    "lineNumber": 437,
-    "undocument": true,
+    "lineNumber": 710,
     "type": {
+      "nullable": null,
       "types": [
         "number"
-      ]
-    },
-    "ignore": true
+      ],
+      "spread": false,
+      "description": null
+    }
   },
   {
-    "__docId__": 161,
+    "__docId__": 158,
     "kind": "method",
     "name": "addPlayer",
     "memberof": "scripts/engine.js~Game",
@@ -2606,22 +2897,24 @@
     "static": false,
     "longname": "scripts/engine.js~Game#addPlayer",
     "access": "public",
-    "description": null,
-    "lineNumber": 440,
-    "undocument": true,
+    "description": "Add a player to the game",
+    "lineNumber": 717,
     "params": [
       {
-        "name": "name",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": "the players name."
       }
     ],
-    "return": null,
-    "ignore": true
+    "return": null
   },
   {
-    "__docId__": 162,
+    "__docId__": 159,
     "kind": "method",
     "name": "getPlayer",
     "memberof": "scripts/engine.js~Game",
@@ -2630,26 +2923,37 @@
     "static": false,
     "longname": "scripts/engine.js~Game#getPlayer",
     "access": "public",
-    "description": null,
-    "lineNumber": 445,
-    "undocument": true,
+    "description": "Retrieve a player.",
+    "lineNumber": 727,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Player} the player at index number."
+      }
+    ],
     "params": [
       {
-        "name": "id",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "the players id number, player one is id: 0."
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+        "Player"
+      ],
+      "spread": false,
+      "description": "the player at index number."
+    }
   },
   {
-    "__docId__": 163,
+    "__docId__": 160,
     "kind": "method",
     "name": "editPlayer",
     "memberof": "scripts/engine.js~Game",
@@ -2658,28 +2962,34 @@
     "static": false,
     "longname": "scripts/engine.js~Game#editPlayer",
     "access": "public",
-    "description": null,
-    "lineNumber": 449,
-    "undocument": true,
+    "description": "Retrieve and edit a player.",
+    "lineNumber": 736,
     "params": [
       {
-        "name": "id",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "the players id number, player one is id: 0."
       },
       {
-        "name": "name",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": "the players name."
       }
     ],
-    "return": null,
-    "ignore": true
+    "return": null
   },
   {
-    "__docId__": 164,
+    "__docId__": 161,
     "kind": "method",
     "name": "addRound",
     "memberof": "scripts/engine.js~Game",
@@ -2688,19 +2998,26 @@
     "static": false,
     "longname": "scripts/engine.js~Game#addRound",
     "access": "public",
-    "description": null,
-    "lineNumber": 454,
-    "undocument": true,
-    "params": [],
+    "description": "Add and initialize a game round with an empty wheel and board.",
+    "lineNumber": 745,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Round} a game round."
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Round"
+      ],
+      "spread": false,
+      "description": "a game round."
     },
-    "ignore": true
+    "params": []
   },
   {
-    "__docId__": 165,
+    "__docId__": 162,
     "kind": "method",
     "name": "getRound",
     "memberof": "scripts/engine.js~Game",
@@ -2709,26 +3026,28 @@
     "static": false,
     "longname": "scripts/engine.js~Game#getRound",
     "access": "public",
-    "description": null,
-    "lineNumber": 463,
-    "undocument": true,
+    "description": "Retrieve a game round by id.",
+    "lineNumber": 758,
     "params": [
       {
-        "name": "id",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Round"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "the rounds id number, round one is id: 0"
       }
     ],
     "return": {
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 166,
+    "__docId__": 163,
     "kind": "file",
     "name": "scripts/ui.js",
     "content": "\"use strict\"\n/***\n * @file UI setup and interaction.\n */\n\n// globals\nlet game;\nlet round;\n\n$(document).ready(function(){\n    // hide setup view\n    $(\".setup\").hide();\n\n    game = new Game();\n\n    // create default boards\n    let data = [data1, data2];\n\n    for(let i=0; i<data.length; i++){\n        let round = game.addRound();\n\n        round.board.import(JSON.stringify(data[i]));\n        round.wheel.assignSectors();\n        round.wheel.randomizeSectors();    \n    }\n\n    // edit board content if needed\n    round = game.getRound(0);\n    let clue = round.board.getCategory(1).clues[2];\n    clue.question = \"What is the oldest soft drink in America?\";\n    clue.answer = \"Dr. Pepper.\";\n\n\n    // start game\n    $(\"#btn-play\").click(function(){\n        // store players -- should be adjusted for num of players and default names\n        let playerName = $(\"#player0\").find(\"input\").val();\n        game.addPlayer(playerName);\n    })\n\n    // start first round\n    round = game.getRound(0);\n    round.start();\n\n    // player spins\n    console.log(round.currentPlayer);\n    let spin = round.wheel.spin();\n\n    // animate the wheel\n\n    // display outcome\n    console.log(spin);\n\n    // address outcome\n\n    // check if round is over\n    if(round.complete){\n        // end round\n    }\n  });\n",
@@ -2748,7 +3067,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"scripts\": {\n    \"test\": \"nyc --reporter=html --reporter=text mocha\",\n    \"coverage\": \"nyc report --reporter=text-lcov | coveralls\",\n    \"docs\": \"./node_modules/.bin/esdoc\"\n  },\n  \"devDependencies\": {\n    \"coveralls\": \"^3.0.2\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"nyc\": \"^12.0.2\"\n  },\n  \"esdoc\": {\n    \"source\": \"./scripts\",\n    \"destination\": \"./docs\",\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\",\n        \"option\": {\n          \"undocumentIdentifier\": {\"enable\": false},\n          \"unexportedIdentifier\": {\"enable\": true},\n          \"brand\": {\n            \"logo\": \"assets/logo.png\",\n            \"title\": \"Wheel of Jeopardy\",\n            \"description\": \"The Wheel of Jeopardy Game by Team Velocity\",\n            \"repository\": \"https://github.com/TeamVelocity/teamvelocity.github.io\",\n            \"site\": \"http://teamvelocity.github.io\",\n            \"author\": \"Team Velocity\"\n          }\n        }\n      }\n    ]\n  }\n}\n",
+    "content": "{\n  \"scripts\": {\n    \"test\": \"nyc --reporter=html --reporter=text mocha\",\n    \"coverage\": \"nyc report --reporter=text-lcov | coveralls\",\n    \"docs\": \"./node_modules/.bin/esdoc\"\n  },\n  \"devDependencies\": {\n    \"coveralls\": \"^3.0.2\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"nyc\": \"^12.0.2\"\n  },\n  \"esdoc\": {\n    \"source\": \"./scripts\",\n    \"destination\": \"./docs\",\n    \"excludes\": \t[\"\\\\.config\\\\.js$\", \"data\\\\.js\"],\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\",\n        \"option\": {\n          \"undocumentIdentifier\": {\n            \"enable\": false\n          },\n          \"unexportedIdentifier\": {\n            \"enable\": true\n          },\n          \"brand\": {\n            \"logo\": \"assets/logo.png\",\n            \"title\": \"Wheel of Jeopardy\",\n            \"description\": \"The Wheel of Jeopardy Game by Team Velocity\",\n            \"repository\": \"https://github.com/TeamVelocity/teamvelocity.github.io\",\n            \"site\": \"http://teamvelocity.github.io\",\n            \"author\": \"Team Velocity\"\n          }\n        }\n      }\n    ]\n  }\n}\n",
     "longname": "/Users/bmw/Documents/education/jhu/EN.605.601.81.SU18 Foundations of Software Engineering/teamvelocity.github.io/package.json",
     "name": "package.json",
     "static": true,

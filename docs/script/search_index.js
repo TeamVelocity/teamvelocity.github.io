@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "./scripts/engine.js~board",
+    "class/scripts/engine.js~Board.html",
+    "<span>Board</span> <span class=\"search-result-import-path\">./scripts/engine.js</span>",
+    "class"
+  ],
+  [
     "./scripts/engine.js~category",
     "class/scripts/engine.js~Category.html",
     "<span>Category</span> <span class=\"search-result-import-path\">./scripts/engine.js</span>",
@@ -12,9 +18,39 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "./scripts/engine.js~game",
+    "class/scripts/engine.js~Game.html",
+    "<span>Game</span> <span class=\"search-result-import-path\">./scripts/engine.js</span>",
+    "class"
+  ],
+  [
+    "./scripts/engine.js~player",
+    "class/scripts/engine.js~Player.html",
+    "<span>Player</span> <span class=\"search-result-import-path\">./scripts/engine.js</span>",
+    "class"
+  ],
+  [
+    "./scripts/engine.js~round",
+    "class/scripts/engine.js~Round.html",
+    "<span>Round</span> <span class=\"search-result-import-path\">./scripts/engine.js</span>",
+    "class"
+  ],
+  [
     "./scripts/engine.js~score",
     "class/scripts/engine.js~Score.html",
     "<span>Score</span> <span class=\"search-result-import-path\">./scripts/engine.js</span>",
+    "class"
+  ],
+  [
+    "./scripts/engine.js~spin",
+    "class/scripts/engine.js~Spin.html",
+    "<span>Spin</span> <span class=\"search-result-import-path\">./scripts/engine.js</span>",
+    "class"
+  ],
+  [
+    "./scripts/engine.js~wheel",
+    "class/scripts/engine.js~Wheel.html",
+    "<span>Wheel</span> <span class=\"search-result-import-path\">./scripts/engine.js</span>",
     "class"
   ],
   [
@@ -312,16 +348,88 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "scripts/data.js",
-    "file/scripts/data.js.html",
-    "scripts/data.js",
-    "file"
-  ],
-  [
     "scripts/engine.js",
     "file/scripts/engine.js.html",
     "scripts/engine.js",
     "file"
+  ],
+  [
+    "scripts/engine.js~board#categorynames",
+    "class/scripts/engine.js~Board.html#instance-get-categoryNames",
+    "scripts/engine.js~Board#categoryNames",
+    "member"
+  ],
+  [
+    "scripts/engine.js~board#cluesanswered",
+    "class/scripts/engine.js~Board.html#instance-member-cluesAnswered",
+    "scripts/engine.js~Board#cluesAnswered",
+    "member"
+  ],
+  [
+    "scripts/engine.js~board#complete",
+    "class/scripts/engine.js~Board.html#instance-get-complete",
+    "scripts/engine.js~Board#complete",
+    "member"
+  ],
+  [
+    "scripts/engine.js~board#constructor",
+    "class/scripts/engine.js~Board.html#instance-constructor-constructor",
+    "scripts/engine.js~Board#constructor",
+    "method"
+  ],
+  [
+    "scripts/engine.js~board#editcategory",
+    "class/scripts/engine.js~Board.html#instance-method-editCategory",
+    "scripts/engine.js~Board#editCategory",
+    "method"
+  ],
+  [
+    "scripts/engine.js~board#editclue",
+    "class/scripts/engine.js~Board.html#instance-method-editClue",
+    "scripts/engine.js~Board#editClue",
+    "method"
+  ],
+  [
+    "scripts/engine.js~board#export",
+    "class/scripts/engine.js~Board.html#instance-method-export",
+    "scripts/engine.js~Board#export",
+    "method"
+  ],
+  [
+    "scripts/engine.js~board#getcategory",
+    "class/scripts/engine.js~Board.html#instance-method-getCategory",
+    "scripts/engine.js~Board#getCategory",
+    "method"
+  ],
+  [
+    "scripts/engine.js~board#getclue",
+    "class/scripts/engine.js~Board.html#instance-method-getClue",
+    "scripts/engine.js~Board#getClue",
+    "method"
+  ],
+  [
+    "scripts/engine.js~board#import",
+    "class/scripts/engine.js~Board.html#instance-method-import",
+    "scripts/engine.js~Board#import",
+    "method"
+  ],
+  [
+    "scripts/engine.js~board#init_",
+    "class/scripts/engine.js~Board.html#instance-method-init_",
+    "scripts/engine.js~Board#init_",
+    "method"
+  ],
+  [
+    "scripts/engine.js~board#nextclue",
+    "class/scripts/engine.js~Board.html#instance-method-nextClue",
+    "scripts/engine.js~Board#nextClue",
+    "method"
+  ],
+  [
+    "scripts/engine.js~board#reset",
+    "class/scripts/engine.js~Board.html#instance-method-reset",
+    "scripts/engine.js~Board#reset",
+    "method"
   ],
   [
     "scripts/engine.js~category#clues",
@@ -372,6 +480,150 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "scripts/engine.js~game#addplayer",
+    "class/scripts/engine.js~Game.html#instance-method-addPlayer",
+    "scripts/engine.js~Game#addPlayer",
+    "method"
+  ],
+  [
+    "scripts/engine.js~game#addround",
+    "class/scripts/engine.js~Game.html#instance-method-addRound",
+    "scripts/engine.js~Game#addRound",
+    "method"
+  ],
+  [
+    "scripts/engine.js~game#currentround",
+    "class/scripts/engine.js~Game.html#instance-member-currentRound",
+    "scripts/engine.js~Game#currentRound",
+    "member"
+  ],
+  [
+    "scripts/engine.js~game#editplayer",
+    "class/scripts/engine.js~Game.html#instance-method-editPlayer",
+    "scripts/engine.js~Game#editPlayer",
+    "method"
+  ],
+  [
+    "scripts/engine.js~game#getplayer",
+    "class/scripts/engine.js~Game.html#instance-method-getPlayer",
+    "scripts/engine.js~Game#getPlayer",
+    "method"
+  ],
+  [
+    "scripts/engine.js~game#getround",
+    "class/scripts/engine.js~Game.html#instance-method-getRound",
+    "scripts/engine.js~Game#getRound",
+    "method"
+  ],
+  [
+    "scripts/engine.js~game#players",
+    "class/scripts/engine.js~Game.html#instance-member-players",
+    "scripts/engine.js~Game#players",
+    "member"
+  ],
+  [
+    "scripts/engine.js~game#rounds",
+    "class/scripts/engine.js~Game.html#instance-member-rounds",
+    "scripts/engine.js~Game#rounds",
+    "member"
+  ],
+  [
+    "scripts/engine.js~player#addtoken",
+    "class/scripts/engine.js~Player.html#instance-method-addToken",
+    "scripts/engine.js~Player#addToken",
+    "method"
+  ],
+  [
+    "scripts/engine.js~player#constructor",
+    "class/scripts/engine.js~Player.html#instance-constructor-constructor",
+    "scripts/engine.js~Player#constructor",
+    "method"
+  ],
+  [
+    "scripts/engine.js~player#getscore",
+    "class/scripts/engine.js~Player.html#instance-method-getScore",
+    "scripts/engine.js~Player#getScore",
+    "method"
+  ],
+  [
+    "scripts/engine.js~player#hastoken",
+    "class/scripts/engine.js~Player.html#instance-method-hasToken",
+    "scripts/engine.js~Player#hasToken",
+    "method"
+  ],
+  [
+    "scripts/engine.js~player#resetscore",
+    "class/scripts/engine.js~Player.html#instance-method-resetScore",
+    "scripts/engine.js~Player#resetScore",
+    "method"
+  ],
+  [
+    "scripts/engine.js~player#resettokens",
+    "class/scripts/engine.js~Player.html#instance-method-resetTokens",
+    "scripts/engine.js~Player#resetTokens",
+    "method"
+  ],
+  [
+    "scripts/engine.js~player#scores",
+    "class/scripts/engine.js~Player.html#instance-member-scores",
+    "scripts/engine.js~Player#scores",
+    "member"
+  ],
+  [
+    "scripts/engine.js~player#tokens",
+    "class/scripts/engine.js~Player.html#instance-member-tokens",
+    "scripts/engine.js~Player#tokens",
+    "member"
+  ],
+  [
+    "scripts/engine.js~player#totalscore",
+    "class/scripts/engine.js~Player.html#instance-get-totalScore",
+    "scripts/engine.js~Player#totalScore",
+    "member"
+  ],
+  [
+    "scripts/engine.js~player#usetoken",
+    "class/scripts/engine.js~Player.html#instance-method-useToken",
+    "scripts/engine.js~Player#useToken",
+    "method"
+  ],
+  [
+    "scripts/engine.js~round#board",
+    "class/scripts/engine.js~Round.html#instance-member-board",
+    "scripts/engine.js~Round#board",
+    "member"
+  ],
+  [
+    "scripts/engine.js~round#complete",
+    "class/scripts/engine.js~Round.html#instance-get-complete",
+    "scripts/engine.js~Round#complete",
+    "member"
+  ],
+  [
+    "scripts/engine.js~round#constructor",
+    "class/scripts/engine.js~Round.html#instance-constructor-constructor",
+    "scripts/engine.js~Round#constructor",
+    "method"
+  ],
+  [
+    "scripts/engine.js~round#currentplayer",
+    "class/scripts/engine.js~Round.html#instance-member-currentPlayer",
+    "scripts/engine.js~Round#currentPlayer",
+    "member"
+  ],
+  [
+    "scripts/engine.js~round#reset",
+    "class/scripts/engine.js~Round.html#instance-method-reset",
+    "scripts/engine.js~Round#reset",
+    "method"
+  ],
+  [
+    "scripts/engine.js~round#start",
+    "class/scripts/engine.js~Round.html#instance-method-start",
+    "scripts/engine.js~Round#start",
+    "method"
+  ],
+  [
     "scripts/engine.js~score#bankrupt",
     "class/scripts/engine.js~Score.html#instance-method-bankrupt",
     "scripts/engine.js~Score#bankrupt",
@@ -406,6 +658,102 @@ window.esdocSearchIndex = [
     "class/scripts/engine.js~Score.html#instance-method-reset",
     "scripts/engine.js~Score#reset",
     "method"
+  ],
+  [
+    "scripts/engine.js~spin#constructor",
+    "class/scripts/engine.js~Spin.html#instance-constructor-constructor",
+    "scripts/engine.js~Spin#constructor",
+    "method"
+  ],
+  [
+    "scripts/engine.js~spin#spinagain",
+    "class/scripts/engine.js~Spin.html#instance-member-spinAgain",
+    "scripts/engine.js~Spin#spinAgain",
+    "member"
+  ],
+  [
+    "scripts/engine.js~wheel#assignsectors",
+    "class/scripts/engine.js~Wheel.html#instance-method-assignSectors",
+    "scripts/engine.js~Wheel#assignSectors",
+    "method"
+  ],
+  [
+    "scripts/engine.js~wheel#complete",
+    "class/scripts/engine.js~Wheel.html#instance-get-complete",
+    "scripts/engine.js~Wheel#complete",
+    "member"
+  ],
+  [
+    "scripts/engine.js~wheel#constructor",
+    "class/scripts/engine.js~Wheel.html#instance-constructor-constructor",
+    "scripts/engine.js~Wheel#constructor",
+    "method"
+  ],
+  [
+    "scripts/engine.js~wheel#getrandomslot",
+    "class/scripts/engine.js~Wheel.html#instance-method-getRandomSlot",
+    "scripts/engine.js~Wheel#getRandomSlot",
+    "method"
+  ],
+  [
+    "scripts/engine.js~wheel#getsectorname",
+    "class/scripts/engine.js~Wheel.html#instance-method-getSectorName",
+    "scripts/engine.js~Wheel#getSectorName",
+    "method"
+  ],
+  [
+    "scripts/engine.js~wheel#getsectornumber",
+    "class/scripts/engine.js~Wheel.html#instance-method-getSectorNumber",
+    "scripts/engine.js~Wheel#getSectorNumber",
+    "method"
+  ],
+  [
+    "scripts/engine.js~wheel#randomizesectors",
+    "class/scripts/engine.js~Wheel.html#instance-method-randomizeSectors",
+    "scripts/engine.js~Wheel#randomizeSectors",
+    "method"
+  ],
+  [
+    "scripts/engine.js~wheel#reset",
+    "class/scripts/engine.js~Wheel.html#instance-method-reset",
+    "scripts/engine.js~Wheel#reset",
+    "method"
+  ],
+  [
+    "scripts/engine.js~wheel#sectoriscategory",
+    "class/scripts/engine.js~Wheel.html#instance-method-sectorIsCategory",
+    "scripts/engine.js~Wheel#sectorIsCategory",
+    "method"
+  ],
+  [
+    "scripts/engine.js~wheel#sectors",
+    "class/scripts/engine.js~Wheel.html#instance-get-sectors",
+    "scripts/engine.js~Wheel#sectors",
+    "member"
+  ],
+  [
+    "scripts/engine.js~wheel#slots",
+    "class/scripts/engine.js~Wheel.html#instance-member-slots",
+    "scripts/engine.js~Wheel#slots",
+    "member"
+  ],
+  [
+    "scripts/engine.js~wheel#specialsectors",
+    "class/scripts/engine.js~Wheel.html#instance-member-specialSectors",
+    "scripts/engine.js~Wheel#specialSectors",
+    "member"
+  ],
+  [
+    "scripts/engine.js~wheel#spin",
+    "class/scripts/engine.js~Wheel.html#instance-method-spin",
+    "scripts/engine.js~Wheel#spin",
+    "method"
+  ],
+  [
+    "scripts/engine.js~wheel#usedspins",
+    "class/scripts/engine.js~Wheel.html#instance-member-usedSpins",
+    "scripts/engine.js~Wheel#usedSpins",
+    "member"
   ],
   [
     "scripts/ui.js",

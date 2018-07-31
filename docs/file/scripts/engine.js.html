@@ -29,9 +29,15 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Category.html">Category</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Board.html">Board</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Category.html">Category</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Clue.html">Clue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Game.html">Game</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Player.html">Player</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Round.html">Round</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Score.html">Score</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Spin.html">Spin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html">Wheel</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
 </ul>
@@ -41,7 +47,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">scripts/engine.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;
 /***
- * Classes and logic for the Wheel of Jeopardy game.
+ * Classes and logic for the Wheel of Jeopardy (WOJ) game.
  */
 
 
@@ -139,22 +145,49 @@ class Category{
     }
 }
 
+/**
+ * A WOJ board with column * row clues arranged in a grid. The top left
+ * corner is indexed at 0. Each column is a {@link Category} and each row in a 
+ * category is a {@link Clue}. All categories must have the same number of 
+ * clues. Each clue in the first row has {@link Board#basePoints}. Each clue in
+ * the next row equals the sum of the clue value in the prior row plus 
+ * basePoints.
+ */
 class Board {
+    /**
+     * @param {number} [columns=6] number of columns on the board. 
+     * @param {number} [rows=5] number of rows on the board.
+     * @param {number} [basePoints=200] point value of each clues in the first 
+     * row.
+     */
     constructor(columns=6, rows=5, basePoints=200) {
         this.columns;
         this.rows;
         this.basePoints = basePoints;
 
+        /** 
+         * @type {Category[]} an array of Categories indexed by column 
+         * position. 
+         */
         this.categories;
+
+        /** 
+         * @type {number} number of clues on the board that have been 
+         * answered.
+         */
         this.cluesAnswered = 0;
 
         this.init_(columns, rows);
     }
 
+    /** @type {boolean} true if all clues on the board have been answered. */
     get complete(){
         return this.cluesAnswered &gt;= this.columns * this.rows;
     }
 
+    /**
+     *  @type {string[]} an array of category names indexed by column position.
+     */
     get categoryNames(){
         let names = [];
         for(let i=0; i&lt;this.categories.length; i++){
@@ -163,7 +196,13 @@ class Board {
         return names;
     }
 
-    init_(columns=6, rows=5){
+    /**
+     * Initializes an empty board of size columns * rows with {@link Clue}&apos;s.
+     * @private
+     * @param {number} columns number of columns on the board. 
+     * @param {number} rows number of rows on the board.
+     */
+    init_(columns, rows){
         this.categories = [];
         this.columns = columns;
         this.rows = rows;
@@ -182,6 +221,9 @@ class Board {
         }
     }
 
+    /** 
+     * Resets each category in the board and sets cluesAnswered count to 0.
+     */
     reset(){
         this.cluesAnswered = 0;
         for(let i=0; i&lt;this.categories.length; i++){
@@ -189,25 +231,54 @@ class Board {
         }
     }
 
+    /**
+     * Returns a category at the specified column.
+     * @param {number} column column index of the category.
+     * @return {Category} category at the specified column.
+     */
     getCategory(column){
         return this.categories[column];
     }
 
+    /**
+     * Returns a clue at the specified column and row.
+     * @param {number} column column index of the clue.
+     * @param {number} row row index of the clue.
+     * @return {Clue} clue at the specified column and row.
+     */
     getClue(column, row){
         return this.categories[column].clues[row];
     }
 
+    /**
+     * Edit the name of a category at column index.
+     * @param {number} column column index of the category.
+     * @param {string} name new category name.
+     */
     editCategory(column, name){
         let category = this.getCategory(column);
         category.name = name;
     }
 
+    /**
+     * Edit the question and answer of a clue at column and row index.
+     * @param {number} column column index of the clue.
+     * @param {number} row row index of the clue.
+     * @param {string} question new question text.
+     * @param {string} answer new answer text.
+     */
     editClue(column, row, question, answer){
         let clue = this.getClue(column, row);
         clue.question = question;
         clue.answer = answer;
     }
 
+    /** 
+     * Retrieve next unanswered clue in the category at column and increment
+     * cluesAnswered. If all clues are answered, this will return undefined.
+     * @param {number} column column index of the category.
+     * @return {clue} the next unanswered clue.
+     */
     nextClue(column) {
         if (!this.categoryComplete(column)){
             this.cluesAnswered++;
@@ -217,8 +288,25 @@ class Board {
         }
     }
 
+    /**
+     * Import JSON board, initializing board and setting categories and clues.
+     * Data should be a string. Use JSON.stringify if data is an object literal.
+     * 
+     * @param {string} data board JSON.
+     * @param {number} data.columns number of columns.
+     * @param {numnber} data.rows number of rows.
+     * @param {string[]} data.categories array of category names.
+     * @param {Object[]} data.clues array of clues, zero indexed from top left
+     * of board
+     * @param {number} data.clues.column column index of the clue.
+     * @param {number} data.clues.row row index of the clue.
+     * @param {string} data.clues.question new question text.
+     * @param {string} data.clues.answer new answer text.
+     * 
+     * @see /scripts/data.js
+     */
     import(data){
-        data = JSON.parse(data);
+        let data = JSON.parse(data);
 
         // reinitialize board if columns/rows different
         if(this.columns != data.columns || this.rows != data.rows){
@@ -237,6 +325,11 @@ class Board {
         }
     }
 
+    /**
+     * Export board content to JSON board string. See {@link Board.import} for
+     * details on JSON board structure.
+     * @returns {string} serialized board.
+     */
     export(){
         let data = {
             &quot;columns&quot;: this.columns,
@@ -262,19 +355,50 @@ class Board {
     }
 }
 
+/** Result of a wheel spin. */
 class Spin {
+    /**
+     * @param {number} slot wheel slot number where spin landed.
+     * @param {number} sectorNumber corresponding sector number located at slot.
+     * @param {string} sectorName corresponding sector name located at slot.
+     * @param {boolean} isCategory true if sector is category.
+     * @param {Clue} clue if isCategory is true and spinAgain is false, next
+     * clue in the category.
+     */
     constructor(slot, sectorNumber, sectorName, isCategory, clue){
         this.slot = slot;
         this.sectorNumber = sectorNumber;
         this.sectorName = sectorName;
         this.isCategory = isCategory;
-        this.spinAgain = false;
         this.clue = clue;
+
+        /**
+         * @type {boolean} true if category is complete.
+         */
+        this.spinAgain = false;
     }
 }
 
+/** 
+ * A WOJ wheel for a specific board and maximum spins. The number of slots on
+ * the wheel will be the number of categories + the number of special sectors
+ * (6). Slots are fixed on the wheel. Each special and category is a sector.
+ * Each sector can be randomly assigned to a slot on the wheel. Categories are
+ * always populated in the sector list first, followed by special sectors, i.e.
+ * category 0 on the board is always sector 0 on the wheel.
+ */
 class Wheel {
+    /**
+     * @param {Board} board an initialized WOJ board.
+     * @param {number} [maxSpins=50] the max spins allowed.
+     */
     constructor(board, maxSpins=50) {
+        this.board = board;
+        this.maxSpins = maxSpins;
+
+        /**
+         * @type {string[]} a list of six special sectors.
+         */
         this.specialSectors = [
             &quot;Lose Turn&quot;, 
             &quot;Free Turn&quot;, 
@@ -283,26 +407,43 @@ class Wheel {
             &quot;Opponent&apos;s Choice&quot;, 
             &quot;Double Score&quot;
         ]
-        this.board = board;
-        this.maxSpins = maxSpins;
+
+        /**
+         * @type {number} number of spins used.
+         */
         this.usedSpins = 0;
+
+        /**
+         * @type {number} sector numbers in each slot.
+         */
         this.slots = [];
 
         this.assignSectors();
     }
 
+    /** @type {boolean} true if all spins have been used. */
     get complete(){
         return this.usedSpins &gt;= this.maxSpins;
     }
 
+    /**
+     * @type {string[]} array of ordered sector names: categories + special
+     * sectors.
+     */
     get sectors(){
         return this.board.categoryNames.concat(this.specialSectors);
     }
 
+    /** 
+     * Resets used spins to 0.
+     */
     reset(){
         this.usedSpins = 0;
     }
 
+    /**
+     * Assigns sectors numbers to each slot ordered by categories then special.
+     */
     assignSectors(){
         this.slots = [];
 
@@ -311,18 +452,36 @@ class Wheel {
         }
     }
 
+    /**
+     * Randomizes sectors in the slots.
+     */
     randomizeSectors(){
         this.slots = shuffleArray(this.slots);
     }
 
+    /**
+     * Get sector number at a specific slot number.
+     * @param {number} slot slot number in the wheel.
+     * @return {number} sector number at the specified slot.
+     */
     getSectorNumber(slot){
         return this.slots[slot];
     }
 
+    /**
+     * Get sector name for the specific sector number.
+     * @param {number} sectorNumber sector number.
+     * @return {number} sector name for the sector number.
+     */
     getSectorName(sectorNumber){
         return this.sectors[sectorNumber];
     }
 
+    /**
+     * Check if the sector is a category (vs a special sector).
+     * @param {number} sectorNumber number of the sector.
+     * @return {boolean} true if the sector is a category.
+     */
     sectorIsCategory(sectorNumber){
         if(sectorNumber &lt; this.board.categoryNames.length){
             return true
@@ -331,10 +490,20 @@ class Wheel {
         }
     }
 
+    /**
+     * Return a random slot number from the wheel.
+     * @returns {number} a random slot number.
+     */
     getRandomSlot(){
         return randomInt(this.slots.length);
     }
 
+    /**
+     * Spins the wheel and returns a random sector. Populates the {@link Spin}
+     * object with the spin results and depending on the outcome, adjusts points
+     * or retrieves the next clue.
+     * @returns {Spin} object summarizing result of the spin.
+     */
     spin(){
         let spin = new Spin();
         spin.slot = this.getRandomSlot();
@@ -362,7 +531,9 @@ class Wheel {
  */
 class Score {
     constructor(){
-        /** @type {number} current points for the round. */
+        /** 
+         * @type {number} current points for the round. 
+         */
         this.points = 0;
     }
 
@@ -398,13 +569,29 @@ class Score {
     }
 }
 
+/**
+ * A player in the WOJ game.
+ */
 class Player {
+    /**
+     * @param {string} [name] the players name.
+     */
     constructor(name) {
         this.name = name;
+
+        /**
+         * @type {number} number of tokens (free turns).
+         */
         this.tokens = 0;
+
+        /**
+         * @type {Score[]} array of scores, indexed by round number, i.e. 0 is
+         * the first round.
+         */
         this.scores = [];
     }
 
+    /** @type {numbner} sum of points for all rounds. */
     get totalScore(){
         let points = 0;
         for(i=0; i&lt;this.scores.length; i++){
@@ -413,26 +600,47 @@ class Player {
         return points;
     }
 
+    /** Sets the player&apos;s tokens to 0. */
     resetTokens(){
         this.tokens = 0;
     }
 
+    /**
+     *  Reset score for round to 0.
+     * @param {number} round number of the round, 0 is round 1.
+     */
     resetScore(round){
         this.scores[round] = new Score();
     }
 
+    /**
+     * Return the score for a given round number.
+     * @param {number} round number of the round, 0 is round 1.
+     * @returns {number} score for the given round number.
+     */
     getScore(round){
         return this.scores[round];
     }
 
+    /**
+     * Adds 1 token to the player&apos;s tokens.
+     */
     addToken(){
         this.tokens += 1;
     }
 
+    /**
+     * Checks if the player has any tokens.
+     * @returns true if the player has at least one token.
+     */
     hasToken(){
         return this.tokens &gt; 0;
     }
 
+    /**
+     * Deduct a token, if the player has one.
+     * @returns {boolean} false if the player does not have a token to use.
+     */
     useToken(){
         if(this.hasToken){
             this.tokens--;
@@ -443,24 +651,52 @@ class Player {
     }
 }
 
+/**
+ * A round in the WOJ game. The standard game is played with two rounds. The
+ * round ID must be unique and is used to store and access the round in the
+ * games round list.
+ * @todo fix round id so it is auto-assigned / inked to array index.
+ */
 class Round {
+    /**
+     * @param {number} id A unique numeric ID for the round.
+     * @param {Wheel} wheel a wheel for the round.
+     * @param {Player[]} players an array of players in the game.
+     * @param {number} [maxTime=20] maximum time to answer a question in
+     * seconds.
+     */
     constructor(id, wheel, players, maxTime=20){
         this.id = id;
         this.wheel = wheel;
-        this.board = wheel.board;
         this.players = players;
         this.maxTime = maxTime;
+
+        /**
+         * @type {Board} a board for the round.
+         */
+        this.board = wheel.board;
+
+        /**
+         * @type {number} player id of the player currently spinning.
+         */
         this.currentPlayer = 0
     }
 
+    /** @type {boolean} true if the round is complete. */
     get complete(){
         return this.wheel.complete || this.board.complete
     }
 
+    /**
+     * Start the WOJ round.
+     */
     start(){
         this.reset();
     }
 
+    /**
+     * Resets the current round by reseting the wheel, board, and player scores.
+     */
     reset(){
         this.wheel.reset();
         this.board.reset();
@@ -471,27 +707,88 @@ class Round {
     }
 }
 
+/**
+ * The WOJ game. Supports creation of board, wheel, and players which are
+ * used to track game play. This class should be used to create games and add
+ * rounds to ensure proper functionality.
+ * 
+ * @example
+ * let game = new Game();
+ * 
+ * // create default boards
+ * let data = [data1, data2];
+ * 
+ * for(let i=0; i&lt;data.length; i++){
+ *      let round = game.addRound();
+ *      round.board.import(JSON.stringify(data[i]));
+ *      round.wheel.assignSectors();
+ *      round.wheel.randomizeSectors();    
+ * }
+ * 
+ * // edit board content if needed
+ * round = game.getRound(0);
+ * let clue = round.board.getCategory(1).clues[2];
+ * clue.question = &quot;What is the oldest soft drink in America?&quot;;
+ * clue.answer = &quot;Dr. Pepper.&quot;;
+ * 
+ * // start game
+ * game.addPlayer(&quot;John&quot;);
+ * game.addPlayer(&quot;Jane&quot;);
+ * 
+ * // start first round
+ * round = game.getRound(0);
+ * round.start();
+ * 
+ * // player spins
+ * console.log(round.currentPlayer);
+ * let spin = round.wheel.spin();
+ * console.log(spin);
+ * console.log(round.complete);
+ */
 class Game {
     constructor() {
+        /** @type {Player[]} array of players. */
         this.players = [];
+
+        /** @type {Rounds[]} array of rounds. */
         this.rounds = [];
+
+        /** @type {number} current round number. */
         this.currentRound = 0;
     }
 
+    /** 
+     * Add a player to the game
+     * @param {string} name the players name.
+     */
     addPlayer(name){
         let player = new Player(name);
         this.players.push(player);
     }
 
+    /**
+     * Retrieve a player.
+     * @param {number} id the players id number, player one is id: 0.
+     * @returns {Player} the player at index number.
+     */
     getPlayer(id){
         return this.players[id];
     }
 
+    /**
+     * Retrieve and edit a player.
+     * @param {number} id the players id number, player one is id: 0.
+     * @param {string} name the players name.
+     */    
     editPlayer(id, name){
         let player = this.getPlayer(id);
         player.name = name;
     }
 
+    /**
+     * Add and initialize a game round with an empty wheel and board.
+     * @returns {Round} a game round.
+     */
     addRound(){
         let id = this.rounds.length;
         let board = new Board();
@@ -501,6 +798,10 @@ class Game {
         return round;
     }
 
+    /**
+     * Retrieve a game round by id.
+     * @param {Round} id the rounds id number, round one is id: 0
+     */
     getRound(id){
         return this.rounds[id];
     }

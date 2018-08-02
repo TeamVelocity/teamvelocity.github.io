@@ -1,5 +1,5 @@
 "use strict"
-/***
+/**
  * @file UI setup and interaction.
  */
 
@@ -21,7 +21,7 @@ $(document).ready(function(){
 
         round.board.import(JSON.stringify(data[i]));
         round.wheel.assignSectors();
-        round.wheel.randomizeSectors();    
+        round.wheel.randomizeSectors();
     }
 
     // edit board content if needed

@@ -259,7 +259,7 @@ class Board {
      * @see /scripts/data.js
      */
     import(data){
-        let data = JSON.parse(data);
+        data = JSON.parse(data);
 
         // reinitialize board if columns/rows different
         if(this.columns != data.columns || this.rows != data.rows){

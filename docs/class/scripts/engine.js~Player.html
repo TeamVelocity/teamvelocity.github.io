@@ -38,8 +38,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Score.html">Score</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Spin.html">Spin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html">Wheel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-initDefaultGame">initDefaultGame</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-GameStats">GameStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PlayerStats">PlayerStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RoundStats">RoundStats</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -51,7 +55,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/scripts/engine.js.html#lineNumber528">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/scripts/engine.js.html#lineNumber578">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -104,7 +108,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Player.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
         </p>
       </div>
       <div>
@@ -408,11 +412,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber532">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber583">source</a></span></span>
     </span>
   </h3>
 
@@ -432,6 +436,13 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">id</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A unique numeric ID for the player.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">name</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
@@ -475,7 +486,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber544">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber596">source</a></span></span>
     </span>
   </h3>
 
@@ -518,7 +529,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber538">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber590">source</a></span></span>
     </span>
   </h3>
 
@@ -561,7 +572,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber548">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber600">source</a></span></span>
     </span>
   </h3>
 
@@ -607,7 +618,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber581">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber633">source</a></span></span>
     </span>
   </h3>
 
@@ -651,7 +662,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber574">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber626">source</a></span></span>
     </span>
   </h3>
 
@@ -725,7 +736,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber589">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber641">source</a></span></span>
     </span>
   </h3>
 
@@ -782,7 +793,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber565">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber617">source</a></span></span>
     </span>
   </h3>
 
@@ -843,7 +854,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber557">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber609">source</a></span></span>
     </span>
   </h3>
 
@@ -887,7 +898,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber597">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber650">source</a></span></span>
     </span>
   </h3>
 
@@ -908,7 +919,7 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>false if the player does not have a token to use.</p>
+          <td class="return-desc" data-ice="returnDescription"><p>true if the token was deducted.</p>
 </td>
         </tr>
       </tbody>
@@ -921,7 +932,19 @@
 
   
 
-  
+  <div data-ice="throwWrap">
+    <h4>Throw:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span></p></td>
+        <td data-ice="throwDesc"><p>throws error if the player has no tokens.</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
 
   
 

@@ -38,8 +38,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Score.html">Score</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Spin.html">Spin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html">Wheel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-initDefaultGame">initDefaultGame</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-GameStats">GameStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PlayerStats">PlayerStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RoundStats">RoundStats</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -51,7 +55,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/scripts/engine.js.html#lineNumber109">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/scripts/engine.js.html#lineNumber153">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -162,7 +166,7 @@ basePoints.</p>
     <td>
       <span class="access" data-ice="access">public</span>
       
-      
+      <span class="kind" data-ice="kind">get</span>
       
       <span class="override" data-ice="override"></span>
     </td>
@@ -172,7 +176,7 @@ basePoints.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Board.html#instance-member-cluesAnswered">cluesAnswered</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Board.html#instance-get-cluesAnswered">cluesAnswered</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -409,14 +413,14 @@ basePoints.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Board.html#instance-method-nextClue">nextClue</a></span></span><span class="code" data-ice="signature">(column: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>clue</span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Board.html#instance-method-nextClue">nextClue</a></span></span><span class="code" data-ice="signature">(column: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="class/scripts/engine.js~Clue.html">Clue</a></span></span>
         </p>
       </div>
       <div>
         
         
         <div data-ice="description"><p>Retrieve next unanswered clue in the category at column and increment
-cluesAnswered.</p>
+cluesAnswered for that category.</p>
 </div>
       </div>
     </td>
@@ -445,7 +449,7 @@ cluesAnswered.</p>
       <div>
         
         
-        <div data-ice="description"><p>Resets each category in the board and sets cluesAnswered count to 0.</p>
+        <div data-ice="description"><p>Resets each category in the board and their cluesAnswered count to 0.</p>
 </div>
       </div>
     </td>
@@ -511,7 +515,7 @@ cluesAnswered.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber116">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber160">source</a></span></span>
     </span>
   </h3>
 
@@ -592,7 +596,7 @@ row.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber144">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber193">source</a></span></span>
     </span>
   </h3>
 
@@ -624,10 +628,10 @@ row.</p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-cluesAnswered">
+  <h3 data-ice="anchor" id="instance-get-cluesAnswered">
     <span class="access" data-ice="access">public</span>
     
-    
+    <span class="kind" data-ice="kind">get</span>
     
     
     
@@ -635,7 +639,7 @@ row.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber131">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber182">source</a></span></span>
     </span>
   </h3>
 
@@ -678,7 +682,7 @@ row.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber137">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber175">source</a></span></span>
     </span>
   </h3>
 
@@ -724,7 +728,7 @@ row.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber211">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber259">source</a></span></span>
     </span>
   </h3>
 
@@ -792,7 +796,7 @@ row.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber223">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber271">source</a></span></span>
     </span>
   </h3>
 
@@ -874,7 +878,7 @@ row.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber286">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber337">source</a></span></span>
     </span>
   </h3>
 
@@ -932,7 +936,7 @@ details on JSON board structure.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber192">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber240">source</a></span></span>
     </span>
   </h3>
 
@@ -1006,7 +1010,7 @@ details on JSON board structure.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber202">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber250">source</a></span></span>
     </span>
   </h3>
 
@@ -1087,7 +1091,7 @@ details on JSON board structure.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber261">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber312">source</a></span></span>
     </span>
   </h3>
 
@@ -1202,11 +1206,11 @@ of board</p>
     
     
     
-    <span class="code" data-ice="name">nextClue</span><span class="code" data-ice="signature">(column: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>clue</span></span>
+    <span class="code" data-ice="name">nextClue</span><span class="code" data-ice="signature">(column: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="class/scripts/engine.js~Clue.html">Clue</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber235">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber285">source</a></span></span>
     </span>
   </h3>
 
@@ -1214,7 +1218,8 @@ of board</p>
   
   
   <div data-ice="description"><p>Retrieve next unanswered clue in the category at column and increment
-cluesAnswered. If all clues are answered, this will return undefined.</p>
+cluesAnswered for that category. If all clues are answered, this will 
+return undefined.</p>
 </div>
 
   
@@ -1244,7 +1249,7 @@ cluesAnswered. If all clues are answered, this will return undefined.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>clue</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/scripts/engine.js~Clue.html">Clue</a></span></td>
           <td class="return-desc" data-ice="returnDescription"><p>the next unanswered clue.</p>
 </td>
         </tr>
@@ -1258,7 +1263,19 @@ cluesAnswered. If all clues are answered, this will return undefined.</p>
 
   
 
-  
+  <div data-ice="throwWrap">
+    <h4>Throw:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span></p></td>
+        <td data-ice="throwDesc"><p>throw error when board is complete.</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
 
   
 
@@ -1281,14 +1298,14 @@ cluesAnswered. If all clues are answered, this will return undefined.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber180">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber229">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Resets each category in the board and sets cluesAnswered count to 0.</p>
+  <div data-ice="description"><p>Resets each category in the board and their cluesAnswered count to 0.</p>
 </div>
 
   
@@ -1327,7 +1344,7 @@ cluesAnswered. If all clues are answered, this will return undefined.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber158">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber207">source</a></span></span>
     </span>
   </h3>
 

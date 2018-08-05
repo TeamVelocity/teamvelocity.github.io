@@ -38,8 +38,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Score.html">Score</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Spin.html">Spin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html">Wheel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-initDefaultGame">initDefaultGame</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-GameStats">GameStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PlayerStats">PlayerStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RoundStats">RoundStats</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -58,18 +62,8 @@ $(document).ready(function(){
     // hide setup view
     $(&quot;.setup&quot;).hide();
 
-    game = new Game();
-
-    // create default boards
-    let data = [data1, data2];
-
-    for(let i=0; i&lt;data.length; i++){
-        let round = game.addRound();
-
-        round.board.import(JSON.stringify(data[i]));
-        round.wheel.assignSectors();
-        round.wheel.randomizeSectors();
-    }
+    // init default game
+    game = initDefaultGame();
 
     // edit board content if needed
     round = game.getRound(0);
@@ -77,32 +71,62 @@ $(document).ready(function(){
     clue.question = &quot;What is the oldest soft drink in America?&quot;;
     clue.answer = &quot;Dr. Pepper.&quot;;
 
+    // setup players
+    // $(&quot;#btn-play&quot;).click(function(){
+    //     // store players -- should be adjusted for num of players and default names
+    //     let playerName = $(&quot;#player0&quot;).find(&quot;input&quot;).val();
+    //     game.addPlayer(playerName);
+    // })
 
-    // start game
-    $(&quot;#btn-play&quot;).click(function(){
-        // store players -- should be adjusted for num of players and default names
-        let playerName = $(&quot;#player0&quot;).find(&quot;input&quot;).val();
-        game.addPlayer(playerName);
-    })
+    // add sample players for testing
+    game.addPlayer(&quot;John&quot;);
+    game.addPlayer(&quot;Jane&quot;);
 
     // start first round
     round = game.getRound(0);
     round.start();
 
-    // player spins
-    console.log(round.currentPlayer);
-    let spin = round.wheel.spin();
-
-    // animate the wheel
-
-    // display outcome
-    console.log(spin);
-
-    // address outcome
-
-    // check if round is over
-    if(round.complete){
+    if(game.complete){
+        // end game
+    } else if (round.complete){
         // end round
+    } else {
+        // prepare UI for first spin
+
+        // spin wheel
+        //let spin = round.spin();
+
+        // animate UI
+
+        // respond to outcome
+
+        // if category and not spin again, display the clue
+        //clue = spin.clue;
+
+        // if player or opponents choice
+        // let categoryColumn = 0;
+        // let clue = round.pickCategory(categoryColumn);
+
+        // if answer is valid
+        // round.validAnswer();
+        
+        // if answer is invalid
+        // round.invalidAnswer()
+
+        // if lose turn or wrong answer and player has a token
+        // give option to use token
+        // if (round.stats.currentPlayer.hasToken){
+        //     round.useToken();
+        //     // start over at spin
+        // } else {
+        //     // do not allow token use
+        // }
+
+
+        // update players score and tokens
+
+        // reset for next spin
+        // round.endTurn();
     }
   });
 </code></pre>

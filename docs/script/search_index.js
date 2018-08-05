@@ -54,6 +54,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "./scripts/engine.js~initdefaultgame",
+    "function/index.html#static-function-initDefaultGame",
+    "<span>initDefaultGame</span> <span class=\"search-result-import-path\">./scripts/engine.js</span>",
+    "function"
+  ],
+  [
     "./scripts/engine.js~randomint",
     "function/index.html#static-function-randomInt",
     "<span>randomInt</span> <span class=\"search-result-import-path\">./scripts/engine.js</span>",
@@ -361,7 +367,7 @@ window.esdocSearchIndex = [
   ],
   [
     "scripts/engine.js~board#cluesanswered",
-    "class/scripts/engine.js~Board.html#instance-member-cluesAnswered",
+    "class/scripts/engine.js~Board.html#instance-get-cluesAnswered",
     "scripts/engine.js~Board#cluesAnswered",
     "member"
   ],
@@ -528,6 +534,18 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "scripts/engine.js~game#stats",
+    "class/scripts/engine.js~Game.html#instance-get-stats",
+    "scripts/engine.js~Game#stats",
+    "member"
+  ],
+  [
+    "scripts/engine.js~gamestats",
+    "typedef/index.html#static-typedef-GameStats",
+    "scripts/engine.js~GameStats",
+    "typedef"
+  ],
+  [
     "scripts/engine.js~player#addtoken",
     "class/scripts/engine.js~Player.html#instance-method-addToken",
     "scripts/engine.js~Player#addToken",
@@ -588,6 +606,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "scripts/engine.js~playerstats",
+    "typedef/index.html#static-typedef-PlayerStats",
+    "scripts/engine.js~PlayerStats",
+    "typedef"
+  ],
+  [
     "scripts/engine.js~round#board",
     "class/scripts/engine.js~Round.html#instance-member-board",
     "scripts/engine.js~Round#board",
@@ -607,9 +631,39 @@ window.esdocSearchIndex = [
   ],
   [
     "scripts/engine.js~round#currentplayer",
-    "class/scripts/engine.js~Round.html#instance-member-currentPlayer",
+    "class/scripts/engine.js~Round.html#instance-get-currentPlayer",
     "scripts/engine.js~Round#currentPlayer",
     "member"
+  ],
+  [
+    "scripts/engine.js~round#currentplayerid",
+    "class/scripts/engine.js~Round.html#instance-member-currentPlayerID",
+    "scripts/engine.js~Round#currentPlayerID",
+    "member"
+  ],
+  [
+    "scripts/engine.js~round#currentplayerscore_",
+    "class/scripts/engine.js~Round.html#instance-get-currentPlayerScore_",
+    "scripts/engine.js~Round#currentPlayerScore_",
+    "member"
+  ],
+  [
+    "scripts/engine.js~round#endturn",
+    "class/scripts/engine.js~Round.html#instance-method-endTurn",
+    "scripts/engine.js~Round#endTurn",
+    "method"
+  ],
+  [
+    "scripts/engine.js~round#invalidanswer",
+    "class/scripts/engine.js~Round.html#instance-method-invalidAnswer",
+    "scripts/engine.js~Round#invalidAnswer",
+    "method"
+  ],
+  [
+    "scripts/engine.js~round#pickcategory",
+    "class/scripts/engine.js~Round.html#instance-method-pickCategory",
+    "scripts/engine.js~Round#pickCategory",
+    "method"
   ],
   [
     "scripts/engine.js~round#reset",
@@ -618,10 +672,58 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "scripts/engine.js~round#resetturn_",
+    "class/scripts/engine.js~Round.html#instance-method-resetTurn_",
+    "scripts/engine.js~Round#resetTurn_",
+    "method"
+  ],
+  [
+    "scripts/engine.js~round#roundready_",
+    "class/scripts/engine.js~Round.html#instance-member-roundReady_",
+    "scripts/engine.js~Round#roundReady_",
+    "member"
+  ],
+  [
+    "scripts/engine.js~round#spin",
+    "class/scripts/engine.js~Round.html#instance-method-spin",
+    "scripts/engine.js~Round#spin",
+    "method"
+  ],
+  [
     "scripts/engine.js~round#start",
     "class/scripts/engine.js~Round.html#instance-method-start",
     "scripts/engine.js~Round#start",
     "method"
+  ],
+  [
+    "scripts/engine.js~round#stats",
+    "class/scripts/engine.js~Round.html#instance-get-stats",
+    "scripts/engine.js~Round#stats",
+    "member"
+  ],
+  [
+    "scripts/engine.js~round#turncomplete_",
+    "class/scripts/engine.js~Round.html#instance-member-turnComplete_",
+    "scripts/engine.js~Round#turnComplete_",
+    "member"
+  ],
+  [
+    "scripts/engine.js~round#usetoken",
+    "class/scripts/engine.js~Round.html#instance-method-useToken",
+    "scripts/engine.js~Round#useToken",
+    "method"
+  ],
+  [
+    "scripts/engine.js~round#validanswer",
+    "class/scripts/engine.js~Round.html#instance-method-validAnswer",
+    "scripts/engine.js~Round#validAnswer",
+    "method"
+  ],
+  [
+    "scripts/engine.js~roundstats",
+    "typedef/index.html#static-typedef-RoundStats",
+    "scripts/engine.js~RoundStats",
+    "typedef"
   ],
   [
     "scripts/engine.js~score#bankrupt",
@@ -664,12 +766,6 @@ window.esdocSearchIndex = [
     "class/scripts/engine.js~Spin.html#instance-constructor-constructor",
     "scripts/engine.js~Spin#constructor",
     "method"
-  ],
-  [
-    "scripts/engine.js~spin#spinagain",
-    "class/scripts/engine.js~Spin.html#instance-member-spinAgain",
-    "scripts/engine.js~Spin#spinAgain",
-    "member"
   ],
   [
     "scripts/engine.js~wheel#assignsectors",

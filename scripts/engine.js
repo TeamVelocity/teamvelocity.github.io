@@ -3,6 +3,26 @@
  * Classes and logic for the Wheel of Jeopardy (WOJ) game.
  */
 
+/**
+ * @typedef {Object} GameStats
+ */
+
+/**
+ * @typedef {Object} RoundStats
+ * @property {number} spinsUsed number of spins used.
+ * @property {number} cluesAnswered number of clues answered.
+ * @property {PlayerStats} currentPlayer stats for current player.
+ */
+
+/**
+ * @typedef {Object} PlayerStats
+ * @property {number} id current player's id.
+ * @property {string} name current player's name.
+ * @property {number} roundScore current player's round score.
+ * @property {number} totalScore current player's total score.
+ * @property {number} tokens current player's token count.
+ * @property {boolean} hasToken true if current player has token.     
+ */
 
 /**
  * Returns a random integer between min and max.
@@ -10,7 +30,7 @@
  * @param {number} min lower bound (inclusive).
  * @returns {number} random integer.
  */
-function randomInt(max, min=0) {
+function randomInt(max, min=0){
     return Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -31,6 +51,25 @@ function shuffleArray(arr){
         arr[i1] = val2;
     }
     return arr;
+}
+
+/**
+ * Initialize the default game setup.
+ * @returns {Game} a game intialized with default rounds and no players.
+ */
+function initDefaultGame(){
+    let game = new Game();
+
+    let data = [data1, data2];
+
+    for(let i=0; i<data.length; i++){
+        let round = game.addRound();
+
+        round.board.import(JSON.stringify(data[i]));
+        round.wheel.assignSectors();
+        round.wheel.randomizeSectors();
+    }
+    return game;
 }
 
 /**
@@ -89,12 +128,17 @@ class Category{
     /** 
      * Retrieve next unanswered clue in the category, increment cluesAnswered.
      * If all clues are answered, this will return undefined.
-     * @return {clue} the next unanswered clue.
+     * @return {Clue} the next unanswered clue.
+     * @throws {Error} throw error when category is complete.
      */
     nextClue(){
-        let clue = this.clues[this.cluesAnswered];
-        this.cluesAnswered++;
-        return clue;
+        if(this.complete){
+            throw new Error("All clues already answered for: " + this.name);
+        } else {
+            let clue = this.clues[this.cluesAnswered];
+            this.cluesAnswered++;
+            return clue;
+        }
     }
 }
 
@@ -124,18 +168,23 @@ class Board {
          */
         this.categories;
 
-        /** 
-         * @type {number} number of clues on the board that have been 
-         * answered.
-         */
-        this.cluesAnswered = 0;
-
         this.init_(columns, rows);
     }
 
     /** @type {boolean} true if all clues on the board have been answered. */
     get complete(){
         return this.cluesAnswered >= this.columns * this.rows;
+    }
+
+    /** 
+     * @type {number} number of clues on the board that have been answered.
+     */
+    get cluesAnswered(){
+        let cluesAnswered = 0;
+        for(let i=0; i<this.categories.length; i++){
+            cluesAnswered += this.categories[i].cluesAnswered;
+        }
+        return cluesAnswered;
     }
 
     /**
@@ -175,10 +224,9 @@ class Board {
     }
 
     /** 
-     * Resets each category in the board and sets cluesAnswered count to 0.
+     * Resets each category in the board and their cluesAnswered count to 0.
      */
     reset(){
-        this.cluesAnswered = 0;
         for(let i=0; i<this.categories.length; i++){
             this.categories[i].reset();
         }
@@ -228,13 +276,16 @@ class Board {
 
     /** 
      * Retrieve next unanswered clue in the category at column and increment
-     * cluesAnswered. If all clues are answered, this will return undefined.
+     * cluesAnswered for that category. If all clues are answered, this will 
+     * return undefined.
      * @param {number} column column index of the category.
-     * @return {clue} the next unanswered clue.
+     * @return {Clue} the next unanswered clue.
+     * @throws {Error} throw error when board is complete.
      */
     nextClue(column) {
-        if (!this.categoryComplete(column)){
-            this.cluesAnswered++;
+        if(this.complete){
+            throw new Error("All clues already answered on the board");
+        } else {
             let category = this.getCategory(column);
             let clue = category.nextClue();
             return clue;
@@ -317,18 +368,15 @@ class Spin {
      * @param {boolean} isCategory true if sector is category.
      * @param {Clue} clue if isCategory is true and spinAgain is false, next
      * clue in the category.
+     * @param {boolean} spinAgain true if category is complete.
      */
-    constructor(slot, sectorNumber, sectorName, isCategory, clue){
+    constructor(slot, sectorNumber, sectorName, isCategory, clue, spinAgain=false){
         this.slot = slot;
         this.sectorNumber = sectorNumber;
         this.sectorName = sectorName;
         this.isCategory = isCategory;
         this.clue = clue;
-
-        /**
-         * @type {boolean} true if category is complete.
-         */
-        this.spinAgain = false;
+        this.spinAgain = spinAgain;
     }
 }
 
@@ -453,8 +501,9 @@ class Wheel {
 
     /**
      * Spins the wheel and returns a random sector. Populates the {@link Spin}
-     * object with the spin results and depending on the outcome, adjusts points
-     * or retrieves the next clue.
+     * object with the spin results. If the result is a category, a clue will
+     * be retrieved. If all clues are used, the spin again field will be
+     * true.
      * @returns {Spin} object summarizing result of the spin.
      */
     spin(){
@@ -465,12 +514,13 @@ class Wheel {
         spin.isCategory = this.sectorIsCategory(spin.sectorNumber);
 
         if(spin.isCategory){
-            let category = this.board.getCategory(spin.sectorNumber);
-    
+            let categoryColumn = spin.sectorNumber;
+            let category = this.board.getCategory(categoryColumn);
+
             if(category.complete){
                 spin.spinAgain = true;
             } else {
-                let clue = category.nextClue();
+                let clue = this.board.nextClue(categoryColumn);
                 spin.clue = clue;
             }
         }
@@ -527,9 +577,11 @@ class Score {
  */
 class Player {
     /**
+     * @param {number} id A unique numeric ID for the player.
      * @param {string} [name] the players name.
      */
-    constructor(name) {
+    constructor(id, name) {
+        this.id = id;
         this.name = name;
 
         /**
@@ -547,7 +599,7 @@ class Player {
     /** @type {numbner} sum of points for all rounds. */
     get totalScore(){
         let points = 0;
-        for(i=0; i<this.scores.length; i++){
+        for(let i=0; i<this.scores.length; i++){
             points += this.scores[i].points;
         }
         return points;
@@ -592,23 +644,21 @@ class Player {
 
     /**
      * Deduct a token, if the player has one.
-     * @returns {boolean} false if the player does not have a token to use.
+     * @returns {boolean} true if the token was deducted.
+     * @throws {Error} throws error if the player has no tokens.
      */
     useToken(){
-        if(this.hasToken){
+        if(this.hasToken()){
             this.tokens--;
             return true;
         } else {
-            return false;
+            throw new Error('Player does not have any tokens.')
         }
     }
 }
 
 /**
- * A round in the WOJ game. The standard game is played with two rounds. The
- * round ID must be unique and is used to store and access the round in the
- * games round list.
- * @todo fix round id so it is auto-assigned / inked to array index.
+ * A round in the WOJ game. The standard game is played with two rounds.
  */
 class Round {
     /**
@@ -632,12 +682,73 @@ class Round {
         /**
          * @type {number} player id of the player currently spinning.
          */
-        this.currentPlayer = 0
+        this.currentPlayerID = 0
+
+        /**
+         * @type {Spin} latest Spin resulting from spin.
+         */
+        this.currentSpin;
+
+        /**
+         * @type {Clue} latest Clue resulting form spin or pickCategory.
+         */
+        this.currentClue;
+
+        /**
+         * @type {boolean} true if the round is ready to begin.
+         * @private
+         */
+        this.roundReady_ = false;
+
+        /**
+         * @type {boolean} true if the current turn is complete.
+         * @private
+         */
+        this.turnComplete_ = true; 
+
     }
 
     /** @type {boolean} true if the round is complete. */
     get complete(){
         return this.wheel.complete || this.board.complete
+    }
+
+    /**
+     * Stats for the current round, including spins used, clues answered, and
+     * attributes for the player who has the current turn, e.g. score, tokens.
+     * @returns {RoundStats} current stats for the round.
+     */
+    get stats(){
+        let stats = {
+            spinsUsed: this.wheel.usedSpins,
+            cluesAnswered: this.board.cluesAnswered,
+            currentPlayer: {
+                id: this.currentPlayer.id,
+                name: this.currentPlayer.name,
+                roundScore: this.currentPlayerScore_.points,
+                totalScore: this.currentPlayer.totalScore,
+                tokens: this.currentPlayer.tokens,
+                hasToken: this.currentPlayer.hasToken()
+            }
+        }
+        return stats;
+    }
+
+    /**
+     * Current player's player object.
+     * @return {Player} current player's player object.
+     */
+    get currentPlayer(){
+        return this.players[this.currentPlayerID];
+    }
+
+    /**
+     * Current player's score object.
+     * @returns {Score} current players score object.
+     * @private
+     */
+    get currentPlayerScore_(){
+        return this.currentPlayer.scores[this.id]
     }
 
     /**
@@ -656,7 +767,170 @@ class Round {
         for(let i=0; i<this.players.length; i++){
             this.players[i].resetScore(this.id);
         }
-        this.currentPlayer = 0;
+        this.currentPlayerID = 0;
+        this.roundReady_ = true;
+        this.turnComplete_ = true; 
+    }
+
+    /**
+     * Spins the wheel and returns the result in a Spin object. If Free Turn,
+     * Bankrupt, or Double Score are landed, the players tokens or score is
+     * adjusted. If Player's Choice or Opponent's Choice are landed, use
+     * pickCategory to get the next clue.
+     * @returns {Spin} result of the spin.
+     */
+    spin(){
+        if(this.complete){
+            // check if the round is complete
+            let msg = 'Round complete, must start new round or end the game.';
+            throw new Error(msg);
+        } else if(!this.roundReady_){
+            // did not start round
+            throw new Error('Must call start before round can begin.');
+        } else if(!this.turnComplete_) {
+            // check if turn is complete
+            let msg = `
+                Must complete current turn before spinning again by calling 
+                endTurn or useToken.
+            `;
+            throw new Error(msg)
+        }else{
+            // spin wheel
+            this.turnComplete_ = false;
+
+            let spin = this.wheel.spin();
+            this.currentSpin = spin;
+
+            if(spin.isCategory){
+                // category sector
+                if(!spin.spinAgain){
+                    // valid clue
+                    this.currentClue = spin.clue;
+                }
+            } else {
+                // special sector
+                switch(spin.sectorName){
+                    case "Free Turn":
+                        this.currentPlayer.addToken();
+                        break;
+                    case "Lose Turn":
+                        break;
+                    case "Bankrupt":
+                        this.currentPlayerScore_.bankrupt();
+                        break;
+                    case "Player's Choice":
+                        break;
+                    case "Opponent's Choice":
+                        break;
+                    case "Double Score":
+                        this.currentPlayerScore_.double();
+                        break;
+                    default:
+                        // do nothing
+                }
+            }
+            return spin;
+        }
+    }
+
+    /**
+     * When spin is Player's Choice or Opponent's Choice, use pickCategory,
+     * to get the next clue from the specificed category. This will set the
+     * currentClue.
+     * @param {number} column column index of the category.
+     * @returns {Clue} next unanswered clue in the category.
+     * @throws {Error} throws error if current spin sector does not permit
+     *  picking a category, i.e. it is not Player's Choice or Opponents Choice.
+     */
+    pickCategory(column){
+        let validOpt = ["Player's Choice", "Opponent's Choice"];
+        let specialSector = !this.currentSpin.isCategory
+        if(specialSector && validOpt.includes(this.currentSpin.sectorName)){
+            let category = this.board.getCategory(column);
+            let clue = category.nextClue();
+            this.currentClue = clue;
+            return clue;
+        } else {
+            let msg = 'pickCategory is not allowed for current spin sector: ' + 
+                this.currentSpin.sectorName;
+            throw new Error(msg);
+         }
+    }
+
+    /**
+     * When Spin resulted in a clue or pickCategory was used to set a clue, call
+     * this method if the player answered correctly, to adjust their score.
+     * @throws {Error} throws error if no clue is set to validate.
+     */
+    validAnswer(){
+        if(this.currentClue === undefined){
+            throw new Error('Check spin result, no clue was set.');
+        } else {
+            this.currentPlayerScore_.increase(this.currentClue.points);
+        }
+    }
+
+    /**
+     * When Spin resulted in a clue or pickCategory was used to set a clue, call
+     * this method if the player answered incorrectly, to adjust their score.
+     * @throws {Error} throws error if no clue is set to validate.
+     */
+    invalidAnswer(){
+        if(this.currentClue === undefined){
+            throw new Error('Check spin result, no clue was set.');
+        } else {
+            this.currentPlayerScore_.decrease(this.currentClue.points);
+        }
+    }
+
+
+    /**
+     * Private method to reset the turn: currentSpin and currentClue are set
+     * to undefined.
+     * @private
+     */
+    resetTurn_(){
+        this.currentSpin = undefined;
+        this.currentClue = undefined;
+        this.turnComplete_ = true;
+    }
+
+    /**
+     * Use a free turn token for the current player. A token may be used if the
+     * player loses his turn or answers a question incorrectly. A token cannot
+     * be used if the player spins free turn.
+     * @returns {boolean} true if succesfully used token, false otherwise.
+     * @throws {Error} throws error if player does not have any tokens.
+     * @throws {Error} throws error if the current spin is Free Turn.
+     */
+    useToken(){
+        let specialSector = !this.currentSpin.isCategory
+        if(specialSector && this.currentSpin.sectorName == 'Free Turn'){
+            throw new Error('Free turn not allowed when sector is Free Turn')
+        } else {
+            try {
+                let token = this.currentPlayer.useToken();
+                this.resetTurn_();
+                return token;
+            } catch (e) {
+                throw e;
+            }
+        }
+    }
+
+    /**
+     * End the current players turn, should be called after a spin and
+     * validation (if applicable) is complete. This method will switch to the
+     * next player and reset the currentSpin and currentClue.
+     */
+    endTurn(){
+        this.resetTurn_();
+
+        this.currentPlayerID++;
+        if(this.currentPlayerID == this.players.length){
+            // restart from first player
+            this.currentPlayerID = 0;
+        }
     }
 }
 
@@ -710,18 +984,33 @@ class Game {
         this.currentRound = 0;
     }
 
+    /**
+     * Stats for the game.
+     * @returns {GameStats} current stats for the game.
+     */
+    get stats(){
+        let stats = {
+            // add game wide stats
+        }
+        return stats;
+    }
+
     /** 
-     * Add a player to the game
+     * Add a player to the game. Players are assigned an ID starting with 0 and
+     * incrementing by 1.
      * @param {string} name the players name.
+     * @returns {number} auto assigned player ID.
      */
     addPlayer(name){
-        let player = new Player(name);
+        let id = this.players.length;
+        let player = new Player(id, name);
         this.players.push(player);
+        return player;
     }
 
     /**
      * Retrieve a player.
-     * @param {number} id the players id number, player one is id: 0.
+     * @param {number} id the players id number.
      * @returns {Player} the player at index number.
      */
     getPlayer(id){
@@ -739,8 +1028,9 @@ class Game {
     }
 
     /**
-     * Add and initialize a game round with an empty wheel and board.
-     * @returns {Round} a game round.
+     * Add and initialize a game round with an empty wheel and board. Rounds are
+     * assigned an ID starting with 0 and incrementing by 1.
+     * @returns {id} auto assigned round ID.
      */
     addRound(){
         let id = this.rounds.length;

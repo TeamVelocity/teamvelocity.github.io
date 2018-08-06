@@ -14,7 +14,9 @@ $(document).ready(function(){
     let frm_name_trivia_answer = $('input[name="frm_name_trivia_answer"]');
 
     let fill_value = "";
-    let size  = 6 * 5; // number of elements in the game board
+    let num_rows = 5;
+    let num_cols = 6;
+    let size  = num_rows * num_cols; // number of elements in the game board
     let questions = Array.apply(null,{length: size}).map(function() { return fill_value; });
     let answers = Array.apply(null,{length: size}).map(function() { return fill_value; });
     
@@ -49,7 +51,7 @@ $(document).ready(function(){
     // setup the edit trivia dialog
     trivia_dialog = $( "#trivia-form" ).dialog({
         autoOpen: false,
-        height: 300,
+        height: 400,
         width: 350,
         modal: true,
         buttons: {
@@ -69,7 +71,6 @@ $(document).ready(function(){
     // set up the form to edit the trivia text
     trivia_form = trivia_dialog.find( "form" ).on( "submit", function( submit_event ) {
     submit_event.preventDefault();
-    frm_name_trivia.val("");
     });
 
     function updateTips( t ) {
@@ -153,8 +154,6 @@ $(document).ready(function(){
     // make the editable category and trivia fields editable
     $( "#toggle-editable" ).button().on( "click", function() {
         toggleClicks();
-        //toggleCategoryClicks();
-        //toggleTriviaClicks();
         console.log('Toggled Category Status: ' + category_editable);
         console.log('Toggled Trivia Status: ' + trivia_editable);
     });
@@ -170,7 +169,6 @@ $(document).ready(function(){
             // ensure the form is populated with the current value of the table element before open
             // trivia will extract the current value from the stored (local storage) values depending on the td value read
             
-            // example: column 0, row 0
             // var names = [];
             // names[0] = prompt("New member name?");
             // set | localStorage.setItem("names", JSON.stringify(names));
@@ -181,9 +179,7 @@ $(document).ready(function(){
             // 6 columns
             // 5 rows
             // each row is 6 values
-            // so row 3 = 18 + column
-
-            // column: 2, row: 3
+            // so row 3 = index 18 + column
 
             let question = questions[clicked_trivia_index];
             if (typeof question == 'undefined'){ question = "<empty>"; }

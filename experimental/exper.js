@@ -21,9 +21,6 @@ $(document).ready(function(){
     let answers = Array.apply(null,{length: size}).map(function() { return fill_value; });
     
     let clicked_trivia_index = 0;
-
-    //let trivia = $( "#trivia" );
-    let allFields = $( [] ).add( frm_name_category );//, trivia );
     let tips = $( ".validateTips" );
     
     // keep track of some elements of the table that have been manipulated by the user
@@ -36,7 +33,7 @@ $(document).ready(function(){
     // set up the edit category dialog
     category_dialog = $( "#category-form" ).dialog({
         autoOpen: false,
-        height: 300,
+        height: 400,
         width: 350,
         modal: true,
         buttons: {
@@ -45,7 +42,7 @@ $(document).ready(function(){
                 category_dialog.dialog( "close" );
             }
         },
-        close: function() { allFields.removeClass( "ui-state-error" ); }
+        close: function() { frm_name_category.removeClass( "ui-state-error" ); }
     });
 
     // setup the edit trivia dialog
@@ -60,7 +57,10 @@ $(document).ready(function(){
                 trivia_dialog.dialog( "close" );
             }
         },
-        close: function() { allFields.removeClass( "ui-state-error" ); }
+        close: function() { 
+            frm_name_trivia_question.removeClass( "ui-state-error" );
+            frm_name_trivia_answer.removeClass( "ui-state-error" );
+        }
     });    
 
     // set up the form to edit the category text
@@ -68,9 +68,10 @@ $(document).ready(function(){
         submit_event.preventDefault();
         frm_name_category.val("");
       });
-    // set up the form to edit the trivia text
+    
+      // set up the form to edit the trivia text
     trivia_form = trivia_dialog.find( "form" ).on( "submit", function( submit_event ) {
-    submit_event.preventDefault();
+        submit_event.preventDefault();
     });
 
     function updateTips( t ) {
@@ -117,9 +118,9 @@ $(document).ready(function(){
 
     function editCategory() {
         let valid = true;
-        allFields.removeClass( "ui-state-error" );
+        frm_name_category.removeClass( "ui-state-error" );
         valid = valid && checkLength( frm_name_category, "category", 3, 16 );
-        valid = valid && checkRegexp( frm_name_category, /^[a-z]([0-9a-z_\s])+$/i, "Category may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
+        valid = valid && checkRegexp( frm_name_category, /^[a-z]([0-9a-z_\s])+$/i, "Input may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
 
         // validates the form's input field, and closes the modal
         if ( valid ) {
@@ -131,12 +132,13 @@ $(document).ready(function(){
 
     function editTrivia() {
         let valid = true;
-        allFields.removeClass( "ui-state-error" );
+        frm_name_trivia_question.removeClass( "ui-state-error" );
+        frm_name_trivia_answer.removeClass( "ui-state-error" );
 
         valid = valid && checkLength( frm_name_trivia_question, "trivia", 3, 256 );
-        valid = valid && checkRegexp( frm_name_trivia_question, /^[a-z]([0-9a-z_\s])+$/i, "Trivia may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
+        valid = valid && checkRegexp( frm_name_trivia_question, /^[a-z]([0-9a-z_\s])+$/i, "Input may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
         valid = valid && checkLength( frm_name_trivia_answer, "trivia", 3, 256 );
-        valid = valid && checkRegexp( frm_name_trivia_answer, /^[a-z]([0-9a-z_\s])+$/i, "Trivia may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );        
+        valid = valid && checkRegexp( frm_name_trivia_answer, /^[a-z]([0-9a-z_\s])+$/i, "Input may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );        
 
         // validates the form's input field, and closes the modal
         if ( valid ) {

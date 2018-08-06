@@ -1,0 +1,26 @@
+/* 
+  Clickable Table Source: http://www.srccodes.com/p/article/40/determine-click-position-row-column-number-onclick-table-cell
+*/
+table {	font-size: 1em; }
+td{
+    cursor:pointer;
+    background: -moz-linear-gradient(top, #ffffff, #D1E3E9);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#D1E3E9));
+    text-align:center;
+}
+
+td:hover{
+    background: -moz-linear-gradient(top, #468ab8, #ffffff);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#468ab8), to(#ffffff));
+}
+
+td:active
+{
+    background: -moz-linear-gradient(top, #ffffff, #c09e05);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#c09e05));
+}
+
+#result{
+    font-weight:bold;
+    font-size:16pt;
+}

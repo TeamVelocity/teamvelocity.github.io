@@ -6,57 +6,68 @@
   <title>jQuery UI Dialog - Modal form</title>
   <link rel="stylesheet" href="../styles/jquery-ui-1.12.1.css">
   <link rel="stylesheet" href="../styles/modal-style.css">
+  <link rel="stylesheet" href="../styles/table-style.css">
   <link rel="stylesheet" href="../styles/main.css">
   <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../lib/fontawesome/css/all.css">
 
-  <style>
-    label, input { display:block; }
-    input.text { margin-bottom:12px; width:95%; padding: .4em; }
-    fieldset { padding:0; border:0; margin-top:25px; }
-    h1 { font-size: 1.2em; margin: .6em 0; }
-    div#users-contain { width: 350px; margin: 20px 0; }
-    div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
-    div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
-    .ui-dialog .ui-state-error { padding: .3em; }
-    .validateTips { border: 1px solid transparent; padding: 0.3em; }
-  </style>
   <script src="../lib/jquery/jquery-3.3.1.min.js"></script>
   <script src="../lib/jquery/jquery-1.12.1-ui.js"></script>
   <script src="exper.js"></script>
 </head>
 <body>
  
-<div id="dialog-form" title="Edit Category">
-  <p class="validateTips">All form fields are required.</p>
- 
+<div id="category-form" title="Edit Category Form">
+  <p class="validateTips">Form field is required.</p>
   <form>
     <fieldset>
       <label for="category">Category</label>
-      <input type="text" name="category" id="category" value="" class="text ui-widget-content ui-corner-all">
- 
-      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="text" name="frm_name_category" id="frm_id_category" value=" " class="text ui-widget-content ui-corner-all">
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
+<div id="trivia-form" title="Edit Trivia Form">
+  <p class="validateTips">Form fields are required.</p>
+  <form>
+    <fieldset>
+      <label for="trivia_question">Trivia Question</label>
+      <input type="text" name="frm_name_trivia_question" id="frm_id_trivia_question" value=" " class="text ui-widget-content ui-corner-all">
+      <label for="trivia_answer">Trivia Answer</label>
+      <input type="text" name="frm_name_trivia_answer" id="frm_id_trivia_answer" value=" " class="text ui-widget-content ui-corner-all">
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
   </form>
 </div>
  
 <div id="category-contain" class="ui-widget">
-  <h1>LALALA:</h1>
-  
-  <table id="category_aaa" class="ui-widget ui-widget-content">
-    <thead>
-        <tr class="ui-widget-header ">
-            <th>Header</th>
-        </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="replaceme">LALALA</span></td>
+  <table id="categoryTable" border="1" style="border-collapse: collapse;" cellpadding="8">
+      <tr id="row0">
+          <td class="0_0">Col 0 Row 0</td><td class="1_0">Col 1 Row 0</td><td class="2_0">Col 2 Row 0</td>
+          <td class="3_0">Col 3 Row 0</td><td class="4_0">Col 4 Row 0</td><td class="5_0">Col 5 Row 0</td>
       </tr>
-    </tbody>
+  </table>
+
+<div id="trivia-contain" class="ui-widget">
+  <table id="triviaTable" border="1" style="border-collapse: collapse;" cellpadding="8">
+      <tr id="t_row0">
+          <td class="t_0_0">000</td><td class="t_1_0">001</td><td class="t_2_0">002</td><td class="t_3_0">003</td><td class="t_4_0">004</td><td class="t_5_0">005</td>
+      </tr>          
+      <tr id="t_row1">
+          <td class="t_0_1">010</td><td class="t_1_1">011</td><td class="t_2_1">012</td><td class="t_3_1">013</td><td class="t_4_1">014</td><td class="t_5_1">015</td>
+      </tr>          
+      <tr id="t_row2">
+          <td class="t_0_2">020</td><td class="t_1_2">021</td><td class="t_2_2">022</td><td class="t_3_2">023</td><td class="t_4_2">024</td><td class="t_5_2">025</td>
+      </tr>          
+      <tr id="t_row3">
+          <td class="t_0_3">030</td><td class="t_1_3">031</td><td class="t_2_3">032</td><td class="t_3_3">033</td><td class="t_4_3">034</td><td class="t_5_3">035</td>
+      </tr>          
+      <tr id="t_row4">
+          <td class="t_0_4">040</td><td class="t_1_4">041</td><td class="t_2_4">042</td><td class="t_3_4">043</td><td class="t_4_4">044</td><td class="t_5_4">045</td>
+      </tr>
   </table>
 </div>
-<button id="edit-category">Toggle Editability</button>
+<button id="toggle-editable">Toggle Editability</button>
 </body>
 </html>

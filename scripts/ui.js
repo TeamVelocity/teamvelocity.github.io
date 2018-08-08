@@ -7,9 +7,59 @@
 let game;
 let round;
 
+function download(filename, text) {
+    // source: https://goo.gl/VWW2sT
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+function startEdit(){
+    $(".start-panel").hide();
+    $(".edit-panel").show();
+}
+
+function endEdit(){
+    $(".edit-panel").hide();
+    $(".start-panel").show();
+}
+
+function startGame(){
+    $(".start-panel").hide();
+    $(".play-panel").show();
+}
+
 $(document).ready(function(){
-    // hide setup view
-    $(".setup").hide();
+    // hide panels
+    $(".edit-panel").hide();
+    $(".play-panel").hide();
+
+    // setup click handlers
+    $("#btn-start-edit").click(function(){
+        startEdit();
+    });
+
+    $("#btn-stop-edit").click(function(){
+        endEdit();
+    });
+
+    $("#btn-play").click(function(){
+        startGame();
+    });
+
+    $("#btn-export").click(function(){
+        // should make this more robust
+        let roundID = $("#select-round").val() - 1;
+        let round = game.getRound(roundID)
+        download('board.json', round.board.export());
+    });
 
     // init default game
     game = initDefaultGame();

@@ -5,3 +5,8 @@ body {
 .icon-money{
     color: green;
 }
+
+.hidden{
+    display:flex;
+    display:None;
+}

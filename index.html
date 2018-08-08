@@ -31,14 +31,16 @@
             </div>
             <!-- players -->
             <div class="col-8">
+
                 <!-- add/remove player button -->
-                <div class="row p-2 text-center setup">
+                <div class="row p-2 text-center edit-panel">
                     <div class="col">
                         <button type="button" class="btn btn-success btn-sm">+</button>
                         <button type="button" class="btn btn-danger btn-sm">-</button>
                         <span>Add/Remove Players</span>
                     </div>
                 </div>
+
                  <!-- player heads-up -->
                 <div class="row pt-2 pb-2">
                     <div class="col-4">
@@ -83,11 +85,48 @@
                 </div>
             </div>
         </div>
-        <!-- start game button -->
-        <div class="row p-2">
+
+        <!-- start panel -->
+        <div class="row p-2 start-panel">
             <div class="col text-center">
                 <button id="btn-play" type="button" class="btn btn-outline-primary btn-lg">Let's Play!</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg">Edit Game</button>
+                <button id="btn-start-edit" type="button" class="btn btn-outline-secondary btn-lg">Edit Game</button>
+            </div>
+        </div>
+
+        <!-- edit panel -->
+        <div class="row p-2 edit-panel">
+
+            <div class="col-3 text-left">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="select-round">Round: </label>
+                        <select class="form-control" id="select-round">
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="col-6 text-center">
+                <button id="btn-import" type="button" class="btn btn-outline-info">Import</button>
+                <button id="btn-export" type="button" class="btn btn-outline-info">Export</button>
+            </div>
+            <div class="col-3 text-right">
+                <button id="btn-stop-edit" type="button" class="btn btn-outline-success">Finish Editing</button>
+            </div>
+        </div>
+
+        <!-- play panel -->
+        <div class="row p-2 play-panel">
+            <div class="col text-left">
+                Round: <span>1</span>
+            </div>
+            <div class="col text-center">
+                20 s
+            </div>
+            <div class="col text-right">
+                Clues Remain: <span>30</span>
             </div>
         </div>
         

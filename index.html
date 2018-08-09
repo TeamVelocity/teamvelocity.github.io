@@ -23,20 +23,22 @@
             </div>
         </div>
         <div class="row">
+
             <!-- wheel -->
             <div class="col-4">
                 <svg height="200" width="200">
                     <circle cx="100" cy="100" r="90" stroke="black" stroke-width="3" fill="purple" />
                 </svg>
             </div>
+
             <!-- players -->
             <div class="col-8">
 
                 <!-- add/remove player button -->
                 <div class="row p-2 text-center edit-panel">
                     <div class="col">
-                        <button type="button" class="btn btn-success btn-sm">+</button>
-                        <button type="button" class="btn btn-danger btn-sm">-</button>
+                        <button id="btn-add-player" type="button" class="btn btn-success btn-sm">+</button>
+                        <button id="btn-del-player" type="button" class="btn btn-danger btn-sm">-</button>
                         <span>Add/Remove Players</span>
                     </div>
                 </div>
@@ -194,8 +196,18 @@
         </div>
     </div>
 
+    <!-- standard page alert -->
+    <div id="alert" class="alert alert-dismissible collapse" role="alert">
+        <span id="alert-text"></span>
+        <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <!-- load scripts -->
     <script src="lib/jquery/jquery-3.3.1.min.js"></script>
     <script src="lib/jquery/jquery-1.12.1-ui.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="scripts/data.js"></script>
     <script src="scripts/engine.js"></script>
     <script src="scripts/ui.js"></script>

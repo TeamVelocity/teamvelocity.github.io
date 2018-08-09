@@ -6,6 +6,7 @@
 // globals
 let game;
 let round;
+let playerCount = 3;
 
 function download(filename, text) {
     // source: https://goo.gl/VWW2sT
@@ -21,6 +22,41 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
+class Alert{
+    static success (msg){
+        let a = $("#alert");
+        a.removeClass("alert-danger alert-success alert-warning")
+            .addClass("alert-success");
+        a.find("#alert-text").empty().text(msg);
+        a.show();
+    };
+    
+    static danger (msg){
+        let a = $("#alert");
+        a.removeClass("alert-danger alert-success alert-warning")
+            .addClass("alert-danger");
+        a.find("#alert-text").empty().html(msg);
+        a.show();
+    };
+    
+    static warning (msg){
+        let a = $("#alert");
+        a.removeClass("alert-danger alert-success alert-warning")
+            .addClass("alert-warning");
+        a.find("#alert-text").empty().html(msg);
+        a.show();
+    };
+    
+    static hide (ms){
+        // set milliseconds to delay hide
+        if(ms){
+            setTimeout(function(){$("#alert").hide("slow")}, ms);
+        } else {
+            $("#alert").hide();
+        }
+    };
+}
+
 function startEdit(){
     $(".start-panel").hide();
     $(".edit-panel").show();
@@ -34,6 +70,30 @@ function endEdit(){
 function startGame(){
     $(".start-panel").hide();
     $(".play-panel").show();
+
+    for(let i=0; i<playerCount; i++){
+        $("#player" + i + " input").prop("readonly", true);
+    }
+}
+
+function removePlayer(){
+    if(playerCount > 1){
+        playerCount--;
+        $("#player" + playerCount).hide();
+    } else {
+        Alert.danger('Minimum of one player supported');
+        Alert.hide(2000);
+    }
+}
+
+function addPlayer(){
+    if(playerCount < 3){
+        $("#player" + playerCount).show();
+        playerCount++;
+    } else {
+        Alert.danger('Maximum of three players supported');
+        Alert.hide(2000);
+    }
 }
 
 $(document).ready(function(){
@@ -42,6 +102,8 @@ $(document).ready(function(){
     $(".play-panel").hide();
 
     // setup click handlers
+    $("#alert button").click(function(){$("#alert").hide();});
+
     $("#btn-start-edit").click(function(){
         startEdit();
     });
@@ -59,6 +121,16 @@ $(document).ready(function(){
         let roundID = $("#select-round").val() - 1;
         let round = game.getRound(roundID)
         download('board.json', round.board.export());
+    });
+
+    $("#btn-add-player").click(function(){
+        addPlayer();
+        console.log(playerCount)
+    });
+
+    $("#btn-del-player").click(function(){
+        removePlayer();
+        console.log(playerCount)        
     });
 
     // init default game

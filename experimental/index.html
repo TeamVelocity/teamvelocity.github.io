@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Wheel of Jeopardy</title>
+
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/jquery-ui-1.12.1.css">
+    <link rel="stylesheet" href="../styles/modal-style.css">
+    <link rel="stylesheet" href="../styles/table-style.css">
+
+</head>
+<body>
+    <div class="container">
+
+        <!-- title -->
+        <div class="row">
+            <div class="col text-center">
+                <h1>Wheel of Jeopardy</h1>
+            </div>
+        </div>
+        <div class="row">
+            <!-- wheel -->
+            <div class="col-4">
+                <svg height="200" width="200">
+                    <circle cx="100" cy="100" r="90" stroke="black" stroke-width="3" fill="purple" />
+                </svg>
+            </div>
+            <!-- players -->
+            <div class="col-8">
+
+                <!-- add/remove player button -->
+                <div class="row p-2 text-center edit-panel">
+                    <div class="col">
+                        <button type="button" class="btn btn-success btn-sm">+</button>
+                        <button type="button" class="btn btn-danger btn-sm">-</button>
+                        <span>Add/Remove Players</span>
+                    </div>
+                </div>
+
+                 <!-- player heads-up -->
+                <div class="row pt-2 pb-2">
+                    <div class="col-4">
+                        <form id="player0">
+                            <input type="text" class="form-control" placeholder="Player 0">
+                            <div>
+                                <i class="fas fa-dollar-sign icon-money"></i>
+                                <span class="points">0</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-coins"></i>
+                                <span class="tokens">0</span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-4">
+                        <form id="player1">
+                            <input type="text" class="form-control" placeholder="Player 1">
+                            <div>
+                                <i class="fas fa-dollar-sign icon-money"></i>
+                                <span class="points">0</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-coins"></i>
+                                <span class="tokens">0</span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-4">
+                        <form id="player2">
+                            <input type="text" class="form-control" placeholder="Player 2">
+                            <div>
+                                <i class="fas fa-dollar-sign icon-money"></i>
+                                <span class="points">0</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-coins"></i>
+                                <span class="tokens">0</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- start panel -->
+        <div class="row p-2 start-panel">
+            <div class="col text-center">
+                <button id="btn-play" type="button" class="btn btn-outline-primary btn-lg">Let's Play!</button>
+                <button id="btn-start-edit" type="button" class="btn btn-outline-secondary btn-lg">Edit Game</button>
+            </div>
+        </div>
+
+        <!-- edit panel -->
+        <div class="row p-2 edit-panel">
+
+            <div class="col-3 text-left">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="select-round">Round: </label>
+                        <select class="form-control" id="select-round">
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="col-6 text-center">
+                <button id="btn-import" type="button" class="btn btn-outline-info">Import</button>
+                <button id="btn-export" type="button" class="btn btn-outline-info">Export</button>
+            </div>
+            <div class="col-3 text-right">
+                <button id="btn-stop-edit" type="button" class="btn btn-outline-success">Finish Editing</button>
+            </div>
+        </div>
+
+        <!-- play panel -->
+        <div class="row p-2 play-panel">
+            <div class="col text-left">
+                Round: <span>1</span>
+            </div>
+            <div class="col text-center">
+                20 s
+            </div>
+            <div class="col text-right">
+                Clues Remain: <span>30</span>
+            </div>
+        </div>
+        
+        <!-- board -->
+        <div id="trivia-contain" class="ui-widget">
+        <table id="triviaTable" border="1" style="border-collapse: collapse;" cellpadding="24">
+            <thead>
+            <!--<tr>-->
+            <th scope="col">C0</th><th scope="col">C1</th><th scope="col">C2</th>
+            <th scope="col">C3</th><th scope="col">C4</th><th scope="col">C5</th>
+            <!--</tr>-->
+            </thead>
+            <tbody>
+            <tr id="t_row0">
+                <td class="t_0_0">000</td><td class="t_1_0">001</td><td class="t_2_0">002</td>
+                <td class="t_3_0">003</td><td class="t_4_0">004</td><td class="t_5_0">005</td>
+            </tr>          
+            <tr id="t_row1">
+                <td class="t_0_1">010</td><td class="t_1_1">011</td><td class="t_2_1">012</td>
+                <td class="t_3_1">013</td><td class="t_4_1">014</td><td class="t_5_1">015</td>
+            </tr>          
+            <tr id="t_row2">
+                <td class="t_0_2">020</td><td class="t_1_2">021</td><td class="t_2_2">022</td>
+                <td class="t_3_2">023</td><td class="t_4_2">024</td><td class="t_5_2">025</td>
+            </tr>          
+            <tr id="t_row3">
+                <td class="t_0_3">030</td><td class="t_1_3">031</td><td class="t_2_3">032</td>
+                <td class="t_3_3">033</td><td class="t_4_3">034</td><td class="t_5_3">035</td>
+            </tr>          
+            <tr id="t_row4">
+                <td class="t_0_4">040</td><td class="t_1_4">041</td><td class="t_2_4">042</td>
+                <td class="t_3_4">043</td><td class="t_4_4">044</td><td class="t_5_4">045</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <div id="category-form" title="Edit Category Form">
+        <p class="validateTips">Form field is required.</p>
+        <form>
+            <fieldset>
+            <label for="category">Category</label>
+            <input type="text" name="frm_name_category" id="frm_id_category" value="" class="text ui-widget-content ui-corner-all">
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+        </div>
+
+        <div id="trivia-form" title="Edit Trivia Form">
+        <p class="validateTips">Form fields are required.</p>
+        <form>
+            <fieldset>
+            <label for="trivia_question">Trivia Question</label>
+            <input type="text" name="frm_name_trivia_question" id="frm_id_trivia_question" value="" class="text ui-widget-content ui-corner-all">
+            <label for="trivia_answer">Trivia Answer</label>
+            <input type="text" name="frm_name_trivia_answer" id="frm_id_trivia_answer" value="" class="text ui-widget-content ui-corner-all">
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+        </div>        
+
+        <div class="row">
+            Game Interaction: e.g. Spin, Validate, Select Category
+        </div>
+    </div>
+
+    <script src="../lib/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../lib/jquery/jquery-1.12.1-ui.js"></script>
+    <script src="../scripts/data.js"></script>
+    <script src="../scripts/engine.js"></script>
+    <script src="../scripts/ui.js"></script>
+    <script src="exper.js"></script>
+
+</body>
+</html>

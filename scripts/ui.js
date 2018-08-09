@@ -8,17 +8,18 @@ let game;
 let round;
 let playerCount = 3;
 
+let category_editable = false;
+let trivia_editable = false;
+
 function download(filename, text) {
     // source: https://goo.gl/VWW2sT
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     element.setAttribute('download', filename);
-
     element.style.display = 'none';
     document.body.appendChild(element);
 
     element.click();
-
     document.body.removeChild(element);
 }
 
@@ -60,11 +61,17 @@ class Alert{
 function startEdit(){
     $(".start-panel").hide();
     $(".edit-panel").show();
+
+    toggleCategoryClicks();
+    toggleTriviaClicks();
 }
 
 function endEdit(){
     $(".edit-panel").hide();
     $(".start-panel").show();
+
+    toggleCategoryClicks();
+    toggleTriviaClicks();
 }
 
 function startGame(){
@@ -95,6 +102,21 @@ function addPlayer(){
         Alert.hide(2000);
     }
 }
+
+function toggleClicks() {
+    toggleCategoryClicks();
+    toggleTriviaClicks();
+}
+
+function toggleCategoryClicks() {
+    if ( category_editable ){ category_editable = false; }
+    else { category_editable = true; }
+}
+
+function toggleTriviaClicks() {
+    if ( trivia_editable ){ trivia_editable = false; }
+    else { trivia_editable = true; }
+}   
 
 $(document).ready(function(){
     // hide panels

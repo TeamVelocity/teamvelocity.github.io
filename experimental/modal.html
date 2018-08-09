@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="../styles/main.css">
   <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../lib/fontawesome/css/all.css">
-
   <script src="../lib/jquery/jquery-3.3.1.min.js"></script>
   <script src="../lib/jquery/jquery-1.12.1-ui.js"></script>
   <script src="exper.js"></script>
@@ -41,18 +40,16 @@
   </form>
 </div>
 
-<h1>Categories:</h1>
-<div id="category-contain" class="ui-widget">
-  <table id="categoryTable" border="1" style="border-collapse: collapse;" cellpadding="8">
-      <tr id="row0">
-          <td class="0_0">Col 0 Row 0</td><td class="1_0">Col 1 Row 0</td><td class="2_0">Col 2 Row 0</td>
-          <td class="3_0">Col 3 Row 0</td><td class="4_0">Col 4 Row 0</td><td class="5_0">Col 5 Row 0</td>
-      </tr>
-  </table>
-
 <h1>Trivia:</h1>
 <div id="trivia-contain" class="ui-widget">
-  <table id="triviaTable" border="1" style="border-collapse: collapse;" cellpadding="8">
+  <table id="triviaTable" border="1" style="border-collapse: collapse;" cellpadding="24">
+    <thead>
+      <!--<tr>-->
+      <th scope="col">C0</th><th scope="col">C1</th><th scope="col">C2</th>
+      <th scope="col">C3</th><th scope="col">C4</th><th scope="col">C5</th>
+      <!--</tr>-->
+    </thead>
+    <tbody>
       <tr id="t_row0">
           <td class="t_0_0">000</td><td class="t_1_0">001</td><td class="t_2_0">002</td><td class="t_3_0">003</td><td class="t_4_0">004</td><td class="t_5_0">005</td>
       </tr>          
@@ -68,6 +65,7 @@
       <tr id="t_row4">
           <td class="t_0_4">040</td><td class="t_1_4">041</td><td class="t_2_4">042</td><td class="t_3_4">043</td><td class="t_4_4">044</td><td class="t_5_4">045</td>
       </tr>
+    </tbody>
   </table>
 </div>
 <button id="toggle-editable">Toggle Editability</button>

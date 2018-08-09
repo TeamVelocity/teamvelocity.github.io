@@ -17,18 +17,16 @@ $(document).ready(function(){
     let num_rows = 5;
     let num_cols = 6;
     let size  = num_rows * num_cols; // number of elements in the game board
-    let questions = Array.apply(null,{length: size}).map(function() { return fill_value; });
-    let answers = Array.apply(null,{length: size}).map(function() { return fill_value; });
-    
-    let clicked_trivia_index = 0;
+    let questions = Array.apply(null, {length: size}).map(function() { return fill_value; });
+    let answers = Array.apply(null, {length: size}).map(function() { return fill_value; });
+   
     let tips = $( ".validateTips" );
     
     // keep track of some elements of the table that have been manipulated by the user
     let clicked_col;
     let clicked_row;
     let clicked_element;
-    let category_editable = true;
-    let trivia_editable = true;
+    let clicked_trivia_index = 0;
 
     // set up the edit category dialog
     category_dialog = $( "#category-form" ).dialog({
@@ -100,21 +98,6 @@ $(document).ready(function(){
             return false;
         } else { return true; }
     }
-
-    function toggleClicks() {
-        toggleCategoryClicks();
-        toggleTriviaClicks();
-    }
-
-    function toggleCategoryClicks() {
-        if ( category_editable ){ category_editable = false; }
-        else { category_editable = true; }
-    }
-
-    function toggleTriviaClicks() {
-        if ( trivia_editable ){ trivia_editable = false; }
-        else { trivia_editable = true; }
-    }    
 
     function editCategory() {
         let valid = true;
@@ -201,7 +184,7 @@ $(document).ready(function(){
     });
 
     // set up the click event for the category elements
-    $("#categoryTable td").click(function( clicked_object ) {
+    $("#triviaTable th").click(function( clicked_object ) {
         clicked_element = clicked_object;
         if ( category_editable ) {
             // ensure the form is populated with the current value of the table element before open

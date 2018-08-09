@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/fontawesome/css/all.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/main2.css" type="text/css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script type="text/javascript" src="scripts/Winwheel.js"></script>
 </head>
 <body>
     <div class="container">
@@ -20,16 +23,45 @@
         <div class="row">
             <div class="col text-center">
                 <h1>Wheel of Jeopardy</h1>
+                <!-- Power buttons -->
+                <p>Choose a power setting then press the Spin button. You will be alerted to the prize won when the spinning stops.</p>
+            <br />
+            <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td>
+                    <div class="power_controls">
+                        <br />
+                        <br />
+                        <table class="power" cellpadding="10" cellspacing="0">
+                            <tr>
+                                <th align="center">Power</th>
+                            </tr>
+                            <tr>
+                                <td width="78" align="center" id="pw3" onClick="powerSelected(3);">High</td>
+                            </tr>
+                            <tr>
+                                <td align="center" id="pw2" onClick="powerSelected(2);">Med</td>
+                            </tr>
+                            <tr>
+                                <td align="center" id="pw1" onClick="powerSelected(1);">Low</td>
+                            </tr>
+                        </table>
+                        <br />
+                        <img id="spin_button" src="spin_off.png" alt="Spin" onClick="startSpin();" />
+                        <br /><br />
+                        &nbsp;&nbsp;<a href="#" onClick="resetWheel(); return false;">Play Again</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reset)
+                    </div>
+                </td>
+                <td width="438" height="582" class="the_wheel" align="center" valign="center">
+                    <canvas id="canvas" width="434" height="434">
+                        <p style="{color: white}" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
+                    </canvas>
+                </td>
+            </tr>
+        </table>
             </div>
         </div>
         <div class="row">
-
-            <!-- wheel -->
-            <div class="col-4">
-                <svg height="200" width="200">
-                    <circle cx="100" cy="100" r="90" stroke="black" stroke-width="3" fill="purple" />
-                </svg>
-            </div>
 
             <!-- players -->
             <div class="col-8">
@@ -203,7 +235,167 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+<script>
+            // Create new wheel object specifying the parameters at creation time.
+            var theWheel = new Winwheel({
+                'outerRadius'     : 212,        // Set outer radius so wheel fits inside the background.
+                'innerRadius'     : 75,         // Make wheel hollow so segments don't go all way to center.
+                'textFontSize'    : 12,         // Set default font size for the segments.
+                'textOrientation' : 'vertical', // Make text vertial so goes down from the outside of wheel.
+                'textAlignment'   : 'outer',    // Align text to outside of wheel.
+                'numSegments'     : 12,         // Specify number of segments.
+                'segments'        :             // Define segments including colour and text.
+                [                               // font size and test colour overridden on backrupt segments.
+                    {'fillStyle' : '#ba1c24', 'text' : 'Category 1'},
+                   {'fillStyle' : '#3cb878', 'text' : 'Category 2'},
+                   {'fillStyle' : '#f6989d', 'text' : 'Category 3'},
+                   {'fillStyle' : '#00aef0', 'text' : 'Category 4'},
+                   {'fillStyle' : '#f26522', 'text' : 'Category 5'},
+                   {'fillStyle' : '#000000', 'text' : 'BANKRUPT', 'textFontSize' : 16, 'textFillStyle' : '#ffffff'},
+                   {'fillStyle' : '#e70697', 'text' : 'Category 6'},
+                   {'fillStyle' : '#fff200', 'text' : 'Player’s Choice', 'textFontSize' : 10},
+                   {'fillStyle' : '#f6989d', 'text' : 'Opponent’s Choice', 'textFontSize' : 10},
+                   {'fillStyle' : '#ae1c26', 'text' : 'Double Score', 'textFontSize' : 10},
+                    {'fillStyle' : '#ee1c24', 'text' : 'FREE TURN'},
+                   {'fillStyle' : '#ffffff', 'text' : 'LOOSE TURN', 'textFontSize' : 12}
+                ],
+                'animation' :           // Specify the animation to use.
+                {
+                    'type'     : 'spinToStop',
+                    'duration' : 8,     // Duration in seconds.
+                    'spins'    : 3,     // Default number of complete spins.
+                    'callbackFinished' : alertPrize
+                }
+            });
 
+            // Vars used by the code in this page to do power controls.
+            var wheelPower    = 0;
+            var wheelSpinning = false;
+
+            // -------------------------------------------------------
+            // Function to handle the onClick on the power buttons.
+            // -------------------------------------------------------
+            function powerSelected(powerLevel)
+            {
+                // Ensure that power can't be changed while wheel is spinning.
+                if (wheelSpinning == false)
+                {
+                    // Reset all to grey incase this is not the first time the user has selected the power.
+                    document.getElementById('pw1').className = "";
+                    document.getElementById('pw2').className = "";
+                    document.getElementById('pw3').className = "";
+
+                    // Now light up all cells below-and-including the one selected by changing the class.
+                    if (powerLevel >= 1)
+                    {
+                        document.getElementById('pw1').className = "pw1";
+                    }
+
+                    if (powerLevel >= 2)
+                    {
+                        document.getElementById('pw2').className = "pw2";
+                    }
+
+                    if (powerLevel >= 3)
+                    {
+                        document.getElementById('pw3').className = "pw3";
+                    }
+
+                    // Set wheelPower var used when spin button is clicked.
+                    wheelPower = powerLevel;
+
+                    // Light up the spin button by changing it's source image and adding a clickable class to it.
+                    document.getElementById('spin_button').src = "spin_on.png";
+                    document.getElementById('spin_button').className = "clickable";
+                }
+            }
+
+            // -------------------------------------------------------
+            // Click handler for spin button.
+            // -------------------------------------------------------
+            function startSpin()
+            {
+                // Ensure that spinning can't be clicked again while already running.
+                if (wheelSpinning == false)
+                {
+                    // Based on the power level selected adjust the number of spins for the wheel, the more times is has
+                    // to rotate with the duration of the animation the quicker the wheel spins.
+                    if (wheelPower == 1)
+                    {
+                        theWheel.animation.spins = 3;
+                    }
+                    else if (wheelPower == 2)
+                    {
+                        theWheel.animation.spins = 6;
+                    }
+                    else if (wheelPower == 3)
+                    {
+                        theWheel.animation.spins = 9;
+                    }
+
+                    // Disable the spin button so can't click again while wheel is spinning.
+                    document.getElementById('spin_button').src       = "spin_off.png";
+                    document.getElementById('spin_button').className = "";
+
+                    // Begin the spin animation by calling startAnimation on the wheel object.
+                    theWheel.startAnimation();
+
+                    // Set to true so that power can't be changed and spin button re-enabled during
+                    // the current animation. The user will have to reset before spinning again.
+                    wheelSpinning = true;
+                }
+            }
+
+            // -------------------------------------------------------
+            // Function for reset button.
+            // -------------------------------------------------------
+            function resetWheel()
+            {
+                theWheel.stopAnimation(false);  // Stop the animation, false as param so does not call callback function.
+                theWheel.rotationAngle = 0;     // Re-set the wheel angle to 0 degrees.
+                theWheel.draw();                // Call draw to render changes to the wheel.
+
+                document.getElementById('pw1').className = "";  // Remove all colours from the power level indicators.
+                document.getElementById('pw2').className = "";
+                document.getElementById('pw3').className = "";
+
+                wheelSpinning = false;          // Reset to false to power buttons and spin can be clicked again.
+            }
+
+            // -------------------------------------------------------
+            // Called when the spin animation has finished by the callback feature of the wheel because I specified callback in the parameters.
+            // -------------------------------------------------------
+            function alertPrize(indicatedSegment)
+            {
+                // Just alert to the user what happened.
+                // In a real project probably want to do something more interesting than this with the result.
+                if (indicatedSegment.text == 'LOOSE TURN')
+                {
+                    alert('Sorry but you loose a turn.');
+                }
+                else if (indicatedSegment.text == 'BANKRUPT')
+                {
+                    alert('Oh no, you have gone BANKRUPT!');
+                }
+                 else if (indicatedSegment.text == "Player's choice")
+                {
+                    alert("It's Player's Choice!");
+                }
+                 else if (indicatedSegment.text == "Opponent’s choice")
+                {
+                    alert("It's Opponent’s choice!");
+                }
+                 else if (indicatedSegment.text == 'FREE TURN')
+                {
+                    alert('You won Free Turn!');
+                }
+                else
+                {
+                    alert("You landed on " + indicatedSegment.text);
+                }
+            }
+
+    </script>
     <!-- load scripts -->
     <script src="lib/jquery/jquery-3.3.1.min.js"></script>
     <script src="lib/jquery/jquery-1.12.1-ui.js"></script>

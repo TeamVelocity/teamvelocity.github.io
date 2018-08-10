@@ -14,3 +14,15 @@ body {
 .alert{
     position:fixed; bottom:2%; right:2%;
 }
+
+.arc text {
+    font-family: 'Font Awesome\ 5 Free';
+    font-size: 16pt;
+    font-weight: 900;
+    text-anchor: middle;
+}
+
+.social {
+    color: black;
+    font-size: 18pt;
+}

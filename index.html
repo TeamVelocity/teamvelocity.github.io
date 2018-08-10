@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/fontawesome/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:800i" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
@@ -22,24 +23,61 @@
                 <h1>Wheel of Jeopardy</h1>
             </div>
         </div>
+
+        <!-- start panel -->
+        <div class="row p-2 start-panel">
+            <div class="col text-center">
+                <button id="btn-play" type="button" class="btn btn-outline-primary btn-lg">Let's Play!</button>
+                <button id="btn-start-edit" type="button" class="btn btn-outline-secondary btn-lg">Edit Game</button>
+            </div>
+        </div>
+
+        <!-- edit panel -->
+        <div class="row p-2 edit-panel">
+            <div class="col text-center">
+                <button id="btn-stop-edit" type="button" class="btn btn-outline-success">Finish Editing</button>
+            </div>
+        </div>
+
+        <!-- play panel -->
+        <div class="row p-2 play-panel">
+            <div class="col text-left">
+                <div class="text-center">
+                    <span id="txt-round">1</span>
+                    <br> Round
+                </div>
+            </div>
+            <div class="col text-center">
+                <div class="text-center">
+                    <span id="txt-spins">50</span>
+                    <br> Spins Remain
+                </div>
+            </div>
+            <div class="col text-right">
+                <div class="text-center">
+                    <span id="txt-clues">30</span>
+                    <br> Clues Remain
+                </div>
+            </div>
+        </div>
+
+        <!-- wheel and players -->
         <div class="row">
 
             <!-- wheel -->
-            <div class="col-4">
-                <svg height="200" width="200">
-                    <circle cx="100" cy="100" r="90" stroke="black" stroke-width="3" fill="purple" />
-                </svg>
+            <div class="col-5 text-center">
+                <svg id="wheel" width="250" height="250"></svg>
             </div>
 
             <!-- players -->
-            <div class="col-8">
+            <div class="col-7 align-self-center">
 
                 <!-- add/remove player button -->
                 <div class="row p-2 text-center edit-panel">
                     <div class="col">
                         <button id="btn-add-player" type="button" class="btn btn-success btn-sm">+</button>
                         <button id="btn-del-player" type="button" class="btn btn-danger btn-sm">-</button>
-                        <span>Add/Remove Players</span>
+                        <!-- <span>Add/Remove Players</span> -->
                     </div>
                 </div>
 
@@ -85,21 +123,50 @@
                         </form>
                     </div>
                 </div>
+
+                <!-- text box -->
+                <div class="row">
+                    <div class="col text-center">
+                        <textarea class="form-control" id="clue-text" rows="2" readonly></textarea>
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+        <!-- spin phase -->
+        <div class="row p-2 spin-phase">
+            <div class="col text-center">
+                    <button id="btn-spin" type="button" class="btn btn-outline-primary btn">Spin</button>
             </div>
         </div>
 
-        <!-- start panel -->
-        <div class="row p-2 start-panel">
+        <!-- answer phase -->
+        <div class="row p-2 answer-phase">
             <div class="col text-center">
-                <button id="btn-play" type="button" class="btn btn-outline-primary btn-lg">Let's Play!</button>
-                <button id="btn-start-edit" type="button" class="btn btn-outline-secondary btn-lg">Edit Game</button>
+                    <button id="btn-answer" type="button" class="btn btn-outline-primary btn">Show Answer</button>
+            </div>
+        </div>
+
+        <!-- validate phase -->
+        <div class="row p-2 validate-phase">
+            <div class="col text-center">
+                    <button id="btn-valid" type="button" class="btn btn-success btn">Valid</button>
+                    <button id="btn-invalid" type="button" class="btn btn-danger btn">Invalid</button>
+            </div>
+        </div>
+
+        <!-- complete phase -->
+        <div class="row p-2 complete-phase">
+            <div class="col text-center">
+                <button id="btn-end-turn" type="button" class="btn btn-outline-primary btn">End Turn</button>
+                <button id="btn-token" type="button" class="btn btn-outline-warning btn">Use Token</button>
             </div>
         </div>
 
         <!-- edit panel -->
         <div class="row p-2 edit-panel">
 
-            <div class="col-3 text-left">
+            <div class="col-4 text-left">
                 <form class="form-inline">
                     <div class="form-group">
                         <label for="select-round">Round: </label>
@@ -110,25 +177,9 @@
                     </div>
                 </form>
             </div>
-            <div class="col-6 text-center">
+            <div class="col-8 text-right">
                 <button id="btn-import" type="button" class="btn btn-outline-info">Import</button>
                 <button id="btn-export" type="button" class="btn btn-outline-info">Export</button>
-            </div>
-            <div class="col-3 text-right">
-                <button id="btn-stop-edit" type="button" class="btn btn-outline-success">Finish Editing</button>
-            </div>
-        </div>
-
-        <!-- play panel -->
-        <div class="row p-2 play-panel">
-            <div class="col text-left">
-                Round: <span>1</span>
-            </div>
-            <div class="col text-center">
-                20 s
-            </div>
-            <div class="col text-right">
-                Clues Remain: <span>30</span>
             </div>
         </div>
         
@@ -191,9 +242,27 @@
                 </table>
             </div>
         </div>
-        <div class="row">
-            Game Interaction: e.g. Spin, Validate, Select Category
+
+        <!-- footer -->
+        <div class="row p-2 align-items-center">
+            <div class="col text-left">
+                <a href="https://github.com/TeamVelocity/teamvelocity.github.io">
+                    <i class="fab fa-github social"></i>
+                </a>
+                <a href="/docs">
+                    <i class="fas fa-code social"></i>
+                </a>
+            </div>
+            <div class="col text-center">
+                <button id="btn-reset" type="button" class="btn btn-outline-danger">Reset</button>
+            </div>
+            <div class="col text-right">
+                <a href="/help">
+                    User Guide
+                </a>
+            </div>
         </div>
+
     </div>
 
     <!-- standard page alert -->
@@ -208,6 +277,7 @@
     <script src="lib/jquery/jquery-3.3.1.min.js"></script>
     <script src="lib/jquery/jquery-1.12.1-ui.js"></script>
     <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/d3/d3.min.js"></script>
     <script src="scripts/data.js"></script>
     <script src="scripts/engine.js"></script>
     <script src="scripts/ui.js"></script>

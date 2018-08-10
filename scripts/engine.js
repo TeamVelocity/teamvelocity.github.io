@@ -3,6 +3,8 @@
  * Classes and logic for the Wheel of Jeopardy (WOJ) game.
  */
 
+ let engine = (function(){
+
 /**
  * @typedef {Object} GameStats
  */
@@ -1051,7 +1053,7 @@ class Game {
 }
 
 // node exports
-if( typeof module !== 'undefined' && module.exports ) {
+if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         Game: Game,
         Round: Round,
@@ -1059,3 +1061,10 @@ if( typeof module !== 'undefined' && module.exports ) {
         Score: Score
     }
 }
+
+return {
+    Game:Game,
+    initDefaultGame:initDefaultGame
+}
+
+})();

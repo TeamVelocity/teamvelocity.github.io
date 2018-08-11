@@ -249,7 +249,10 @@ function editCategory() {
 
     // validates the form's input field, and closes the modal
     if ( valid ) {
-        clicked_element.target.innerHTML = frm_name_category.val();
+        let category_updated = frm_name_category.val();
+        clicked_element.target.innerHTML = category_updated;
+        console.log("Input: Category Update: " + category_updated);
+        round.board.editCategory(clicked_col, category_updated);
         category_dialog.dialog( "close" );
     }
     return valid;
@@ -355,7 +358,7 @@ $(document).ready(function() {
     $("#triviaTable td").click(function( clicked_object ) {
 
         clicked_col = parseInt( $(this).index());
-        clicked_row = parseInt( $(this).parent().index());        
+        clicked_row = parseInt( $(this).parent().index());
 
         clicked_element = clicked_object;
         if ( trivia_editable ) {
@@ -365,7 +368,6 @@ $(document).ready(function() {
             let clue;
             let output = "Trivia: clicked_row = " + clicked_row + ",  clicked_col = " + clicked_col;
             console.log(output);
-
             // get the game round if necessary
             round = game.getRound(roundID);
             clue = round.board.getClue(clicked_col, clicked_row);
@@ -391,7 +393,18 @@ $(document).ready(function() {
     // set up the click event for the category elements
     $("#triviaTable th").click(function( clicked_object ) {
         clicked_element = clicked_object;
+
+        clicked_col = parseInt( $(this).index());
+        clicked_row = parseInt( $(this).parent().index());        
+
         if ( category_editable ) {
+
+            let roundID = $("#select-round").val() - 1;
+            let output = "Category: clicked_row = " + clicked_row + ",  clicked_col = " + clicked_col;
+            console.log(output);
+            // get the game round so categories are edited correctly
+            round = game.getRound(roundID);
+
             // ensure the form is populated with the current value of the table element before open
             frm_name_category.val($(this).text());
             category_dialog.dialog( "open" );

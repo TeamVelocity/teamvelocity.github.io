@@ -5,7 +5,9 @@
 Source code for the Wheel of Jeopardy Game developed by Team Velocity.
 
 Game Site: [https://teamvelocity.github.io/](https://teamvelocity.github.io/)
+
 Developer Documentation: [https://teamvelocity.github.io/docs](https://teamvelocity.github.io/docs)
+
 User Guide: [https://teamvelocity.github.io/help](https://teamvelocity.github.io/help)
 
 ## Developer Tools

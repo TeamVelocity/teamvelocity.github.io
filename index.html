@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/fontawesome/css/all.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/jquery-ui-1.12.1.css">
+    <link rel="stylesheet" href="styles/modal-style.css">
+    <link rel="stylesheet" href="styles/table-style.css">
+
 </head>
 <body>
     <div class="container">
@@ -37,9 +41,9 @@
                 <!-- add/remove player button -->
                 <div class="row p-2 text-center edit-panel">
                     <div class="col">
-                        <button id="btn-add-player" type="button" class="btn btn-success btn-sm">+</button>
-                        <button id="btn-del-player" type="button" class="btn btn-danger btn-sm">-</button>
-                        <span>Add/Remove Players</span>
+                            <button id="btn-add-player" type="button" class="btn btn-success btn-sm">+</button>
+                            <button id="btn-del-player" type="button" class="btn btn-danger btn-sm">-</button>
+                            <span>Add/Remove Players</span>
                     </div>
                 </div>
 
@@ -133,64 +137,61 @@
         </div>
         
         <!-- board -->
-        <div class="row">
-            <div class="col">
-                <table class="table">
-                    <thead>
-                        <tr>
-                        <th scope="col">Category 0</th>
-                        <th scope="col">Category 1</th>
-                        <th scope="col">Category 2</th>
-                        <th scope="col">Category 3</th>
-                        <th scope="col">Category 4</th>
-                        <th scope="col">Category 5</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Col 0 Row 0</td>
-                            <td>Col 1 Row 0</td>
-                            <td>Col 2 Row 0</td>
-                            <td>Col 3 Row 0</td>
-                            <td>Col 4 Row 0</td>
-                            <td>Col 5 Row 0</td>
-                        </tr>
-                        <tr>
-                            <td>Col 0 Row 1</td>
-                            <td>Col 1 Row 1</td>
-                            <td>Col 2 Row 1</td>
-                            <td>Col 3 Row 1</td>
-                            <td>Col 4 Row 1</td>
-                            <td>Col 5 Row 1</td>
-                        </tr>
-                        <tr>
-                            <td>Col 0 Row 2</td>
-                            <td>Col 1 Row 2</td>
-                            <td>Col 2 Row 2</td>
-                            <td>Col 3 Row 2</td>
-                            <td>Col 4 Row 2</td>
-                            <td>Col 5 Row 2</td>
-                        </tr>
-                        <tr>
-                            <td>Col 0 Row 3</td>
-                            <td>Col 1 Row 3</td>
-                            <td>Col 2 Row 3</td>
-                            <td>Col 3 Row 3</td>
-                            <td>Col 4 Row 3</td>
-                            <td>Col 5 Row 3</td>
-                        </tr>
-                        <tr>
-                            <td>Col 0 Row 4</td>
-                            <td>Col 1 Row 4</td>
-                            <td>Col 2 Row 4</td>
-                            <td>Col 3 Row 4</td>
-                            <td>Col 4 Row 4</td>
-                            <td>Col 5 Row 4</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div id="trivia-contain" class="ui-widget">
+        <table id="triviaTable" border="1" style="border-collapse: collapse;" cellpadding="24">
+            <thead>
+                <th id="h_0" class="cat_0">C0</th><th id="h_1" class="cat_1">C1</th><th id="h_2" class="cat_2">C2</th>
+                <th id="h_3" class="cat_3">C3</th><th id="h_4" class="cat_4">C4</th><th id="h_5" class="cat_5">C5</th>
+            </thead>
+            <tbody>
+                <tr id="t_row0">
+                    <td id="t_0_0" class="cat_0">000</td><td id="t_1_0" class="cat_1">001</td><td id="t_2_0" class="cat_2">002</td>
+                    <td id="t_3_0" class="cat_3">003</td><td id="t_4_0" class="cat_4">004</td><td id="t_5_0" class="cat_5">005</td>
+                </tr>
+                <tr id="t_row1">
+                    <td id="t_0_1" class="cat_0">010</td><td id="t_1_1" class="cat_1">011</td><td id="t_2_1" class="cat_2">012</td>
+                    <td id="t_3_1" class="cat_3">013</td><td id="t_4_1" class="cat_4">014</td><td id="t_5_1" class="cat_5">015</td>
+                </tr>
+                <tr id="t_row2">
+                    <td id="t_0_2" class="cat_0">020</td><td id="t_1_2" class="cat_1">021</td><td id="t_2_2" class="cat_2">022</td>
+                    <td id="t_3_2" class="cat_3">023</td><td id="t_4_2" class="cat_4">024</td><td id="t_5_2" class="cat_5">025</td>
+                </tr>
+                <tr id="t_row3">
+                    <td id="t_0_3" class="cat_0">030</td><td id="t_1_3" class="cat_1">031</td><td id="t_2_3" class="cat_2">032</td>
+                    <td id="t_3_3" class="cat_3">033</td><td id="t_4_3" class="cat_4">034</td><td id="t_5_3" class="cat_5">035</td>
+                </tr>
+                <tr id="t_row4">
+                    <td id="t_0_4" class="cat_0">040</td><td id="t_1_4" class="cat_1">041</td><td id="t_2_4" class="cat_2">042</td>
+                    <td id="t_3_4" class="cat_3">043</td><td id="t_4_4" class="cat_4">044</td><td id="t_5_4" class="cat_5">045</td>
+                </tr>
+            </tbody>
+        </table>
         </div>
+
+        <div id="category-form" title="Edit Category Form">
+        <p class="validateTips">Form field is required.</p>
+        <form>
+            <fieldset>
+            <label for="category">Category</label>
+            <input type="text" name="frm_name_category" id="frm_id_category" value="" class="text ui-widget-content ui-corner-all">
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+        </div>
+
+        <div id="trivia-form" title="Edit Trivia Form">
+        <p class="validateTips">Form fields are required.</p>
+        <form>
+            <fieldset>
+            <label for="trivia_question">Trivia Question</label>
+            <input type="text" name="frm_name_trivia_question" id="frm_id_trivia_question" value="" class="text ui-widget-content ui-corner-all">
+            <label for="trivia_answer">Trivia Answer</label>
+            <input type="text" name="frm_name_trivia_answer" id="frm_id_trivia_answer" value="" class="text ui-widget-content ui-corner-all">
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+        </div>        
+
         <div class="row">
             Game Interaction: e.g. Spin, Validate, Select Category
         </div>
@@ -198,12 +199,12 @@
 
     <!-- standard page alert -->
     <div id="alert" class="alert alert-dismissible collapse" role="alert">
-        <span id="alert-text"></span>
-        <button type="button" class="close" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
+            <span id="alert-text"></span>
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    
     <!-- load scripts -->
     <script src="lib/jquery/jquery-3.3.1.min.js"></script>
     <script src="lib/jquery/jquery-1.12.1-ui.js"></script>

@@ -245,7 +245,7 @@ function editCategory() {
     let valid = true;
     frm_name_category.removeClass( "ui-state-error" );
     valid = valid && checkLength( frm_name_category, "category", 3, 32 );
-    valid = valid && checkRegexp( frm_name_category, /^[a-z]([0-9a-z_\s])+$/i, "Input may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
+    valid = valid && checkRegexp( frm_name_category, /^[0-9a-zA-Z]([0-9a-zA-Z_\s,\&\^\%\$\#\@\!\)\(\*\[\]\{\}\-\_\.\?\'\‘\’])+$/i, "Input must begin with letters, or numbers; it may contain special characters.");
 
     // validates the form's input field, and closes the modal
     if ( valid ) {

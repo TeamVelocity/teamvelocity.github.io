@@ -1,7 +1,11 @@
 
+/* @nate if needed use combinator otherwise all inputs will be styled */
+
 /* label, input { 
     display:block; 
 } */
+
+/* @nate please add combinator so this doesn't style all input.text elements */
 
 input.text { 
     margin-bottom:12px; 
@@ -15,10 +19,14 @@ fieldset {
     margin-top:25px; 
 }
 
+/* @nate if needed use combinator otherwise all h1's will be styled */
+
 /* h1 { 
     font-size: 1.2em; 
     margin: .6em 0; 
 } */
+
+/* @nate I didn't see any of the following styles being used except validateTips, are they needed? */
 
 div#users-contain { 
     width: 350px; 

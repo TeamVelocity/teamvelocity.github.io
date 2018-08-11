@@ -46,20 +46,23 @@
         <div class="row p-2 play-panel">
             <div class="col text-left">
                 <div class="text-center">
+                    <span class=info-label>Round</span>
+                    <br>
                     <span id="txt-round">1</span>
-                    <br> Round
                 </div>
             </div>
             <div class="col text-center">
                 <div class="text-center">
+                    <span class=info-label>Spins Remain</span>
+                    <br>
                     <span id="txt-spins">50</span>
-                    <br> Spins Remain
                 </div>
             </div>
             <div class="col text-right">
                 <div class="text-center">
+                    <span class=info-label>Clues Remain</span>
+                    <br>
                     <span id="txt-clues">30</span>
-                    <br> Clues Remain
                 </div>
             </div>
         </div>
@@ -68,12 +71,12 @@
         <div class="row">
 
             <!-- wheel -->
-            <div class="col-5 text-center">
+            <div class="col-4 p-0 text-center">
                 <svg id="wheel" width="250" height="250"></svg>
             </div>
 
             <!-- players -->
-            <div class="col-7 align-self-center">
+            <div class="col-8 align-self-center">
 
                 <!-- add/remove player button -->
                 <div class="row p-2 text-center edit-panel">
@@ -129,7 +132,7 @@
 
                 <!-- text box -->
                 <div class="row">
-                    <div class="col text-center">
+                    <div class="col pt-1 text-center">
                         <textarea class="form-control" id="clue-text" rows="2" readonly></textarea>
                     </div>
                 </div>
@@ -168,7 +171,6 @@
 
         <!-- edit panel -->
         <div class="row p-2 edit-panel">
-
             <div class="col-4 text-left">
                 <form class="form-inline">
                     <div class="form-group">
@@ -187,36 +189,41 @@
         </div>
         
         <!-- board -->
-        <div id="trivia-contain" class="ui-widget">
-        <table id="triviaTable" border="1" style="border-collapse: collapse;" cellpadding="24">
-            <thead>
-                <th id="h_0" class="cat_0">C0</th><th id="h_1" class="cat_1">C1</th><th id="h_2" class="cat_2">C2</th>
-                <th id="h_3" class="cat_3">C3</th><th id="h_4" class="cat_4">C4</th><th id="h_5" class="cat_5">C5</th>
-            </thead>
-            <tbody>
-                <tr id="t_row0">
-                    <td id="t_0_0" class="cat_0">000</td><td id="t_1_0" class="cat_1">001</td><td id="t_2_0" class="cat_2">002</td>
-                    <td id="t_3_0" class="cat_3">003</td><td id="t_4_0" class="cat_4">004</td><td id="t_5_0" class="cat_5">005</td>
-                </tr>
-                <tr id="t_row1">
-                    <td id="t_0_1" class="cat_0">010</td><td id="t_1_1" class="cat_1">011</td><td id="t_2_1" class="cat_2">012</td>
-                    <td id="t_3_1" class="cat_3">013</td><td id="t_4_1" class="cat_4">014</td><td id="t_5_1" class="cat_5">015</td>
-                </tr>
-                <tr id="t_row2">
-                    <td id="t_0_2" class="cat_0">020</td><td id="t_1_2" class="cat_1">021</td><td id="t_2_2" class="cat_2">022</td>
-                    <td id="t_3_2" class="cat_3">023</td><td id="t_4_2" class="cat_4">024</td><td id="t_5_2" class="cat_5">025</td>
-                </tr>
-                <tr id="t_row3">
-                    <td id="t_0_3" class="cat_0">030</td><td id="t_1_3" class="cat_1">031</td><td id="t_2_3" class="cat_2">032</td>
-                    <td id="t_3_3" class="cat_3">033</td><td id="t_4_3" class="cat_4">034</td><td id="t_5_3" class="cat_5">035</td>
-                </tr>
-                <tr id="t_row4">
-                    <td id="t_0_4" class="cat_0">040</td><td id="t_1_4" class="cat_1">041</td><td id="t_2_4" class="cat_2">042</td>
-                    <td id="t_3_4" class="cat_3">043</td><td id="t_4_4" class="cat_4">044</td><td id="t_5_4" class="cat_5">045</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row board">
+            <div class="col text-center p-0">
+                <div id="trivia-contain" class="ui-widget">
+                <table id="triviaTable">
+                    <thead>
+                        <th id="h_0" class="cat_0">C0</th><th id="h_1" class="cat_1">C1</th><th id="h_2" class="cat_2">C2</th>
+                        <th id="h_3" class="cat_3">C3</th><th id="h_4" class="cat_4">C4</th><th id="h_5" class="cat_5">C5</th>
+                    </thead>
+                    <tbody>
+                        <tr id="t_row0">
+                            <td id="t_0_0" class="cat_0">000</td><td id="t_1_0" class="cat_1">001</td><td id="t_2_0" class="cat_2">002</td>
+                            <td id="t_3_0" class="cat_3">003</td><td id="t_4_0" class="cat_4">004</td><td id="t_5_0" class="cat_5">005</td>
+                        </tr>
+                        <tr id="t_row1">
+                            <td id="t_0_1" class="cat_0">010</td><td id="t_1_1" class="cat_1">011</td><td id="t_2_1" class="cat_2">012</td>
+                            <td id="t_3_1" class="cat_3">013</td><td id="t_4_1" class="cat_4">014</td><td id="t_5_1" class="cat_5">015</td>
+                        </tr>
+                        <tr id="t_row2">
+                            <td id="t_0_2" class="cat_0">020</td><td id="t_1_2" class="cat_1">021</td><td id="t_2_2" class="cat_2">022</td>
+                            <td id="t_3_2" class="cat_3">023</td><td id="t_4_2" class="cat_4">024</td><td id="t_5_2" class="cat_5">025</td>
+                        </tr>
+                        <tr id="t_row3">
+                            <td id="t_0_3" class="cat_0">030</td><td id="t_1_3" class="cat_1">031</td><td id="t_2_3" class="cat_2">032</td>
+                            <td id="t_3_3" class="cat_3">033</td><td id="t_4_3" class="cat_4">034</td><td id="t_5_3" class="cat_5">035</td>
+                        </tr>
+                        <tr id="t_row4">
+                            <td id="t_0_4" class="cat_0">040</td><td id="t_1_4" class="cat_1">041</td><td id="t_2_4" class="cat_2">042</td>
+                            <td id="t_3_4" class="cat_3">043</td><td id="t_4_4" class="cat_4">044</td><td id="t_5_4" class="cat_5">045</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
         </div>
+    
 
         <!-- footer -->
         <div class="row p-2 align-items-center">
@@ -229,7 +236,7 @@
                 </a>
             </div>
             <div class="col text-center">
-                <button id="btn-reset" type="button" class="btn btn-outline-danger">Reset</button>
+                <button id="btn-reset" type="button" class="btn-sm btn-outline-danger">Reset</button>
             </div>
             <div class="col text-right">
                 <a href="/help">

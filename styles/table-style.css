@@ -2,18 +2,26 @@
   Clickable Table CSS Sourced from: 
   URL: http://www.srccodes.com/p/article/40/determine-click-position-row-column-number-onclick-table-cell
 */
-table {	
+
+#triviaTable{
     font-size: 1em;
-    width: 900px;
     text-align: center;
     cursor:pointer;
+    min-width: 768px;
+    table-layout: fixed;
+    overflow: hidden;
+    border: 1;
+    border-collapse: collapse;
+    padding: 0;
+    margin: auto;
 }
 
 th {
     background: -moz-linear-gradient(top, #ffffff, #6083AA);
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#6083AA));
     border: 5px solid rgb(0, 0, 0);
-    padding: 16px;
+    width: 110px;
+    /* padding: 16px; */
 }
 
 td {

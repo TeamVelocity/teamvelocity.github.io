@@ -506,11 +506,11 @@ let wheel = {
             .attr("dy", "0.35em")
             .text(function (d) { return d.data.label; });
 
-        wheel.base.append("circle")
+        wheel.timerCircle = wheel.base.append("circle")
             .attr("r", "40")
             .attr("fill", "#adc9e2");
 
-        wheel.label = wheel.base.append("text")
+        wheel.timerText = wheel.base.append("text")
             .attr("text-anchor", "middle")
             .attr("alignment-baseline", "central")
             .attr("font-size", 32)
@@ -549,11 +549,15 @@ let wheel = {
     },
 
     startTimer: function(duration=20){
+        wheel.timerText.text("20");
         wheel.timer = d3.interval(function(elapsed){
-            wheel.label.transition()
+            wheel.timerText.transition()
                 .duration(750)
                 .text(duration - Math.floor(elapsed/1000));
-            if (elapsed > duration * 1000) wheel.timer.stop();
+            if (elapsed > duration * 1000){
+                wheel.timer.stop();
+                wheel.timerCircle.attr("fill", "red");
+            }
         }, 1000)
     },
 
@@ -563,7 +567,7 @@ let wheel = {
 
     resetTimer: function(){
         wheel.stopTimer();
-        wheel.label.text("\uf017");
+        wheel.timerText.text("\uf017");
 
     }
 }

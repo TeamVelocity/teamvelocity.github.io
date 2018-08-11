@@ -16,7 +16,6 @@ let fill_value = "";
 let clicked_col;
 let clicked_row;
 let clicked_element;
-let clicked_trivia_index = 0;
 
 let category_form;
 let trivia_form;
@@ -28,7 +27,7 @@ let frm_name_trivia_answer = $('input[name="frm_name_trivia_answer"]');
 let tips = $( ".validateTips" );
 
 // set up the edit category dialog
-category_dialog = $( "#category-form" ).dialog({
+category_dialog = $( "#category-form" ).dialog( {
     autoOpen: false,
     height: 400,
     width: 350,
@@ -43,7 +42,7 @@ category_dialog = $( "#category-form" ).dialog({
 });
 
 // setup the edit trivia dialog
-trivia_dialog = $( "#trivia-form" ).dialog({
+trivia_dialog = $( "#trivia-form" ).dialog( {
     autoOpen: false,
     height: 400,
     width: 350,
@@ -58,15 +57,15 @@ trivia_dialog = $( "#trivia-form" ).dialog({
         frm_name_trivia_question.removeClass( "ui-state-error" );
         frm_name_trivia_answer.removeClass( "ui-state-error" );
     }
-});    
+});
 
 // set up the form to edit the category text
 category_form = category_dialog.find( "form" ).on( "submit", function( submit_event ) {
     submit_event.preventDefault();
     frm_name_category.val("");
-    });
+});
 
-    // set up the form to edit the trivia text
+// set up the form to edit the trivia text
 trivia_form = trivia_dialog.find( "form" ).on( "submit", function( submit_event ) {
     submit_event.preventDefault();
 });
@@ -92,22 +91,20 @@ function populateTriviaFromEngine(clicked_col, clicked_row) {
 
 function initGameBoardFromRound(roundChoice) {
 
-    console.log(roundChoice);
+    console.log("Board redraw - round: " + roundChoice);
     let edit_round = game.getRound(roundChoice);   
     
     // setup the points (cells) for the game as chosen in the drop down box
     $("#triviaTable tbody tr").each(function (row_index, row) {
         let current_row = $(row);
-        console.log("Row Index: " + row_index);
-        /*
-        + ", row: ");
-        console.log(current_row);*/
         let cols = 6;
         let column_index = 0;
         let current_clue;
+        // iterate through the table, adjusting the points to those associated
+        // with the chosen board's point value
         for (column_index = 0; column_index < cols; column_index++) {
             let current_column = current_row[0].cells[column_index];
-            console.log("Column Index: " + column_index + ", column text: " + current_column.innerHTML);
+            //console.log("Column Index: " + column_index + ", column text: " + current_column.innerHTML);
             current_clue = edit_round.board.getClue(column_index, row_index);
             current_column.innerHTML = current_clue.points;
         }
@@ -117,9 +114,9 @@ function initGameBoardFromRound(roundChoice) {
     let current_categories = edit_round.board.categoryNames;
     $("#triviaTable thead th").each(function (category_index, category) {
         let current_category_cell = $(category);
-        console.log("category Index: " + category_index);
-        console.log("category name: " + current_categories[category_index]);
-        console.log($(category));
+        //console.log("category Index: " + category_index);
+        //console.log("category name: " + current_categories[category_index]);
+        //console.log($(category));
         $(category)[0].innerHTML = current_categories[category_index];
     });
 }
@@ -142,7 +139,7 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
-class Alert{
+class Alert {
     static success (msg){
         let a = $("#alert");
         a.removeClass("alert-danger alert-success alert-warning")
@@ -177,7 +174,7 @@ class Alert{
     };
 }
 
-function startEdit(){
+function startEdit() {
     $(".start-panel").hide();
     $(".edit-panel").show();
 
@@ -243,7 +240,7 @@ function toggleTriviaClicks() {
 function editCategory() {
     let valid = true;
     frm_name_category.removeClass( "ui-state-error" );
-    valid = valid && checkLength( frm_name_category, "category", 3, 16 );
+    valid = valid && checkLength( frm_name_category, "category", 3, 32 );
     valid = valid && checkRegexp( frm_name_category, /^[a-z]([0-9a-z_\s])+$/i, "Input may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
 
     // validates the form's input field, and closes the modal
@@ -260,17 +257,17 @@ function editTrivia() {
     frm_name_trivia_answer.removeClass( "ui-state-error" );
 
     valid = valid && checkLength( frm_name_trivia_question, "trivia", 3, 256 );
-    valid = valid && checkRegexp( frm_name_trivia_question, /^[a-z]([0-9a-z_\s])+$/i, "Input may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
+    valid = valid && checkRegexp( frm_name_trivia_question, /^[0-9a-zA-Z]([0-9a-zA-Z_\s,\&\^\%\$\#\@\!\)\(\*\[\]\{\}\-\_\.\?\'\‘\’])+$/i, "Input must begin with letters, or numbers; it may contain special characters.");
     valid = valid && checkLength( frm_name_trivia_answer, "trivia", 3, 256 );
-    valid = valid && checkRegexp( frm_name_trivia_answer, /^[a-z]([0-9a-z_\s])+$/i, "Input may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );        
-
+    valid = valid && checkRegexp( frm_name_trivia_answer, /^[0-9a-zA-Z]([0-9a-zA-Z_\s,\&\^\%\$\#\@\!\)\(\*\[\]\{\}\-\_\.\?\'\‘\’])+$/i, "Input must begin with letters, or numbers; it may contain special characters.");
+    
     // validates the form's input field, and closes the modal
     if ( valid ) {
         // store the user's trivia information in the local session table
-        questions[clicked_trivia_index] = frm_name_trivia_question.val();
-        answers[clicked_trivia_index] = frm_name_trivia_answer.val();
-
-        console.log("Input: \nQuestion: " + questions[clicked_trivia_index] + "\nAnswer: " + answers[clicked_trivia_index]);
+        let question = frm_name_trivia_question.val();
+        let answer = frm_name_trivia_answer.val();
+        console.log("Input: \nQuestion: " + question + "\nAnswer: " + answer);
+        round.board.editClue(clicked_col, clicked_row, question, answer);
 
         trivia_dialog.dialog( "close" );
     }
@@ -282,8 +279,8 @@ function updateTips( t ) {
         .text( t )
         .addClass( "ui-state-highlight" );
     setTimeout(function() {
-        tips.removeClass( "ui-state-highlight", 1500 );
-    }, 500 );
+        tips.removeClass( "ui-state-highlight", 3000 );
+    }, 1500 );
 }
 
 function checkLength( o, n, min, max ) {
@@ -310,33 +307,33 @@ $(document).ready(function() {
     $(".play-panel").hide();
 
     // setup click handlers
-    $("#alert button").click(function(){$("#alert").hide();});
+    $("#alert button").click(function() { $("#alert").hide(); });
 
-    $("#btn-start-edit").click(function(){
+    $("#btn-start-edit").click(function() {
         startEdit();
     });
 
-    $("#btn-stop-edit").click(function(){
+    $("#btn-stop-edit").click(function() {
         endEdit();
     });
 
-    $("#btn-play").click(function(){
+    $("#btn-play").click(function() {
         startGame();
     });
 
-    $("#btn-export").click(function(){
+    $("#btn-export").click(function() {
         // should make this more robust
         let roundID = $("#select-round").val() - 1;
         let round = game.getRound(roundID)
         download('board.json', round.board.export());
     });
 
-    $("#btn-add-player").click(function(){
+    $("#btn-add-player").click(function() {
         addPlayer();
         console.log(playerCount)
     });
 
-    $("#btn-del-player").click(function(){
+    $("#btn-del-player").click(function() {
         removePlayer();
         console.log(playerCount)        
     });
@@ -346,6 +343,7 @@ $(document).ready(function() {
         let round_selected = $(this).children(":selected").html();
         console.log("Round changed! " + round_selected);
         let selected_round = parseInt( round_selected) - 1;
+        // redraw the category information
         initGameBoardFromRound(selected_round);
     });
 
@@ -359,26 +357,24 @@ $(document).ready(function() {
         if ( trivia_editable ) {
             // ensure the form is populated with the current value of the table element before open
             // trivia will extract the current value from the stored (local storage) values depending on the td value read
-
+            let roundID = $("#select-round").val() - 1;
+            let clue;
             let output = "Trivia: clicked_row = " + clicked_row + ",  clicked_col = " + clicked_col;
             console.log(output);
 
             // get the game round if necessary
-            if (typeof round == 'undefined') { 
-                let roundID = $("#select-round").val() - 1;
-                round = game.getRound(roundID);
-            }
+            round = game.getRound(roundID);
+            clue = round.board.getClue(clicked_col, clicked_row);
 
-            // get the q & a for the current round
-            let clue = round.board.getClue(clicked_col, clicked_row);            
+            // get the q & a for the current round           
             let question = clue.question;
             let answer = clue.answer;
             
             if (typeof question == 'undefined'){ question = "<empty>"; }           
             if (typeof answer == 'undefined'){ answer = "<empty>"; }
 
-            output = "Clue: Question: " + " | " + question + "\nAnswer: " + answer;
-            console.log(output);
+            //output = "Clue: Question: " + " | " + question + "\nAnswer: " + answer;
+            //console.log(output);
             
             // pre-populate the trivia information before modal open
             frm_name_trivia_question.val(question);

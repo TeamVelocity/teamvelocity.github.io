@@ -180,6 +180,10 @@ function startEdit() {
 
     toggleCategoryClicks();
     toggleTriviaClicks();
+
+    // set the game board to the first round before starting edits
+    initGameBoardFromRound(0);
+    $('select>option:eq(0)').prop('selected', true);
 }
 
 function endEdit() {
@@ -189,8 +193,8 @@ function endEdit() {
     toggleCategoryClicks();
     toggleTriviaClicks();
 
-    // get the round chosen from the round drop down box
-    // populateTriviaFromEngine(0);
+    // set the game board to the first round after edits
+    initGameBoardFromRound(0);
 }
 
 function startGame() {

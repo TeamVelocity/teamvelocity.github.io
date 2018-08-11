@@ -151,12 +151,16 @@ function endEdit() {
 }
 
 function startGame() {
+    // set object visibility
     $(".start-panel").hide();
     $(".play-panel").show();
     $(".spin-phase").show();
 
+    // add players
     for(let i=0; i<playerCount; i++){
+        let player = $("#player" + i);
         $("#player" + i + " input").prop("readonly", true);
+        game.addPlayer($("input", player).val());
     }
 }
 
@@ -272,7 +276,9 @@ $(document).ready(function() {
     $(".complete-phase").hide();
 
     // setup click handlers
-    $("#alert button").click(function() { $("#alert").hide(); });
+    $("#alert button").click(function() {
+        $("#alert").hide(); 
+    });
 
     $("#btn-start-edit").click(function() {
         startEdit();
@@ -280,10 +286,6 @@ $(document).ready(function() {
 
     $("#btn-stop-edit").click(function() {
         endEdit();
-    });
-
-    $("#btn-play").click(function() {
-        startGame();
     });
 
     $("#btn-export").click(function() {
@@ -295,12 +297,15 @@ $(document).ready(function() {
 
     $("#btn-add-player").click(function() {
         addPlayer();
-        console.log(playerCount)
     });
 
     $("#btn-del-player").click(function() {
         removePlayer();
-        console.log(playerCount)        
+    });
+
+    $("#btn-spin").click(function () {
+        let spin = round.spin();
+        console.log(spin);
     });
 
     // setup the selection handler for the select ddl
@@ -369,27 +374,16 @@ $(document).ready(function() {
         }
     });    
 
+    $("#btn-play").click(function () {
+        startGame();
+    });
+
     // init default game
     game = engine.initDefaultGame();
     round = game.getRound(0);
     
     // load the game data for the first round
     initGameBoard();
-
-    let clue = round.board.getCategory(1).clues[2];
-    clue.question = "What is the oldest soft drink in America?";
-    clue.answer = "Dr. Pepper.";
-
-    // setup players
-    // $("#btn-play").click(function(){
-    //     // store players -- should be adjusted for num of players and default names
-    //     let playerName = $("#player0").find("input").val();
-    //     game.addPlayer(playerName);
-    // })
-
-    // add sample players for testing
-    game.addPlayer("John");
-    game.addPlayer("Jane");
 
     // start first round
     round = game.getRound(0);

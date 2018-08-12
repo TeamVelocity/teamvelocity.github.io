@@ -39,3 +39,11 @@ body {
 #logo-title {
     width: 600px;
 }
+
+.current-turn {
+    border: 2px solid green;
+}
+
+#clue-text {
+    background-color: white;
+}

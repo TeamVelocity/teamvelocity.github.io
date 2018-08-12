@@ -1,3 +1,5 @@
+.DS_Store
+
 # coveralls for local build
 .coveralls.yml
 

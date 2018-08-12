@@ -6,6 +6,7 @@
 // globals
 let game;
 let round;
+let spin;
 let playerCount = 3;
 
 let category_editable = false;
@@ -126,64 +127,6 @@ function initGameBoard() {
     initGameBoardFromRound(0);
 }
 
-function startEdit() {
-    $(".start-panel").hide();
-    $(".edit-panel").show();
-
-    toggleCategoryClicks();
-    toggleTriviaClicks();
-
-    // set the game board to the first round before starting edits
-    initGameBoardFromRound(0);
-    $('select>option:eq(0)').prop('selected', true);
-}
-
-
-function endEdit() {
-    $(".edit-panel").hide();
-    $(".start-panel").show();
-
-    toggleCategoryClicks();
-    toggleTriviaClicks();
-
-    // set the game board to the first round after edits
-    initGameBoardFromRound(0);
-}
-
-function startGame() {
-    // set object visibility
-    $(".start-panel").hide();
-    $(".play-panel").show();
-    $(".spin-phase").show();
-
-    // add players
-    for(let i=0; i<playerCount; i++){
-        let player = $("#player" + i);
-        $("#player" + i + " input").prop("readonly", true);
-        game.addPlayer($("input", player).val());
-    }
-}
-
-function removePlayer() {
-    if(playerCount > 1){
-        playerCount--;
-        $("#player" + playerCount).hide();
-    } else {
-        Alert.danger('Minimum of one player supported');
-        Alert.hide(2000);
-    }
-}
-
-function addPlayer() {
-    if(playerCount < 3){
-        $("#player" + playerCount).show();
-        playerCount++;
-    } else {
-        Alert.danger('Maximum of three players supported');
-        Alert.hide(2000);
-    }
-}
-
 function toggleClicks() {
     toggleCategoryClicks();
     toggleTriviaClicks();
@@ -275,37 +218,112 @@ $(document).ready(function() {
     $(".validate-phase").hide();
     $(".complete-phase").hide();
 
-    // setup click handlers
-    $("#alert button").click(function() {
+    // click - hide alert
+    $("#btn-alert").click(function() {
         $("#alert").hide(); 
     });
 
+    // click - start editing
     $("#btn-start-edit").click(function() {
-        startEdit();
+        $(".start-panel").hide();
+        $(".edit-panel").show();
+
+        toggleCategoryClicks();
+        toggleTriviaClicks();
+
+        // set the game board to the first round before starting edits
+        initGameBoardFromRound(0);
+        $('select>option:eq(0)').prop('selected', true);
     });
 
+    // click - finish edit
     $("#btn-stop-edit").click(function() {
-        endEdit();
+        $(".edit-panel").hide();
+        $(".start-panel").show();
+
+        toggleCategoryClicks();
+        toggleTriviaClicks();
+
+        // set the game board to the first round after edits
+        initGameBoardFromRound(0);
     });
 
+    // click - export board
     $("#btn-export").click(function() {
-        // should make this more robust
         let roundID = $("#select-round").val() - 1;
         let round = game.getRound(roundID)
         download('board.json', round.board.export());
     });
 
+    // click - add player
     $("#btn-add-player").click(function() {
-        addPlayer();
+        if (playerCount < 3) {
+            $("#player" + playerCount).show();
+            playerCount++;
+        } else {
+            Alert.danger('Maximum of three players supported');
+            Alert.hide(2000);
+        }
     });
 
+    // click - del player
     $("#btn-del-player").click(function() {
-        removePlayer();
+        if (playerCount > 1) {
+            playerCount--;
+            $("#player" + playerCount).hide();
+        } else {
+            Alert.danger('Minimum of one player supported');
+            Alert.hide(2000);
+        }
     });
 
+    // click - start
+    $("#btn-play").click(function () {
+        // set object visibility
+        $(".start-panel").hide();
+        $(".play-panel").show();
+        $(".spin-phase").show();
+
+        // add players to game api
+        for (let i = 0; i < playerCount; i++) {
+            let player = $("#player" + i);
+            $("#player" + i + " input").prop("readonly", true);
+            game.addPlayer($("input", player).val());
+        }
+
+        // set api to first round and start
+        round = game.getRound(0)
+        round.start();
+
+    });
+
+    // click - spin
     $("#btn-spin").click(function () {
-        let spin = round.spin();
-        console.log(spin);
+        spin = round.spin();
+
+        // update play panel spin count
+        playPanel.deductSpin();
+
+        // spin the wheel
+        wheel.rotate(spin.slot);
+
+        // selected sector is a category but complete
+        if(spin.spinAgain){
+            clueText.write("Category complete, spin again");
+
+        // selected sector is a category
+        } else if (spin.isCategory){
+            $(".spin-phase").hide();
+            $(".answer-phase").show();
+
+            playPanel.deductClue();
+
+            wheel.startTimer();
+        
+        // selected category is a special category
+        } else {
+
+        }
     });
 
     // setup the selection handler for the select ddl
@@ -372,10 +390,6 @@ $(document).ready(function() {
             frm_name_category.val($(this).text());
             category_dialog.dialog( "open" );
         }
-    });    
-
-    $("#btn-play").click(function () {
-        startGame();
     });
 
     // init default game
@@ -385,9 +399,6 @@ $(document).ready(function() {
     // load the game data for the first round
     initGameBoard();
 
-    // start first round
-    round = game.getRound(0);
-    round.start();
 
     if(game.complete){
         // end game
@@ -450,6 +461,42 @@ $(document).ready(function() {
     wheel.init();
     wheel.create(data);
 });
+
+let playPanel = {
+    getRound: function () {
+        $("#txt-round").text();
+    },
+    setRound: function(round){
+        $("#txt-round").text(round);
+    },
+    getSpins: function () {
+        $("#txt-spins").text();
+    },
+    setSpins: function (spins) {
+        $("#txt-spins").text(spins);
+    },
+    getClues: function () {
+        $("#txt-clues").text();
+    },
+    setClues: function (clues) {
+        $("#txt-clues").text(clues);
+    },
+    deductSpin: function(i=1) {
+        playPanel.setSpins(playPanel.getSpins() - i);
+    },
+    deductClue: function (i=1) {
+        playPanel.setClues(playPanel.getClues() - i);
+    }
+}
+
+let clueText = {
+    empty: function(){
+        $("#clue-text").text("");
+    },
+    write: function(txt){
+        $("#clue-text").text(txt);
+    }
+}
 
 let wheel = {
     init: function (svgID = "#wheel") {

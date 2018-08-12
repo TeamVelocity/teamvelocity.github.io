@@ -322,7 +322,7 @@ $(document).ready(function() {
                 playPanel.deductClue();
 
                 wheel.startTimer();
-                
+
 
             // selected category is a special category
             } else {
@@ -461,6 +461,9 @@ let wheel = {
             .append("g");
         wheel.oldAngle = 0;
         wheel.newAngle = 0;
+
+        wheel.width = width;
+        wheel.height = height;
     },
 
     specialSectorLabels: {
@@ -545,6 +548,16 @@ let wheel = {
             .text("\uf017")
             .attr("id", "timer")
             .classed("fa", true);
+
+        var symbol = d3.symbol()
+            .type(d3.symbolTriangle)
+            .size(200);
+
+        let pointerY = wheel.radius - 10;
+        wheel.base.append("path")
+            .attr('d', symbol)
+            .attr('transform', 'rotate(180) translate(0, ' + pointerY + ')');
+;
     },
 
     rotate: function (slot = 0, callback) {

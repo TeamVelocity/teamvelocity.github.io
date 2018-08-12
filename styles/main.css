@@ -35,3 +35,7 @@ body {
 .info-label {
     font-weight: bold;
 }
+
+#logo-title {
+    width: 600px;
+}

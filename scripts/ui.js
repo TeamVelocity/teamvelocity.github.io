@@ -277,7 +277,7 @@ $(document).ready(function() {
         }
     });
 
-    // click - start
+    // click - start game
     $("#btn-play").click(function () {
         // set object visibility
         $(".start-panel").hide();
@@ -291,10 +291,14 @@ $(document).ready(function() {
             game.addPlayer($("input", player).val());
         }
 
-        // set api to first round and start
-        round = game.getRound(0)
+        let id = 0;
+
+        // start api round
+        round = game.getRound(id);
         round.start();
 
+        // update wheel
+        wheel.buildCreate(round);
     });
 
     // click - spin
@@ -305,25 +309,26 @@ $(document).ready(function() {
         playPanel.deductSpin();
 
         // spin the wheel
-        wheel.rotate(spin.slot);
+        wheel.rotate(spin.slot, function(){
+            // selected sector is a category but complete
+            if (spin.spinAgain) {
+                clueText.write("Category complete, spin again");
 
-        // selected sector is a category but complete
-        if(spin.spinAgain){
-            clueText.write("Category complete, spin again");
+            // selected sector is a category
+            } else if (spin.isCategory) {
+                $(".spin-phase").hide();
+                $(".answer-phase").show();
 
-        // selected sector is a category
-        } else if (spin.isCategory){
-            $(".spin-phase").hide();
-            $(".answer-phase").show();
+                playPanel.deductClue();
 
-            playPanel.deductClue();
+                wheel.startTimer();
+                
 
-            wheel.startTimer();
-        
-        // selected category is a special category
-        } else {
+            // selected category is a special category
+            } else {
 
-        }
+            }
+        });
     });
 
     // setup the selection handler for the select ddl
@@ -392,91 +397,37 @@ $(document).ready(function() {
         }
     });
 
-    // init default game
+    // setup the default UI and API
+    let roundID = 0;
+
+    // init api objects
     game = engine.initDefaultGame();
-    round = game.getRound(0);
-    
-    // load the game data for the first round
+    round = game.getRound(roundID);
+
+    // init ui wheel
+    wheel.init();
+    wheel.buildCreate(round);
+
+    // init ui board
     initGameBoard();
 
-
-    if(game.complete){
-        // end game
-    } else if (round.complete){
-        // end round
-    } else {
-        // prepare UI for first spin
-
-        // spin wheel
-        //let spin = round.spin();
-
-        // animate UI
-
-        // respond to outcome
-
-        // if category and not spin again, display the clue
-        //clue = spin.clue;
-
-        // if player or opponents choice
-        // let categoryColumn = 0;
-        // let clue = round.pickCategory(categoryColumn);
-
-        // if answer is valid
-        // round.validAnswer();
-        
-        // if answer is invalid
-        // round.invalidAnswer()
-
-        // if lose turn or wrong answer and player has a token
-        // give option to use token
-        // if (round.stats.currentPlayer.hasToken){
-        //     round.useToken();
-        //     // start over at spin
-        // } else {
-        //     // do not allow token use
-        // }
-
-
-        // update players score and tokens
-
-        // reset for next spin
-        // round.endTurn();
-    }
-
-    let data = [
-        { slot: 0, sector: 8, label: '\uf1e2', name: "Bankrupt" },
-        { slot: 1, sector: 5, label: 6, name: "Music" },
-        { slot: 2, sector: 10, label: '\uf0c0', name: "Opponent's Choice" },
-        { slot: 3, sector: 4, label: 5, name: "History" },
-        { slot: 4, sector: 6, label: '\uf119', name: "Lose Turn" },
-        { slot: 5, sector: 11, label: '\uf155\uf155', name: "Double Score" },
-        { slot: 6, sector: 9, label: '\uf007', name: "Player's Choice" },
-        { slot: 7, sector: 1, label: 2, name: "Food and Drink" },
-        { slot: 8, sector: 2, label: 3, name: "General Knowledge" },
-        { slot: 9, sector: 0, label: 1, name: "Art and Literature" },
-        { slot: 10, sector: 3, label: 4, name: "Harry Potter" },
-        { slot: 11, sector: 7, label: '\uf51e', name: "Free Turn" },
-    ]
-
-    wheel.init();
-    wheel.create(data);
 });
 
 let playPanel = {
     getRound: function () {
-        $("#txt-round").text();
+        return $("#txt-round").text();
     },
     setRound: function(round){
         $("#txt-round").text(round);
     },
     getSpins: function () {
-        $("#txt-spins").text();
+        return $("#txt-spins").text();
     },
     setSpins: function (spins) {
         $("#txt-spins").text(spins);
     },
     getClues: function () {
-        $("#txt-clues").text();
+        return $("#txt-clues").text();
     },
     setClues: function (clues) {
         $("#txt-clues").text(clues);
@@ -510,6 +461,42 @@ let wheel = {
             .append("g");
         wheel.oldAngle = 0;
         wheel.newAngle = 0;
+    },
+
+    specialSectorLabels: {
+        "Bankrupt": '\uf1e2',
+        "Opponent's Choice": '\uf0c0',
+        "Lose Turn": '\uf119',
+        "Double Score": '\uf155\uf155',
+        "Player's Choice": '\uf007',
+        "Free Turn": '\uf51e'
+    },
+
+    buildCreate: function(round){
+        let data = wheel.buildData(round);
+        wheel.create(data);
+    },
+
+    buildData: function(round) {
+        let w = round.wheel;
+        let data = [];
+        
+        for(let i=0; i<w.slots.length; i++){
+            let slot = {};
+            let sectorNumber = w.slots[i];
+            let sectorName = w.getSectorName(sectorNumber);
+            slot['slot'] = i;
+            slot['sector'] = sectorNumber;
+            slot['name'] = sectorName;
+
+            if(w.sectorIsCategory(sectorNumber)){
+                slot['label'] = 1 + sectorNumber;
+            } else {
+                slot['label'] = wheel.specialSectorLabels[sectorName];
+            }
+            data.push(slot);
+        }
+        return data;
     },
 
     create: function (data) {
@@ -560,7 +547,7 @@ let wheel = {
             .classed("fa", true);
     },
 
-    rotate: function (slot = 0) {
+    rotate: function (slot = 0, callback) {
         let arcLength = 360 / wheel.data.length;
         let slotArcCenter = arcLength * slot + arcLength / 2;
 
@@ -579,6 +566,7 @@ let wheel = {
             .duration(3000)
             .on("end", function () {
                 wheel.oldAngle = wheel.newAngle;
+                callback();
             });
 
         wheel.text.transition()

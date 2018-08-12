@@ -793,7 +793,7 @@ class Round {
             // check if turn is complete
             let msg = `
                 Must complete current turn before spinning again by calling 
-                endTurn or useToken.
+                validAnswer, endTurn, or useToken.
             `;
             throw new Error(msg)
         }else{
@@ -869,6 +869,7 @@ class Round {
             throw new Error('Check spin result, no clue was set.');
         } else {
             this.currentPlayerScore_.increase(this.currentClue.points);
+            this.resetTurn_();
         }
     }
 
@@ -906,7 +907,7 @@ class Round {
      * @throws {Error} throws error if the current spin is Free Turn.
      */
     useToken(){
-        let specialSector = !this.currentSpin.isCategory
+        let specialSector = !this.currentSpin.isCategory;
         if(specialSector && this.currentSpin.sectorName == 'Free Turn'){
             throw new Error('Free turn not allowed when sector is Free Turn')
         } else {

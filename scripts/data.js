@@ -172,7 +172,7 @@ let data1 = {
       "column": 5,
       "row": 0,
       "question": "Adam Levine in the lead singer of which US pop rock band?",
-      "answer": "Maroon 4"
+      "answer": "Maroon 5"
     },
     {
       "column": 5,

@@ -141,6 +141,10 @@ $(document).ready(function() {
 
                 wheel.buildCreate(round);
                 initGameBoardFromRound(roundID);
+
+                clueText.empty();
+                playPanel.reset();
+                playPanel.setRound(roundID + 1);
                 return
             }
         }

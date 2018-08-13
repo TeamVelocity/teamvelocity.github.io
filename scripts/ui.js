@@ -4,6 +4,7 @@
  */
 
 // globals
+let debug = false;
 let game;
 let round;
 let spin;
@@ -809,9 +810,19 @@ let wheel = {
             };
         }
 
+        if(debug){
+            let sectorDuration = 0;
+            let textDuration = 0;
+        } else {
+            let sectorDuration = 3000;
+            let textDuration = 2000;
+        }
+
         wheel.g.transition()
             .attrTween("transform", rotTween)
-            .duration(3000)
+            .duration(function(){
+                return (debug) ? 0 : 3000;
+            })
             .on("end", function () {
                 wheel.oldAngle = wheel.newAngle;
                 callback();
@@ -822,7 +833,9 @@ let wheel = {
                 let ctr = wheel.label.centroid(dd);
                 return "translate(" + ctr + ") rotate(" + (-textAngle) + ")";
             })
-            .duration(2000);
+            .duration(function(){
+                return (debug) ? 0 : 2000;
+            });
     },
 
     startTimer: function(duration=20){

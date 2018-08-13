@@ -3,7 +3,7 @@
  * Classes and logic for the Wheel of Jeopardy (WOJ) game.
  */
 
- let engine = (function(){
+let engine = (function(){
 
 /**
  * @typedef {Object} GameStats
@@ -1046,10 +1046,22 @@ class Game {
 
     /**
      * Retrieve a game round by id.
-     * @param {Round} id the rounds id number, round one is id: 0
+     * @param {Round} id the rounds id number, round one is id: 0.
      */
     getRound(id){
         return this.rounds[id];
+    }
+
+    /**
+     * Retrieve array of players ordered by top score.
+     * @returns {Player[]} array of players ordered by total score.
+     */
+    getLeaderBoard(){
+        let leaders = this.players.slice();
+        leaders.sort(function(obj1, obj2){
+            return obj2.totalScore - obj1.totalScore;
+        });
+        return leaders;
     }
 }
 

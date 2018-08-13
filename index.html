@@ -91,19 +91,6 @@
                 <div class="row pt-2 pb-2">
                     <div class="col-4">
                         <form id="player0">
-                            <input type="text" class="form-control" placeholder="Player 0">
-                            <div>
-                                <i class="fas fa-dollar-sign icon-money"></i>
-                                <span class="points">0</span>
-                            </div>
-                            <div>
-                                <i class="fas fa-coins"></i>
-                                <span class="tokens">0</span>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-4">
-                        <form id="player1">
                             <input type="text" class="form-control" placeholder="Player 1">
                             <div>
                                 <i class="fas fa-dollar-sign icon-money"></i>
@@ -116,8 +103,21 @@
                         </form>
                     </div>
                     <div class="col-4">
-                        <form id="player2">
+                        <form id="player1">
                             <input type="text" class="form-control" placeholder="Player 2">
+                            <div>
+                                <i class="fas fa-dollar-sign icon-money"></i>
+                                <span class="points">0</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-coins"></i>
+                                <span class="tokens">0</span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-4">
+                        <form id="player2">
+                            <input type="text" class="form-control" placeholder="Player 3">
                             <div>
                                 <i class="fas fa-dollar-sign icon-money"></i>
                                 <span class="points">0</span>
@@ -273,6 +273,9 @@
             </fieldset>
         </form>
     </div>
+
+    <!-- standard dialog -->
+    <div id="dialog"></div>
 
     <!-- standard page alert -->
     <div id="alert" class="alert alert-dismissible collapse" role="alert">

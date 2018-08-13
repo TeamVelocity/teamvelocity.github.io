@@ -8,6 +8,7 @@ let game;
 let round;
 let spin;
 let playerCount = 3;
+let categorySelectable = false;
 
 let category_editable = false;
 let trivia_editable = false;
@@ -187,20 +188,12 @@ $(document).ready(function() {
 
                     case "Player's Choice":
                         clueText.write("You landed on Player's Choice!\nSelect an open category on the board");
-
-                        // user picks category, update API
-                        round.pickCategory(0);
-                        displayClue();
-
+                        categorySelectable = true;
                         break;
 
                     case "Opponent's Choice":
                         clueText.write("You landed on Opponent's Choice!\nSelect an open category on the board");
-
-                        // user picks category, update API
-                        round.pickCategory(0);
-                        displayClue();
-
+                        categorySelectable = true;
                         break;
 
                     case "Double Score":
@@ -227,6 +220,10 @@ $(document).ready(function() {
     $("#btn-valid").click(function () {
         wheel.resetTimer();
 
+        // update board UI
+        let clue = round.currentClue;
+        board.setValidClue(clue.column, clue.row);
+
         // update players score in api
         round.validAnswer();
 
@@ -241,6 +238,9 @@ $(document).ready(function() {
     // click - invalid
     $("#btn-invalid").click(function () {
         wheel.resetTimer();
+
+        let clue = round.currentClue;
+        board.setInvalidClue(clue.column, clue.row);
 
         // update players score in api
         round.invalidAnswer();
@@ -386,6 +386,22 @@ $(document).ready(function() {
             // ensure the form is populated with the current value of the table element before open
             frm_name_category.val($(this).text());
             category_dialog.dialog( "open" );
+        }
+
+        // player or opponent choice
+        if (categorySelectable){
+            let category = round.board.getCategory(clicked_col);
+
+            // category is already finished
+            if(category.complete){
+                let msg = 'Select a different category, ' + category.name + ' is complete'
+                Alert.warning(msg);
+                Alert.hide(2000);
+            } else {
+                round.pickCategory(clicked_col);
+                categorySelectable = false;
+                displayClue();
+            }
         }
     });
 
@@ -758,8 +774,25 @@ let wheel = {
     resetTimer: function(){
         wheel.stopTimer();
         wheel.timerText.text("\uf017");
-
+        wheel.timerCircle.attr("fill", "#adc9e2");
     }
+}
+
+let board = {
+    setActiveClue: function(column, row){
+        $("#t_" + column + "_" + row).toggleClass("current-clue", true);
+    },
+
+    setValidClue: function(column, row){
+        $("#t_" + column + "_" + row).toggleClass("current-clue", false);
+        $("#t_" + column + "_" + row).toggleClass("valid-clue", true);
+    },
+
+    setInvalidClue: function (column, row) {
+        $("#t_" + column + "_" + row).toggleClass("current-clue", false);
+        $("#t_" + column + "_" + row).toggleClass("invalid-clue", true);
+    }
+
 }
 
 function displayClue(){
@@ -772,6 +805,7 @@ function displayClue(){
     let points = clue.points;
     let category = round.board.getCategory(clue.column).name;
 
+    board.setActiveClue(clue.column, clue.row);
     clueText.write(category + " (" + points +")\n" + clue.question);
 
     wheel.startTimer();

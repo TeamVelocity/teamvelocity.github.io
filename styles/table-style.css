@@ -3,7 +3,23 @@
   URL: http://www.srccodes.com/p/article/40/determine-click-position-row-column-number-onclick-table-cell
 */
 
-#triviaTable{
+.current-clue {
+    color:#000000;
+    background: #d8702a;
+}
+
+.valid-clue {
+    color:#000000;
+    background: #9fb79f;
+}
+
+.invalid-clue {
+    color:#000000;
+    background: #cca8b4;
+}
+
+
+#triviaTable {
     font-size: 1em;
     text-align: center;
     cursor:pointer;
@@ -25,52 +41,14 @@ th {
 }
 
 td {
-    background: -moz-linear-gradient(top, #ffffff, #d2e9e8);
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#d2e9e8));
+    color:#ffffff;
+    background: -moz-linear-gradient(top, #3251da, #0220a3);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3251da), to(#0220a3));
+
+    /* background: -moz-linear-gradient(top, #ffffff, #d2e9e8);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#d2e9e8)); */
     border: 5px solid #ddd;
     padding: 16px;
-}
-
-/* 1st column - row color */
-tbody>tr>:nth-child(1) {
-    color:#ffffff;
-    background: -moz-linear-gradient(top, #3251da, #0220a3);
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3251da), to(#0220a3));
-}
-
-/* 2nd column - row color */
-tbody>tr>:nth-child(2) {
-    color:#ffffff;
-    background: -moz-linear-gradient(top, #3251da, #0220a3);
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3251da), to(#0220a3));
-}
-
-/* 3rd column - row color */
-tbody>tr>:nth-child(3) {
-    color:#ffffff;
-    background: -moz-linear-gradient(top, #3251da, #0220a3);
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3251da), to(#0220a3));
-}
-
-/* 4th column - row color */
-tbody>tr>:nth-child(4) {
-    color:#ffffff;
-    background: -moz-linear-gradient(top, #3251da, #0220a3);
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3251da), to(#0220a3));
-}
-
-/* 5th column - row color */
-tbody>tr>:nth-child(5) {
-    color:#ffffff;
-    background: -moz-linear-gradient(top, #3251da, #0220a3);
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3251da), to(#0220a3));
-}
-
-/* 6th column - row color */
-tbody>tr>:nth-child(6) {
-    color:#ffffff;
-    background: -moz-linear-gradient(top, #3251da, #0220a3);
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3251da), to(#0220a3));
 }
 
 /* active cells for row elements */

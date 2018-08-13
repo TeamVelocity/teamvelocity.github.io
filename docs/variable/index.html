@@ -29,13 +29,10 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Board.html">Board</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Category.html">Category</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Clue.html">Clue</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Score.html">Score</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-data1">data1</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-engine">engine</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-GameStats">GameStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PlayerStats">PlayerStats</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RoundStats">RoundStats</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -59,13 +56,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-data1">data1</a></span></span><span class="code" data-ice="signature">: {&quot;columns&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;rows&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;categories&quot;: <span>*</span>, &quot;clues&quot;: <span>*</span>}</span>
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-engine">engine</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Sample data for the Wheel of Jeopardy game.</p>
+        <div data-ice="description"><p>Classes and logic for the Wheel of Jeopardy (WOJ) game.</p>
 </div>
       </div>
     </td>
@@ -80,27 +77,25 @@
 <div data-ice="details"><h2 data-ice="title">Static Public </h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="static-variable-data1">
+  <h3 data-ice="anchor" id="static-variable-engine">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">data1</span><span class="code" data-ice="signature">: {&quot;columns&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;rows&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;categories&quot;: <span>*</span>, &quot;clues&quot;: <span>*</span>}</span>
+    <span class="code" data-ice="name">engine</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/data.js.html#lineNumber9">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber6">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Sample data for the Wheel of Jeopardy game.</p>
-<p>Each data object is a serialized game board. See &apos;/scripts/engine.js&apos;
-Board.import for object spec.</p>
+  <div data-ice="description"><p>Classes and logic for the Wheel of Jeopardy (WOJ) game.</p>
 </div>
 
   

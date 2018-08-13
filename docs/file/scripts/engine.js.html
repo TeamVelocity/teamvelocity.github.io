@@ -29,18 +29,7 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Board.html">Board</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Category.html">Category</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Clue.html">Clue</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Game.html">Game</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Player.html">Player</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Round.html">Round</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Score.html">Score</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Spin.html">Spin</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html">Wheel</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-initDefaultGame">initDefaultGame</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-engine">engine</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-GameStats">GameStats</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PlayerStats">PlayerStats</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RoundStats">RoundStats</a></span></span></li>
@@ -53,6 +42,8 @@
 /***
  * Classes and logic for the Wheel of Jeopardy (WOJ) game.
  */
+
+ let engine = (function(){
 
 /**
  * @typedef {Object} GameStats
@@ -842,7 +833,7 @@ class Round {
             // check if turn is complete
             let msg = `
                 Must complete current turn before spinning again by calling 
-                endTurn or useToken.
+                validAnswer, endTurn, or useToken.
             `;
             throw new Error(msg)
         }else{
@@ -918,6 +909,7 @@ class Round {
             throw new Error(&apos;Check spin result, no clue was set.&apos;);
         } else {
             this.currentPlayerScore_.increase(this.currentClue.points);
+            this.resetTurn_();
         }
     }
 
@@ -955,7 +947,7 @@ class Round {
      * @throws {Error} throws error if the current spin is Free Turn.
      */
     useToken(){
-        let specialSector = !this.currentSpin.isCategory
+        let specialSector = !this.currentSpin.isCategory;
         if(specialSector &amp;&amp; this.currentSpin.sectorName == &apos;Free Turn&apos;){
             throw new Error(&apos;Free turn not allowed when sector is Free Turn&apos;)
         } else {
@@ -1102,7 +1094,7 @@ class Game {
 }
 
 // node exports
-if( typeof module !== &apos;undefined&apos; &amp;&amp; module.exports ) {
+if (typeof module !== &apos;undefined&apos; &amp;&amp; module.exports) {
     module.exports = {
         Game: Game,
         Round: Round,
@@ -1110,6 +1102,13 @@ if( typeof module !== &apos;undefined&apos; &amp;&amp; module.exports ) {
         Score: Score
     }
 }
+
+return {
+    Game:Game,
+    initDefaultGame:initDefaultGame
+}
+
+})();
 </code></pre>
 
 </div>

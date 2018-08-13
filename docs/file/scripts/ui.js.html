@@ -29,18 +29,7 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Board.html">Board</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Category.html">Category</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Clue.html">Clue</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Game.html">Game</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Player.html">Player</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Round.html">Round</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Score.html">Score</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Spin.html">Spin</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/scripts/engine.js~Wheel.html">Wheel</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-initDefaultGame">initDefaultGame</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-engine">engine</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-GameStats">GameStats</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PlayerStats">PlayerStats</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RoundStats">RoundStats</a></span></span></li>
@@ -57,78 +46,864 @@
 // globals
 let game;
 let round;
+let spin;
+let playerCount = 3;
+let categorySelectable = false;
 
-$(document).ready(function(){
-    // hide setup view
-    $(&quot;.setup&quot;).hide();
+let category_editable = false;
+let trivia_editable = false;
 
-    // init default game
-    game = initDefaultGame();
+// keep track of some elements of the table that have been manipulated by the user
+let fill_value = &quot;&quot;;
+let clicked_col;
+let clicked_row;
+let clicked_element;
 
-    // edit board content if needed
-    round = game.getRound(0);
-    let clue = round.board.getCategory(1).clues[2];
-    clue.question = &quot;What is the oldest soft drink in America?&quot;;
-    clue.answer = &quot;Dr. Pepper.&quot;;
+let category_form;
+let trivia_form;
+let category_dialog;
+let trivia_dialog;
+let frm_name_category = $(&apos;input[name=&quot;frm_name_category&quot;]&apos;);
+let frm_name_trivia_question = $(&apos;input[name=&quot;frm_name_trivia_question&quot;]&apos;);
+let frm_name_trivia_answer = $(&apos;input[name=&quot;frm_name_trivia_answer&quot;]&apos;);
+let tips = $( &quot;.validateTips&quot; );
 
-    // setup players
-    // $(&quot;#btn-play&quot;).click(function(){
-    //     // store players -- should be adjusted for num of players and default names
-    //     let playerName = $(&quot;#player0&quot;).find(&quot;input&quot;).val();
-    //     game.addPlayer(playerName);
-    // })
+$(document).ready(function() {
+    // hide panels
+    $(&quot;.edit-panel&quot;).hide();
+    $(&quot;.play-panel&quot;).hide();
+    $(&quot;.spin-phase&quot;).hide();
+    $(&quot;.answer-phase&quot;).hide();
+    $(&quot;.validate-phase&quot;).hide();
+    $(&quot;.token-phase&quot;).hide();
 
-    // add sample players for testing
-    game.addPlayer(&quot;John&quot;);
-    game.addPlayer(&quot;Jane&quot;);
+    // click - hide alert
+    $(&quot;#btn-alert&quot;).click(function() {
+        $(&quot;#alert&quot;).hide(); 
+    });
 
-    // start first round
-    round = game.getRound(0);
-    round.start();
+    // click - start editing
+    $(&quot;#btn-start-edit&quot;).click(function() {
+        $(&quot;.start-panel&quot;).hide();
+        $(&quot;.edit-panel&quot;).show();
 
-    if(game.complete){
-        // end game
-    } else if (round.complete){
-        // end round
-    } else {
-        // prepare UI for first spin
+        toggleCategoryClicks();
+        toggleTriviaClicks();
 
-        // spin wheel
-        //let spin = round.spin();
+        // set the game board to the first round before starting edits
+        initGameBoardFromRound(0);
+        $(&apos;select&gt;option:eq(0)&apos;).prop(&apos;selected&apos;, true);
+    });
 
-        // animate UI
+    // click - finish edit
+    $(&quot;#btn-stop-edit&quot;).click(function() {
+        $(&quot;.edit-panel&quot;).hide();
+        $(&quot;.start-panel&quot;).show();
 
-        // respond to outcome
+        toggleCategoryClicks();
+        toggleTriviaClicks();
 
-        // if category and not spin again, display the clue
-        //clue = spin.clue;
+        // set the game board to the first round after edits
+        initGameBoardFromRound(0);
+    });
 
-        // if player or opponents choice
-        // let categoryColumn = 0;
-        // let clue = round.pickCategory(categoryColumn);
+    // click - export board
+    $(&quot;#btn-export&quot;).click(function() {
+        let roundID = $(&quot;#select-round&quot;).val() - 1;
+        let round = game.getRound(roundID)
+        download(&apos;board.json&apos;, round.board.export());
+    });
 
-        // if answer is valid
-        // round.validAnswer();
-        
-        // if answer is invalid
-        // round.invalidAnswer()
+    // click - add player
+    $(&quot;#btn-add-player&quot;).click(function() {
+        if (playerCount &lt; 3) {
+            $(&quot;#player&quot; + playerCount).show();
+            playerCount++;
+        } else {
+            Alert.danger(&apos;Maximum of three players supported&apos;);
+            Alert.hide(2000);
+        }
+    });
 
-        // if lose turn or wrong answer and player has a token
-        // give option to use token
-        // if (round.stats.currentPlayer.hasToken){
-        //     round.useToken();
-        //     // start over at spin
-        // } else {
-        //     // do not allow token use
-        // }
+    // click - del player
+    $(&quot;#btn-del-player&quot;).click(function() {
+        if (playerCount &gt; 1) {
+            playerCount--;
+            $(&quot;#player&quot; + playerCount).hide();
+        } else {
+            Alert.danger(&apos;Minimum of one player supported&apos;);
+            Alert.hide(2000);
+        }
+    });
+
+    // click - start game
+    $(&quot;#btn-play&quot;).click(function () {
+        // set object visibility
+        $(&quot;.start-panel&quot;).hide();
+        $(&quot;.play-panel&quot;).show();
+        $(&quot;.spin-phase&quot;).show();
+
+        // add players to game api
+        for (let i = 0; i &lt; playerCount; i++) {
+            let player = $(&quot;#player&quot; + i);
+            $(&quot;#player&quot; + i + &quot; input&quot;).prop(&quot;readonly&quot;, true);
+            game.addPlayer($(&quot;input&quot;, player).val());
+        }
+
+        let id = 0;
+
+        // start api round
+        round = game.getRound(id);
+        round.start();
+
+        // update wheel
+        wheel.buildCreate(round);
+
+        // set player 0 as first
+        player.startTurn(0);
+    });
+
+    // click - spin
+    $(&quot;#btn-spin&quot;).click(function () {
+        if(round.complete){
+            if(game.complete){
+                // display end of game modal
+                return;
+            } else {
+                // display end of round modal
+
+                // update wheel
+                // update board
+                // start round
+                return
+            }
+        }
+
+        spin = round.spin();
+
+        // update play panel spin count
+        playPanel.deductSpin();
+
+        // spin the wheel
+        wheel.rotate(spin.slot, function(){
+            // selected sector is a category but complete
+            if (spin.spinAgain) {
+                clueText.write(&quot;Category complete, spin again&quot;);                
+                round.endTurn();
+
+            // selected sector is a category
+            } else if (spin.isCategory) {
+                displayClue();
+
+            // selected category is a special category
+            } else {
+                // update the players UI stats
+                let currentPlayer = round.currentPlayer;
+                player.setPoints(currentPlayer.id, currentPlayer.totalScore);
+                player.setTokens(currentPlayer.id, currentPlayer.tokens);
+
+                // special sector
+                switch (spin.sectorName) {
+                    case &quot;Free Turn&quot;:
+                        clueText.write(&quot;You landed on Free Turn!&quot;);                        
+                        switchPlayer();
+                        break;
+                        
+                    case &quot;Lose Turn&quot;:
+                        clueText.write(&quot;You landed on Lose Turn!&quot;);
+                        if (currentPlayer.hasToken()){
+                            // present option to use token
+                            $(&quot;.answer-phase&quot;).hide();
+                            $(&quot;.token-phase&quot;).show();
+                        } else {
+                            // switch to next player
+                            switchPlayer();
+                        }
+                        break;
+
+                    case &quot;Bankrupt&quot;:
+                        clueText.write(&quot;You landed on Bankrupt!&quot;);
+                        switchPlayer();
+                        break;
+
+                    case &quot;Player&apos;s Choice&quot;:
+                        clueText.write(&quot;You landed on Player&apos;s Choice!\nSelect an open category on the board&quot;);
+                        categorySelectable = true;
+                        break;
+
+                    case &quot;Opponent&apos;s Choice&quot;:
+                        clueText.write(&quot;You landed on Opponent&apos;s Choice!\nSelect an open category on the board&quot;);
+                        categorySelectable = true;
+                        break;
+
+                    case &quot;Double Score&quot;:
+                        clueText.write(&quot;You landed on Double Score!&quot;);
+                        switchPlayer();
+                        break;
+                    default:
+                    // do nothing
+                }
+            }
+        });
+    });
+
+    // click - answer
+    $(&quot;#btn-answer&quot;).click(function () {
+        wheel.stopTimer();
+        clueText.write(round.currentClue.answer);
+
+        $(&quot;.answer-phase&quot;).hide();
+        $(&quot;.validate-phase&quot;).show();
+    });
+
+    // click - valid
+    $(&quot;#btn-valid&quot;).click(function () {
+        wheel.resetTimer();
+
+        // update board UI
+        let clue = round.currentClue;
+        board.setValidClue(clue.column, clue.row);
+
+        // update players score in api
+        round.validAnswer();
+
+        // update players score in UI
+        let currentPlayer = round.currentPlayer;
+        player.setPoints(currentPlayer.id, currentPlayer.totalScore);
+
+        $(&quot;.validate-phase&quot;).hide();
+        $(&quot;.spin-phase&quot;).show();
+    });
+
+    // click - invalid
+    $(&quot;#btn-invalid&quot;).click(function () {
+        wheel.resetTimer();
+
+        let clue = round.currentClue;
+        board.setInvalidClue(clue.column, clue.row);
+
+        // update players score in api
+        round.invalidAnswer();
+
+        // update players score in UI
+        let currentPlayer = round.currentPlayer;
+        player.setPoints(currentPlayer.id, currentPlayer.totalScore);
+
+        if (currentPlayer.hasToken()) {
+            // present option to use token
+            $(&quot;.validate-phase&quot;).hide();
+            $(&quot;.token-phase&quot;).show();
+        } else {
+            // switch to next player
+            switchPlayer();
+            $(&quot;.validate-phase&quot;).hide();
+            $(&quot;.spin-phase&quot;).show();
+        }
+    });
+
+    // click - token
+    $(&quot;#btn-token&quot;).click(function () {
+        round.useToken();
+
+        let currentPlayer = round.currentPlayer;
+        player.setTokens(currentPlayer.id, currentPlayer.tokens);
+
+        $(&quot;.token-phase&quot;).hide();
+        $(&quot;.spin-phase&quot;).show();
+    });
+
+    $(&quot;#btn-end-turn&quot;).click(function () {
+        switchPlayer();
+        $(&quot;.token-phase&quot;).hide();
+        $(&quot;.spin-phase&quot;).show();
+    });
 
 
-        // update players score and tokens
+    // set up the edit category dialog
+    category_dialog = $(&quot;#category-form&quot;).dialog({
+        autoOpen: false,
+        height: 400,
+        width: 350,
+        modal: true,
+        buttons: {
+            &quot;Edit Category&quot;: editCategory,
+            Cancel: function () {
+                category_dialog.dialog(&quot;close&quot;);
+            }
+        },
+        close: function () { frm_name_category.removeClass(&quot;ui-state-error&quot;); }
+    });
 
-        // reset for next spin
-        // round.endTurn();
+    // setup the edit trivia dialog
+    trivia_dialog = $(&quot;#trivia-form&quot;).dialog({
+        autoOpen: false,
+        height: 400,
+        width: 350,
+        modal: true,
+        buttons: {
+            &quot;Edit Trivia&quot;: editTrivia,
+            Cancel: function () {
+                trivia_dialog.dialog(&quot;close&quot;);
+            }
+        },
+        close: function () {
+            frm_name_trivia_question.removeClass(&quot;ui-state-error&quot;);
+            frm_name_trivia_answer.removeClass(&quot;ui-state-error&quot;);
+        }
+    });
+
+    // set up the form to edit the category text
+    category_form = category_dialog.find(&quot;form&quot;).on(&quot;submit&quot;, function (submit_event) {
+        submit_event.preventDefault();
+        frm_name_category.val(&quot;&quot;);
+    });
+
+    // set up the form to edit the trivia text
+    trivia_form = trivia_dialog.find(&quot;form&quot;).on(&quot;submit&quot;, function (submit_event) {
+        submit_event.preventDefault();
+    });
+
+    // setup the selection handler for the select ddl
+    $(&quot;#select-round&quot;).change(function( clicked_object ) {
+        let round_selected = $(this).children(&quot;:selected&quot;).html();
+        console.log(&quot;Round changed! &quot; + round_selected);
+        let selected_round = parseInt( round_selected) - 1;
+        // redraw the category information
+        initGameBoardFromRound(selected_round);
+    });
+
+    // set up the click event for the trivia elements
+    $(&quot;#triviaTable td&quot;).click(function( clicked_object ) {
+
+        clicked_col = parseInt( $(this).index());
+        clicked_row = parseInt( $(this).parent().index());
+
+        clicked_element = clicked_object;
+        if ( trivia_editable ) {
+            // ensure the form is populated with the current value of the table element before open
+            // trivia will extract the current value from the stored (local storage) values depending on the td value read
+            let roundID = $(&quot;#select-round&quot;).val() - 1;
+            let clue;
+            let output = &quot;Trivia: clicked_row = &quot; + clicked_row + &quot;,  clicked_col = &quot; + clicked_col;
+            console.log(output);
+            // get the game round if necessary
+            round = game.getRound(roundID);
+            clue = round.board.getClue(clicked_col, clicked_row);
+
+            // get the q &amp; a for the current round           
+            let question = clue.question;
+            let answer = clue.answer;
+            
+            if (typeof question == &apos;undefined&apos;){ question = &quot;&lt;empty&gt;&quot;; }           
+            if (typeof answer == &apos;undefined&apos;){ answer = &quot;&lt;empty&gt;&quot;; }
+
+            //output = &quot;Clue: Question: &quot; + &quot; | &quot; + question + &quot;\nAnswer: &quot; + answer;
+            //console.log(output);
+            
+            // pre-populate the trivia information before modal open
+            frm_name_trivia_question.val(question);
+            frm_name_trivia_answer.val(answer);
+
+            trivia_dialog.dialog( &quot;open&quot; );
+        }
+    });
+
+    // set up the click event for the category elements
+    $(&quot;#triviaTable th&quot;).click(function( clicked_object ) {
+        clicked_element = clicked_object;
+
+        clicked_col = parseInt( $(this).index());
+        clicked_row = parseInt( $(this).parent().index());        
+
+        if ( category_editable ) {
+
+            let roundID = $(&quot;#select-round&quot;).val() - 1;
+            let output = &quot;Category: clicked_row = &quot; + clicked_row + &quot;,  clicked_col = &quot; + clicked_col;
+            console.log(output);
+            // get the game round so categories are edited correctly
+            round = game.getRound(roundID);
+
+            // ensure the form is populated with the current value of the table element before open
+            frm_name_category.val($(this).text());
+            category_dialog.dialog( &quot;open&quot; );
+        }
+
+        // player or opponent choice
+        if (categorySelectable){
+            let category = round.board.getCategory(clicked_col);
+
+            // category is already finished
+            if(category.complete){
+                let msg = &apos;Select a different category, &apos; + category.name + &apos; is complete&apos;
+                Alert.warning(msg);
+                Alert.hide(2000);
+            } else {
+                round.pickCategory(clicked_col);
+                categorySelectable = false;
+                displayClue();
+            }
+        }
+    });
+
+    // setup the default UI and API
+    let roundID = 0;
+
+    // init api objects
+    game = engine.initDefaultGame();
+    round = game.getRound(roundID);
+
+    // init ui wheel
+    wheel.init();
+    wheel.buildCreate(round);
+
+    // init ui board
+    initGameBoard();
+
+});
+
+// function used to update the trivia modal dialog
+function populateTriviaFromEngine(clicked_col, clicked_row) {
+
+    let roundID = 0;
+    let round;
+
+    // the update given -1 will read from the UI widget -- e.g. editing mode
+    if (gameRound == -1) {
+        // get the round chosen from the round drop down box
+        roundID = $(&quot;#select-round&quot;).val() - 1;
+        round = game.getRound(roundID);
     }
-  });
+
+    round = game.getRound(gameRound);
+    // fetch the clue from the engine
+    cell_content = round.board.getClue(clicked_col, clicked_row);
+
+}
+
+function initGameBoardFromRound(roundChoice) {
+
+    console.log(&quot;Board redraw - round: &quot; + roundChoice);
+    let edit_round = game.getRound(roundChoice);
+
+    // setup the points (cells) for the game as chosen in the drop down box
+    $(&quot;#triviaTable tbody tr&quot;).each(function (row_index, row) {
+        let current_row = $(row);
+        let cols = 6;
+        let column_index = 0;
+        let current_clue;
+        // iterate through the table, adjusting the points to those associated
+        // with the chosen board&apos;s point value
+        for (column_index = 0; column_index &lt; cols; column_index++) {
+            let current_column = current_row[0].cells[column_index];
+            //console.log(&quot;Column Index: &quot; + column_index + &quot;, column text: &quot; + current_column.innerHTML);
+            current_clue = edit_round.board.getClue(column_index, row_index);
+            current_column.innerHTML = current_clue.points;
+        }
+    });
+
+    // setup the categories
+    let current_categories = edit_round.board.categoryNames;
+    $(&quot;#triviaTable thead th&quot;).each(function (category_index, category) {
+        let current_category_cell = $(category);
+        //console.log(&quot;category Index: &quot; + category_index);
+        //console.log(&quot;category name: &quot; + current_categories[category_index]);
+        //console.log($(category));
+        $(category)[0].innerHTML = current_categories[category_index];
+    });
+}
+
+function initGameBoard() {
+    // setup the game board assuming round 0
+    initGameBoardFromRound(0);
+}
+
+function toggleClicks() {
+    toggleCategoryClicks();
+    toggleTriviaClicks();
+}
+
+function toggleCategoryClicks() {
+    if (category_editable) { category_editable = false; }
+    else { category_editable = true; }
+}
+
+function toggleTriviaClicks() {
+    if (trivia_editable) { trivia_editable = false; }
+    else { trivia_editable = true; }
+}
+
+function editCategory() {
+    let valid = true;
+    frm_name_category.removeClass(&quot;ui-state-error&quot;);
+    valid = valid &amp;&amp; checkLength(frm_name_category, &quot;category&quot;, 3, 32);
+    valid = valid &amp;&amp; checkRegexp(frm_name_category, /^[0-9a-zA-Z]([0-9a-zA-Z_\s,\&amp;\^\%\$\#\@\!\)\(\*\[\]\{\}\-\_\.\?\&apos;\&#x2018;\&#x2019;])+$/i, &quot;Input must begin with letters, or numbers; it may contain special characters.&quot;);
+
+    // validates the form&apos;s input field, and closes the modal
+    if (valid) {
+        let category_updated = frm_name_category.val();
+        clicked_element.target.innerHTML = category_updated;
+        console.log(&quot;Input: Category Update: &quot; + category_updated);
+        round.board.editCategory(clicked_col, category_updated);
+        category_dialog.dialog(&quot;close&quot;);
+    }
+    return valid;
+}
+
+function editTrivia() {
+    let valid = true;
+    frm_name_trivia_question.removeClass(&quot;ui-state-error&quot;);
+    frm_name_trivia_answer.removeClass(&quot;ui-state-error&quot;);
+
+    valid = valid &amp;&amp; checkLength(frm_name_trivia_question, &quot;trivia&quot;, 3, 256);
+    valid = valid &amp;&amp; checkRegexp(frm_name_trivia_question, /^[0-9a-zA-Z]([0-9a-zA-Z_\s,\&amp;\^\%\$\#\@\!\)\(\*\[\]\{\}\-\_\.\?\&apos;\&#x2018;\&#x2019;])+$/i, &quot;Input must begin with letters, or numbers; it may contain special characters.&quot;);
+    valid = valid &amp;&amp; checkLength(frm_name_trivia_answer, &quot;trivia&quot;, 3, 256);
+    valid = valid &amp;&amp; checkRegexp(frm_name_trivia_answer, /^[0-9a-zA-Z]([0-9a-zA-Z_\s,\&amp;\^\%\$\#\@\!\)\(\*\[\]\{\}\-\_\.\?\&apos;\&#x2018;\&#x2019;])+$/i, &quot;Input must begin with letters, or numbers; it may contain special characters.&quot;);
+
+    // validates the form&apos;s input field, and closes the modal
+    if (valid) {
+        // store the user&apos;s trivia information in the local session table
+        let question = frm_name_trivia_question.val();
+        let answer = frm_name_trivia_answer.val();
+        console.log(&quot;Input: \nQuestion: &quot; + question + &quot;\nAnswer: &quot; + answer);
+        round.board.editClue(clicked_col, clicked_row, question, answer);
+
+        trivia_dialog.dialog(&quot;close&quot;);
+    }
+    return valid;
+}
+
+function updateTips(t) {
+    tips
+        .text(t)
+        .addClass(&quot;ui-state-highlight&quot;);
+    setTimeout(function () {
+        tips.removeClass(&quot;ui-state-highlight&quot;, 3000);
+    }, 1500);
+}
+
+function checkLength(o, n, min, max) {
+    if (o.val().length &gt; max || o.val().length &lt; min) {
+        o.addClass(&quot;ui-state-error&quot;);
+        updateTips(&quot;Length of &quot; + n + &quot; must be between &quot; + min + &quot; and &quot; + max + &quot;.&quot;);
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function checkRegexp(o, regexp, n) {
+    if (!(regexp.test(o.val()))) {
+        o.addClass(&quot;ui-state-error&quot;);
+        updateTips(n);
+        return false;
+    } else { return true; }
+}
+
+let player = {
+    setPoints: function (id, points){
+        $(&quot;#player&quot; + id + &quot; .points&quot;).text(points);
+    },
+
+    setTokens: function (id, tokens){
+        $(&quot;#player&quot; + id + &quot; .tokens&quot;).text(tokens);
+    },
+
+    startTurn: function(id){
+        $(&quot;#player&quot; + id + &quot; input&quot;).toggleClass(&quot;current-turn&quot;, true);
+    },
+    
+    endTurn: function (id) {
+        $(&quot;#player&quot; + id + &quot; input&quot;).toggleClass(&quot;current-turn&quot;, false);
+    }
+}
+
+let playPanel = {
+    getRound: function () {
+        return $(&quot;#txt-round&quot;).text();
+    },
+    setRound: function(round){
+        $(&quot;#txt-round&quot;).text(round);
+    },
+    getSpins: function () {
+        return $(&quot;#txt-spins&quot;).text();
+    },
+    setSpins: function (spins) {
+        $(&quot;#txt-spins&quot;).text(spins);
+    },
+    getClues: function () {
+        return $(&quot;#txt-clues&quot;).text();
+    },
+    setClues: function (clues) {
+        $(&quot;#txt-clues&quot;).text(clues);
+    },
+    deductSpin: function(i=1) {
+        playPanel.setSpins(playPanel.getSpins() - i);
+    },
+    deductClue: function (i=1) {
+        playPanel.setClues(playPanel.getClues() - i);
+    }
+}
+
+let clueText = {
+    empty: function(){
+        $(&quot;#clue-text&quot;).text(&quot;&quot;);
+    },
+    write: function(txt){
+        $(&quot;#clue-text&quot;).text(txt);
+    }
+}
+
+let wheel = {
+    init: function (svgID = &quot;#wheel&quot;) {
+        let svg = d3.select(svgID);
+        let width = +svg.attr(&quot;width&quot;);
+        let height = +svg.attr(&quot;height&quot;);
+        wheel.radius = Math.min(width, height) / 2;
+        wheel.base = svg.append(&quot;g&quot;)
+            .attr(&quot;transform&quot;, &quot;translate(&quot; + width/2 + &quot;,&quot; + height/2 + &quot;)&quot;);
+        wheel.g = wheel.base
+            .append(&quot;g&quot;);
+        wheel.oldAngle = 0;
+        wheel.newAngle = 0;
+
+        wheel.width = width;
+        wheel.height = height;
+    },
+
+    specialSectorLabels: {
+        &quot;Bankrupt&quot;: &apos;\uf1e2&apos;,
+        &quot;Opponent&apos;s Choice&quot;: &apos;\uf0c0&apos;,
+        &quot;Lose Turn&quot;: &apos;\uf119&apos;,
+        &quot;Double Score&quot;: &apos;\uf155\uf155&apos;,
+        &quot;Player&apos;s Choice&quot;: &apos;\uf007&apos;,
+        &quot;Free Turn&quot;: &apos;\uf51e&apos;
+    },
+
+    buildCreate: function(round){
+        let data = wheel.buildData(round);
+        wheel.create(data);
+    },
+
+    buildData: function(round) {
+        let w = round.wheel;
+        let data = [];
+        
+        for(let i=0; i&lt;w.slots.length; i++){
+            let slot = {};
+            let sectorNumber = w.slots[i];
+            let sectorName = w.getSectorName(sectorNumber);
+            slot[&apos;slot&apos;] = i;
+            slot[&apos;sector&apos;] = sectorNumber;
+            slot[&apos;name&apos;] = sectorName;
+
+            if(w.sectorIsCategory(sectorNumber)){
+                slot[&apos;label&apos;] = 1 + sectorNumber;
+            } else {
+                slot[&apos;label&apos;] = wheel.specialSectorLabels[sectorName];
+            }
+            data.push(slot);
+        }
+        return data;
+    },
+
+    create: function (data) {
+        wheel.data = data;
+
+        wheel.g.selectAll(&quot;*&quot;).remove();
+
+        let color = d3.scaleOrdinal(d3.schemeSet3);
+
+        let pie = d3.pie()
+            .sort(null)
+            .value(function (d) { return 1; });
+
+        let path = d3.arc()
+            .outerRadius(wheel.radius - 10)
+            .innerRadius(40);
+
+        wheel.label = d3.arc()
+            .outerRadius(wheel.radius - 40)
+            .innerRadius(wheel.radius - 40);
+
+        let arc = wheel.g.selectAll(&quot;.arc&quot;)
+            .data(pie(wheel.data))
+            .enter().append(&quot;g&quot;)
+            .attr(&quot;class&quot;, &quot;arc&quot;);
+
+        arc.append(&quot;path&quot;)
+            .attr(&quot;d&quot;, path)
+            .attr(&quot;fill&quot;, function (d) { return color(d.data.slot); });
+
+        wheel.text = arc.append(&quot;text&quot;)
+            .attr(&quot;transform&quot;, function (d) {
+                return &quot;translate(&quot; + wheel.label.centroid(d) + &quot;)&quot;;
+            })
+            .attr(&quot;dy&quot;, &quot;0.35em&quot;)
+            .text(function (d) { return d.data.label; });
+
+        wheel.timerCircle = wheel.base.append(&quot;circle&quot;)
+            .attr(&quot;r&quot;, &quot;40&quot;)
+            .attr(&quot;fill&quot;, &quot;#adc9e2&quot;);
+
+        wheel.timerText = wheel.base.append(&quot;text&quot;)
+            .attr(&quot;text-anchor&quot;, &quot;middle&quot;)
+            .attr(&quot;alignment-baseline&quot;, &quot;central&quot;)
+            .attr(&quot;font-size&quot;, 32)
+            .text(&quot;\uf017&quot;)
+            .attr(&quot;id&quot;, &quot;timer&quot;)
+            .classed(&quot;fa&quot;, true);
+
+        var symbol = d3.symbol()
+            .type(d3.symbolTriangle)
+            .size(200);
+
+        let pointerY = wheel.radius - 10;
+        wheel.base.append(&quot;path&quot;)
+            .attr(&apos;d&apos;, symbol)
+            .attr(&apos;transform&apos;, &apos;rotate(180) translate(0, &apos; + pointerY + &apos;)&apos;);
+;
+    },
+
+    rotate: function (slot = 0, callback) {
+        let arcLength = 360 / wheel.data.length;
+        let slotArcCenter = arcLength * slot + arcLength / 2;
+
+        wheel.newAngle = 1440 - slotArcCenter;
+        let textAngle = 360 - slotArcCenter;
+
+        function rotTween() {
+            let i = d3.interpolate(wheel.oldAngle % 360, wheel.newAngle);
+            return function (t) {
+                return &quot;rotate(&quot; + i(t) + &quot;)&quot;;
+            };
+        }
+
+        wheel.g.transition()
+            .attrTween(&quot;transform&quot;, rotTween)
+            .duration(3000)
+            .on(&quot;end&quot;, function () {
+                wheel.oldAngle = wheel.newAngle;
+                callback();
+            });
+
+        wheel.text.transition()
+            .attr(&quot;transform&quot;, function (dd) {
+                let ctr = wheel.label.centroid(dd);
+                return &quot;translate(&quot; + ctr + &quot;) rotate(&quot; + (-textAngle) + &quot;)&quot;;
+            })
+            .duration(2000);
+    },
+
+    startTimer: function(duration=20){
+        wheel.timerText.text(&quot;20&quot;);
+        wheel.timer = d3.interval(function(elapsed){
+            wheel.timerText.transition()
+                .duration(750)
+                .text(duration - Math.floor(elapsed/1000));
+            if (elapsed &gt; duration * 1000){
+                wheel.timer.stop();
+                wheel.timerCircle.attr(&quot;fill&quot;, &quot;red&quot;);
+            }
+        }, 1000)
+    },
+
+    stopTimer: function(){
+        wheel.timer.stop();
+    },
+
+    resetTimer: function(){
+        wheel.stopTimer();
+        wheel.timerText.text(&quot;\uf017&quot;);
+        wheel.timerCircle.attr(&quot;fill&quot;, &quot;#adc9e2&quot;);
+    }
+}
+
+let board = {
+    setActiveClue: function(column, row){
+        $(&quot;#t_&quot; + column + &quot;_&quot; + row).toggleClass(&quot;current-clue&quot;, true);
+    },
+
+    setValidClue: function(column, row){
+        $(&quot;#t_&quot; + column + &quot;_&quot; + row).toggleClass(&quot;current-clue&quot;, false);
+        $(&quot;#t_&quot; + column + &quot;_&quot; + row).toggleClass(&quot;valid-clue&quot;, true);
+    },
+
+    setInvalidClue: function (column, row) {
+        $(&quot;#t_&quot; + column + &quot;_&quot; + row).toggleClass(&quot;current-clue&quot;, false);
+        $(&quot;#t_&quot; + column + &quot;_&quot; + row).toggleClass(&quot;invalid-clue&quot;, true);
+    }
+
+}
+
+function displayClue(){
+    $(&quot;.spin-phase&quot;).hide();
+    $(&quot;.answer-phase&quot;).show();
+    
+    playPanel.deductClue();
+
+    let clue = round.currentClue;
+    let points = clue.points;
+    let category = round.board.getCategory(clue.column).name;
+
+    board.setActiveClue(clue.column, clue.row);
+    clueText.write(category + &quot; (&quot; + points +&quot;)\n&quot; + clue.question);
+
+    wheel.startTimer();
+}
+
+function switchPlayer(){
+    // end current players turn and toggle UI
+    player.endTurn(round.currentPlayerID);
+    round.endTurn();
+    player.startTurn(round.currentPlayerID);
+}
+
+function download(filename, text) {
+    // source: https://goo.gl/VWW2sT
+    var element = document.createElement(&apos;a&apos;);
+    element.setAttribute(&apos;href&apos;, &apos;data:text/plain;charset=utf-8,&apos; + encodeURIComponent(text));
+    element.setAttribute(&apos;download&apos;, filename);
+    element.style.display = &apos;none&apos;;
+    document.body.appendChild(element);
+
+    element.click();
+    document.body.removeChild(element);
+}
+
+class Alert {
+    static success(msg) {
+        let a = $(&quot;#alert&quot;);
+        a.removeClass(&quot;alert-danger alert-success alert-warning&quot;)
+            .addClass(&quot;alert-success&quot;);
+        a.find(&quot;#alert-text&quot;).empty().text(msg);
+        a.show();
+    };
+
+    static danger(msg) {
+        let a = $(&quot;#alert&quot;);
+        a.removeClass(&quot;alert-danger alert-success alert-warning&quot;)
+            .addClass(&quot;alert-danger&quot;);
+        a.find(&quot;#alert-text&quot;).empty().html(msg);
+        a.show();
+    };
+
+    static warning(msg) {
+        let a = $(&quot;#alert&quot;);
+        a.removeClass(&quot;alert-danger alert-success alert-warning&quot;)
+            .addClass(&quot;alert-warning&quot;);
+        a.find(&quot;#alert-text&quot;).empty().html(msg);
+        a.show();
+    };
+
+    static hide(ms) {
+        // set milliseconds to delay hide
+        if (ms) {
+            setTimeout(function () { $(&quot;#alert&quot;).hide(&quot;slow&quot;) }, ms);
+        } else {
+            $(&quot;#alert&quot;).hide();
+        }
+    };
+}
 </code></pre>
 
 </div>

@@ -63,9 +63,10 @@ function initDefaultGame(){
     let game = new Game();
 
     let data = [data1, data2];
+    let basePoints = [200, 400]
 
     for(let i=0; i<data.length; i++){
-        let round = game.addRound();
+        let round = game.addRound(6, 5, basePoints[i]);
 
         round.board.import(JSON.stringify(data[i]));
         round.wheel.assignSectors();
@@ -1033,11 +1034,15 @@ class Game {
     /**
      * Add and initialize a game round with an empty wheel and board. Rounds are
      * assigned an ID starting with 0 and incrementing by 1.
+     * @param {number} [columns=6] number of columns on the board.
+     * @param {number} [rows=5] number of rows on the board.
+     * @param {number} [basePoints=200] point value of each clues in the first
+     * row.
      * @returns {id} auto assigned round ID.
      */
-    addRound(){
+    addRound(columns = 6, rows = 5, basePoints = 200){
         let id = this.rounds.length;
-        let board = new Board();
+        let board = new Board(columns, rows, basePoints);
         let wheel = new Wheel(board)
         let round = new Round(id, wheel, this.players)
         this.rounds.push(round);

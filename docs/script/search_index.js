@@ -54,6 +54,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "./scripts/ui.js~debug",
+    "variable/index.html#static-variable-debug",
+    "<span>debug</span> <span class=\"search-result-import-path\">./scripts/ui.js</span>",
+    "variable"
+  ],
+  [
     "./scripts/engine.js~initdefaultgame",
     "function/index.html#static-function-initDefaultGame",
     "<span>initDefaultGame</span> <span class=\"search-result-import-path\">./scripts/engine.js</span>",

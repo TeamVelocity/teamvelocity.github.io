@@ -41,6 +41,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-initDefaultGame">initDefaultGame</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-shuffleArray">shuffleArray</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-debug">debug</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-GameStats">GameStats</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-PlayerStats">PlayerStats</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RoundStats">RoundStats</a></span></span></li>
@@ -55,7 +56,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/scripts/engine.js.html#lineNumber978">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/scripts/engine.js.html#lineNumber979">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -297,7 +298,7 @@ console.log(round.complete);</code></pre>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Game.html#instance-method-addRound">addRound</a></span></span><span class="code" data-ice="signature">(): <span>id</span></span>
+          <span class="code" data-ice="name"><span><a href="class/scripts/engine.js~Game.html#instance-method-addRound">addRound</a></span></span><span class="code" data-ice="signature">(columns: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, rows: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, basePoints: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>id</span></span>
         </p>
       </div>
       <div>
@@ -451,7 +452,7 @@ console.log(round.complete);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber987">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber988">source</a></span></span>
     </span>
   </h3>
 
@@ -494,7 +495,7 @@ console.log(round.complete);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber981">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber982">source</a></span></span>
     </span>
   </h3>
 
@@ -537,7 +538,7 @@ console.log(round.complete);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber984">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber985">source</a></span></span>
     </span>
   </h3>
 
@@ -580,7 +581,7 @@ console.log(round.complete);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber994">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber995">source</a></span></span>
     </span>
   </h3>
 
@@ -640,7 +641,7 @@ console.log(round.complete);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1007">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1008">source</a></span></span>
     </span>
   </h3>
 
@@ -711,11 +712,11 @@ incrementing by 1.</p>
     
     
     
-    <span class="code" data-ice="name">addRound</span><span class="code" data-ice="signature">(): <span>id</span></span>
+    <span class="code" data-ice="name">addRound</span><span class="code" data-ice="signature">(columns: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, rows: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, basePoints: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>id</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1038">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1043">source</a></span></span>
     </span>
   </h3>
 
@@ -728,7 +729,42 @@ assigned an ID starting with 0 and incrementing by 1.</p>
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">columns</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 6</li></ul></td>
+      <td data-ice="description"><p>number of columns on the board.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">rows</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 5</li></ul></td>
+      <td data-ice="description"><p>number of rows on the board.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">basePoints</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 200</li></ul></td>
+      <td data-ice="description"><p>point value of each clues in the first
+row.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   <div class="return-params" data-ice="returnParams">
@@ -773,7 +809,7 @@ assigned an ID starting with 0 and incrementing by 1.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1028">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1029">source</a></span></span>
     </span>
   </h3>
 
@@ -841,7 +877,7 @@ assigned an ID starting with 0 and incrementing by 1.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1059">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1064">source</a></span></span>
     </span>
   </h3>
 
@@ -898,7 +934,7 @@ assigned an ID starting with 0 and incrementing by 1.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1019">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1020">source</a></span></span>
     </span>
   </h3>
 
@@ -972,7 +1008,7 @@ assigned an ID starting with 0 and incrementing by 1.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1051">source</a></span></span>
+      <span data-ice="source"><span><a href="file/scripts/engine.js.html#lineNumber1056">source</a></span></span>
     </span>
   </h3>
 

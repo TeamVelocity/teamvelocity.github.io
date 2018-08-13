@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "scripts/engine.js",
-    "content": "\"use strict\"\n/***\n * Classes and logic for the Wheel of Jeopardy (WOJ) game.\n */\n\n// let engine = (function(){\n\n/**\n * @typedef {Object} GameStats\n */\n\n/**\n * @typedef {Object} RoundStats\n * @property {number} spinsUsed number of spins used.\n * @property {number} cluesAnswered number of clues answered.\n * @property {PlayerStats} currentPlayer stats for current player.\n */\n\n/**\n * @typedef {Object} PlayerStats\n * @property {number} id current player's id.\n * @property {string} name current player's name.\n * @property {number} roundScore current player's round score.\n * @property {number} totalScore current player's total score.\n * @property {number} tokens current player's token count.\n * @property {boolean} hasToken true if current player has token.     \n */\n\n/**\n * Returns a random integer between min and max.\n * @param {number} max upper bound (exclusive).\n * @param {number} min lower bound (inclusive).\n * @returns {number} random integer.\n */\nfunction randomInt(max, min=0){\n    return Math.floor(Math.random() * (max - min) + min);\n}\n\n/**\n * Naive shuffle an array, swaps random slots 3 * array.length times.\n * @param {Object[]} arr an array to shuffle.\n * @returns {Object[]} shuffled array.\n */\nfunction shuffleArray(arr){\n    for (let j=0; j < arr.length * 3; j++){\n        let i1 = randomInt(arr.length);\n        let i2 = randomInt(arr.length);\n\n        let val1 = arr[i1];\n        let val2 = arr[i2];\n\n        arr[i2] = val1;\n        arr[i1] = val2;\n    }\n    return arr;\n}\n\n/**\n * Initialize the default game setup.\n * @returns {Game} a game intialized with default rounds and no players.\n */\nfunction initDefaultGame(){\n    let game = new Game();\n\n    let data = [data1, data2];\n\n    for(let i=0; i<data.length; i++){\n        let round = game.addRound();\n\n        round.board.import(JSON.stringify(data[i]));\n        round.wheel.assignSectors();\n        round.wheel.randomizeSectors();\n    }\n    return game;\n}\n\n/**\n * A single clue, zero indexed from the top left of the board.\n */\nclass Clue {\n    /**\n     * @param {number} column horizontal index on board.\n     * @param {number} row vertical index on board.\n     * @param {string} question the question text.\n     * @param {string} answer the answer text.\n     */\n    constructor(column, row, question, answer) {\n        this.column = column;\n        this.row = row;\n        this.question = question;\n        this.answer = answer;\n\n        /** @type {number} value of the clue. */\n        this.points = 0;\n    }\n}\n\n/** \n * A category of clues on the board. \n */\nclass Category{\n    /**\n     * @param {string} name name of the category.\n     */\n    constructor(name){\n        this.name = name;\n\n        /** @type {Object[]} a list of {@link Clue} objects. */\n        this.clues = [];\n\n        /** \n         * @type {number} number of clues in the category that have been \n         * answered. \n         */\n        this.cluesAnswered = 0;\n    }\n\n    /** @type {boolean} true if all clues in the category have been answered. */\n    get complete(){\n        return this.cluesAnswered >= this.clues.length;\n    }\n\n    /** \n     * Reset clues answered count to 0.\n     */\n    reset(){\n        this.cluesAnswered = 0;\n    }\n\n    /** \n     * Retrieve next unanswered clue in the category, increment cluesAnswered.\n     * If all clues are answered, this will return undefined.\n     * @return {Clue} the next unanswered clue.\n     * @throws {Error} throw error when category is complete.\n     */\n    nextClue(){\n        if(this.complete){\n            throw new Error(\"All clues already answered for: \" + this.name);\n        } else {\n            let clue = this.clues[this.cluesAnswered];\n            this.cluesAnswered++;\n            return clue;\n        }\n    }\n}\n\n/**\n * A WOJ board with column * row clues arranged in a grid. The top left\n * corner is indexed at 0. Each column is a {@link Category} and each row in a \n * category is a {@link Clue}. All categories must have the same number of \n * clues. Each clue in the first row has {@link Board#basePoints}. Each clue in\n * the next row equals the sum of the clue value in the prior row plus \n * basePoints.\n */\nclass Board {\n    /**\n     * @param {number} [columns=6] number of columns on the board. \n     * @param {number} [rows=5] number of rows on the board.\n     * @param {number} [basePoints=200] point value of each clues in the first \n     * row.\n     */\n    constructor(columns=6, rows=5, basePoints=200) {\n        this.columns;\n        this.rows;\n        this.basePoints = basePoints;\n\n        /** \n         * @type {Category[]} an array of Categories indexed by column \n         * position. \n         */\n        this.categories;\n\n        this.init_(columns, rows);\n    }\n\n    /** @type {boolean} true if all clues on the board have been answered. */\n    get complete(){\n        return this.cluesAnswered >= this.columns * this.rows;\n    }\n\n    /** \n     * @type {number} number of clues on the board that have been answered.\n     */\n    get cluesAnswered(){\n        let cluesAnswered = 0;\n        for(let i=0; i<this.categories.length; i++){\n            cluesAnswered += this.categories[i].cluesAnswered;\n        }\n        return cluesAnswered;\n    }\n\n    /**\n     *  @type {string[]} an array of category names indexed by column position.\n     */\n    get categoryNames(){\n        let names = [];\n        for(let i=0; i<this.categories.length; i++){\n            names.push(this.categories[i].name);\n        }\n        return names;\n    }\n\n    /**\n     * Initializes an empty board of size columns * rows with {@link Clue}'s.\n     * @private\n     * @param {number} columns number of columns on the board. \n     * @param {number} rows number of rows on the board.\n     */\n    init_(columns, rows){\n        this.categories = [];\n        this.columns = columns;\n        this.rows = rows;\n\n        for(let i=0; i<this.columns; i++){\n            let category = new Category();\n            this.categories.push(category);\n\n            for(let j=0; j<this.rows; j++){\n                let clue = new Clue();\n                clue.column = i;\n                clue.row = j;\n                clue.points = (j+1) * this.basePoints;\n                category.clues.push(clue);\n            }\n        }\n    }\n\n    /** \n     * Resets each category in the board and their cluesAnswered count to 0.\n     */\n    reset(){\n        for(let i=0; i<this.categories.length; i++){\n            this.categories[i].reset();\n        }\n    }\n\n    /**\n     * Returns a category at the specified column.\n     * @param {number} column column index of the category.\n     * @return {Category} category at the specified column.\n     */\n    getCategory(column){\n        return this.categories[column];\n    }\n\n    /**\n     * Returns a clue at the specified column and row.\n     * @param {number} column column index of the clue.\n     * @param {number} row row index of the clue.\n     * @return {Clue} clue at the specified column and row.\n     */\n    getClue(column, row){\n        return this.categories[column].clues[row];\n    }\n\n    /**\n     * Edit the name of a category at column index.\n     * @param {number} column column index of the category.\n     * @param {string} name new category name.\n     */\n    editCategory(column, name){\n        let category = this.getCategory(column);\n        category.name = name;\n    }\n\n    /**\n     * Edit the question and answer of a clue at column and row index.\n     * @param {number} column column index of the clue.\n     * @param {number} row row index of the clue.\n     * @param {string} question new question text.\n     * @param {string} answer new answer text.\n     */\n    editClue(column, row, question, answer){\n        let clue = this.getClue(column, row);\n        clue.question = question;\n        clue.answer = answer;\n    }\n\n    /** \n     * Retrieve next unanswered clue in the category at column and increment\n     * cluesAnswered for that category. If all clues are answered, this will \n     * return undefined.\n     * @param {number} column column index of the category.\n     * @return {Clue} the next unanswered clue.\n     * @throws {Error} throw error when board is complete.\n     */\n    nextClue(column) {\n        if(this.complete){\n            throw new Error(\"All clues already answered on the board\");\n        } else {\n            let category = this.getCategory(column);\n            let clue = category.nextClue();\n            return clue;\n        }\n    }\n\n    /**\n     * Import JSON board, initializing board and setting categories and clues.\n     * Data should be a string. Use JSON.stringify if data is an object literal.\n     * \n     * @param {string} data board JSON.\n     * @param {number} data.columns number of columns.\n     * @param {numnber} data.rows number of rows.\n     * @param {string[]} data.categories array of category names.\n     * @param {Object[]} data.clues array of clues, zero indexed from top left\n     * of board\n     * @param {number} data.clues.column column index of the clue.\n     * @param {number} data.clues.row row index of the clue.\n     * @param {string} data.clues.question new question text.\n     * @param {string} data.clues.answer new answer text.\n     * \n     * @see /scripts/data.js\n     */\n    import(data){\n        data = JSON.parse(data);\n\n        // reinitialize board if columns/rows different\n        if(this.columns != data.columns || this.rows != data.rows){\n            this.init_(data.columns, data.rows);\n        }\n\n        // import category names\n        for(let i=0; i<data.categories.length; i++){\n            this.editCategory(i, data.categories[i]);\n        }\n\n        // import clues\n        for(let i=0; i<data.clues.length; i++){\n            let clue = data.clues[i];\n            this.editClue(clue.column, clue.row, clue.question, clue.answer);\n        }\n    }\n\n    /**\n     * Export board content to JSON board string. See {@link Board.import} for\n     * details on JSON board structure.\n     * @returns {string} serialized board.\n     */\n    export(){\n        let data = {\n            \"columns\": this.columns,\n            \"rows\": this.rows,\n            \"categories\": this.categoryNames,\n            \"clues\": []\n        };\n\n        for(let i=0; i<this.columns; i++){\n            for(let j=0; j<this.rows; j++){\n                let clue = this.getClue(i, j);\n                data.clues.push({\n                    \"column\": i,\n                    \"row\": j,\n                    \"question\": clue.question,\n                    \"answer\": clue.answer\n                })\n            }\n        }\n\n        data = JSON.stringify(data);\n        return data;\n    }\n}\n\n/** Result of a wheel spin. */\nclass Spin {\n    /**\n     * @param {number} slot wheel slot number where spin landed.\n     * @param {number} sectorNumber corresponding sector number located at slot.\n     * @param {string} sectorName corresponding sector name located at slot.\n     * @param {boolean} isCategory true if sector is category.\n     * @param {Clue} clue if isCategory is true and spinAgain is false, next\n     * clue in the category.\n     * @param {boolean} spinAgain true if category is complete.\n     */\n    constructor(slot, sectorNumber, sectorName, isCategory, clue, spinAgain=false){\n        this.slot = slot;\n        this.sectorNumber = sectorNumber;\n        this.sectorName = sectorName;\n        this.isCategory = isCategory;\n        this.clue = clue;\n        this.spinAgain = spinAgain;\n    }\n}\n\n/** \n * A WOJ wheel for a specific board and maximum spins. The number of slots on\n * the wheel will be the number of categories + the number of special sectors\n * (6). Slots are fixed on the wheel. Each special and category is a sector.\n * Each sector can be randomly assigned to a slot on the wheel. Categories are\n * always populated in the sector list first, followed by special sectors, i.e.\n * category 0 on the board is always sector 0 on the wheel.\n */\nclass Wheel {\n    /**\n     * @param {Board} board an initialized WOJ board.\n     * @param {number} [maxSpins=50] the max spins allowed.\n     */\n    constructor(board, maxSpins=50) {\n        this.board = board;\n        this.maxSpins = maxSpins;\n\n        /**\n         * @type {string[]} a list of six special sectors.\n         */\n        this.specialSectors = [\n            \"Lose Turn\", \n            \"Free Turn\", \n            \"Bankrupt\", \n            \"Player's Choice\", \n            \"Opponent's Choice\", \n            \"Double Score\"\n        ]\n\n        /**\n         * @type {number} number of spins used.\n         */\n        this.usedSpins = 0;\n\n        /**\n         * @type {number} sector numbers in each slot.\n         */\n        this.slots = [];\n\n        this.assignSectors();\n    }\n\n    /** @type {boolean} true if all spins have been used. */\n    get complete(){\n        return this.usedSpins >= this.maxSpins;\n    }\n\n    /**\n     * @type {string[]} array of ordered sector names: categories + special\n     * sectors.\n     */\n    get sectors(){\n        return this.board.categoryNames.concat(this.specialSectors);\n    }\n\n    /** \n     * Resets used spins to 0.\n     */\n    reset(){\n        this.usedSpins = 0;\n    }\n\n    /**\n     * Assigns sectors numbers to each slot ordered by categories then special.\n     */\n    assignSectors(){\n        this.slots = [];\n\n        for(let i=0; i<this.sectors.length; i++){\n            this.slots.push(i);\n        }\n    }\n\n    /**\n     * Randomizes sectors in the slots.\n     */\n    randomizeSectors(){\n        this.slots = shuffleArray(this.slots);\n    }\n\n    /**\n     * Get sector number at a specific slot number.\n     * @param {number} slot slot number in the wheel.\n     * @return {number} sector number at the specified slot.\n     */\n    getSectorNumber(slot){\n        return this.slots[slot];\n    }\n\n    /**\n     * Get sector name for the specific sector number.\n     * @param {number} sectorNumber sector number.\n     * @return {number} sector name for the sector number.\n     */\n    getSectorName(sectorNumber){\n        return this.sectors[sectorNumber];\n    }\n\n    /**\n     * Check if the sector is a category (vs a special sector).\n     * @param {number} sectorNumber number of the sector.\n     * @return {boolean} true if the sector is a category.\n     */\n    sectorIsCategory(sectorNumber){\n        if(sectorNumber < this.board.categoryNames.length){\n            return true\n        } else {\n            return false\n        }\n    }\n\n    /**\n     * Return a random slot number from the wheel.\n     * @returns {number} a random slot number.\n     */\n    getRandomSlot(){\n        return randomInt(this.slots.length);\n    }\n\n    /**\n     * Spins the wheel and returns a random sector. Populates the {@link Spin}\n     * object with the spin results. If the result is a category, a clue will\n     * be retrieved. If all clues are used, the spin again field will be\n     * true.\n     * @returns {Spin} object summarizing result of the spin.\n     */\n    spin(){\n        let spin = new Spin();\n        spin.slot = this.getRandomSlot();\n        spin.sectorNumber = this.getSectorNumber(spin.slot);\n        spin.sectorName = this.getSectorName(spin.sectorNumber);\n        spin.isCategory = this.sectorIsCategory(spin.sectorNumber);\n\n        if(spin.isCategory){\n            let categoryColumn = spin.sectorNumber;\n            let category = this.board.getCategory(categoryColumn);\n\n            if(category.complete){\n                spin.spinAgain = true;\n            } else {\n                let clue = this.board.nextClue(categoryColumn);\n                spin.clue = clue;\n            }\n        }\n        this.usedSpins++;\n        return spin;\n    }\n}\n\n/**\n * A score keeper for a single player and round.\n */\nclass Score {\n    constructor(){\n        /** \n         * @type {number} current points for the round. \n         */\n        this.points = 0;\n    }\n\n    /** Reset points to 0. */\n    reset(){\n        this.points = 0;\n    }\n\n    /**\n     * Increase points by a number (sign ignored).\n     * @param {number} points number of points to increase.\n     */\n    increase(points){\n        this.points = this.points + Math.abs(points);\n    }\n\n    /**\n     * Decrease points by a number (sign ignored).\n     * @param {number} points number of points to decrease.\n     */\n    decrease(points){\n        this.points = this.points - Math.abs(points);\n    }\n\n    /** If points are positive, set points to 0. */\n    bankrupt(){\n        if(this.points > 0){ this.points = 0; }\n    }\n\n    /** Double points, even if negative. */\n    double(){\n        this.points = this.points + this.points;\n    }\n}\n\n/**\n * A player in the WOJ game.\n */\nclass Player {\n    /**\n     * @param {number} id A unique numeric ID for the player.\n     * @param {string} [name] the players name.\n     */\n    constructor(id, name) {\n        this.id = id;\n        this.name = name;\n\n        /**\n         * @type {number} number of tokens (free turns).\n         */\n        this.tokens = 0;\n\n        /**\n         * @type {Score[]} array of scores, indexed by round number, i.e. 0 is\n         * the first round.\n         */\n        this.scores = [];\n    }\n\n    /** @type {numbner} sum of points for all rounds. */\n    get totalScore(){\n        let points = 0;\n        for(let i=0; i<this.scores.length; i++){\n            points += this.scores[i].points;\n        }\n        return points;\n    }\n\n    /** Sets the player's tokens to 0. */\n    resetTokens(){\n        this.tokens = 0;\n    }\n\n    /**\n     *  Reset score for round to 0.\n     * @param {number} round number of the round, 0 is round 1.\n     */\n    resetScore(round){\n        this.scores[round] = new Score();\n    }\n\n    /**\n     * Return the score for a given round number.\n     * @param {number} round number of the round, 0 is round 1.\n     * @returns {number} score for the given round number.\n     */\n    getScore(round){\n        return this.scores[round];\n    }\n\n    /**\n     * Adds 1 token to the player's tokens.\n     */\n    addToken(){\n        this.tokens += 1;\n    }\n\n    /**\n     * Checks if the player has any tokens.\n     * @returns true if the player has at least one token.\n     */\n    hasToken(){\n        return this.tokens > 0;\n    }\n\n    /**\n     * Deduct a token, if the player has one.\n     * @returns {boolean} true if the token was deducted.\n     * @throws {Error} throws error if the player has no tokens.\n     */\n    useToken(){\n        if(this.hasToken()){\n            this.tokens--;\n            return true;\n        } else {\n            throw new Error('Player does not have any tokens.')\n        }\n    }\n}\n\n/**\n * A round in the WOJ game. The standard game is played with two rounds.\n */\nclass Round {\n    /**\n     * @param {number} id A unique numeric ID for the round.\n     * @param {Wheel} wheel a wheel for the round.\n     * @param {Player[]} players an array of players in the game.\n     * @param {number} [maxTime=20] maximum time to answer a question in\n     * seconds.\n     */\n    constructor(id, wheel, players, maxTime=20){\n        this.id = id;\n        this.wheel = wheel;\n        this.players = players;\n        this.maxTime = maxTime;\n\n        /**\n         * @type {Board} a board for the round.\n         */\n        this.board = wheel.board;\n\n        /**\n         * @type {number} player id of the player currently spinning.\n         */\n        this.currentPlayerID = 0\n\n        /**\n         * @type {Spin} latest Spin resulting from spin.\n         */\n        this.currentSpin;\n\n        /**\n         * @type {Clue} latest Clue resulting form spin or pickCategory.\n         */\n        this.currentClue;\n\n        /**\n         * @type {boolean} true if the round is ready to begin.\n         * @private\n         */\n        this.roundReady_ = false;\n\n        /**\n         * @type {boolean} true if the current turn is complete.\n         * @private\n         */\n        this.turnComplete_ = true; \n\n    }\n\n    /** @type {boolean} true if the round is complete. */\n    get complete(){\n        return this.wheel.complete || this.board.complete\n    }\n\n    /**\n     * Stats for the current round, including spins used, clues answered, and\n     * attributes for the player who has the current turn, e.g. score, tokens.\n     * @returns {RoundStats} current stats for the round.\n     */\n    get stats(){\n        let stats = {\n            spinsUsed: this.wheel.usedSpins,\n            cluesAnswered: this.board.cluesAnswered,\n            currentPlayer: {\n                id: this.currentPlayer.id,\n                name: this.currentPlayer.name,\n                roundScore: this.currentPlayerScore_.points,\n                totalScore: this.currentPlayer.totalScore,\n                tokens: this.currentPlayer.tokens,\n                hasToken: this.currentPlayer.hasToken()\n            }\n        }\n        return stats;\n    }\n\n    /**\n     * Current player's player object.\n     * @return {Player} current player's player object.\n     */\n    get currentPlayer(){\n        return this.players[this.currentPlayerID];\n    }\n\n    /**\n     * Current player's score object.\n     * @returns {Score} current players score object.\n     * @private\n     */\n    get currentPlayerScore_(){\n        return this.currentPlayer.scores[this.id]\n    }\n\n    /**\n     * Start the WOJ round.\n     */\n    start(){\n        this.reset();\n    }\n\n    /**\n     * Resets the current round by reseting the wheel, board, and player scores.\n     */\n    reset(){\n        this.wheel.reset();\n        this.board.reset();\n        for(let i=0; i<this.players.length; i++){\n            this.players[i].resetScore(this.id);\n        }\n        this.currentPlayerID = 0;\n        this.roundReady_ = true;\n        this.turnComplete_ = true; \n    }\n\n    /**\n     * Spins the wheel and returns the result in a Spin object. If Free Turn,\n     * Bankrupt, or Double Score are landed, the players tokens or score is\n     * adjusted. If Player's Choice or Opponent's Choice are landed, use\n     * pickCategory to get the next clue.\n     * @returns {Spin} result of the spin.\n     */\n    spin(){\n        if(this.complete){\n            // check if the round is complete\n            let msg = 'Round complete, must start new round or end the game.';\n            throw new Error(msg);\n        } else if(!this.roundReady_){\n            // did not start round\n            throw new Error('Must call start before round can begin.');\n        } else if(!this.turnComplete_) {\n            // check if turn is complete\n            let msg = `\n                Must complete current turn before spinning again by calling \n                validAnswer, endTurn, or useToken.\n            `;\n            throw new Error(msg)\n        }else{\n            // spin wheel\n            this.turnComplete_ = false;\n\n            let spin = this.wheel.spin();\n            this.currentSpin = spin;\n\n            if(spin.isCategory){\n                // category sector\n                if(!spin.spinAgain){\n                    // valid clue\n                    this.currentClue = spin.clue;\n                }\n            } else {\n                // special sector\n                switch(spin.sectorName){\n                    case \"Free Turn\":\n                        this.currentPlayer.addToken();\n                        break;\n                    case \"Lose Turn\":\n                        break;\n                    case \"Bankrupt\":\n                        this.currentPlayerScore_.bankrupt();\n                        break;\n                    case \"Player's Choice\":\n                        break;\n                    case \"Opponent's Choice\":\n                        break;\n                    case \"Double Score\":\n                        this.currentPlayerScore_.double();\n                        break;\n                    default:\n                        // do nothing\n                }\n            }\n            return spin;\n        }\n    }\n\n    /**\n     * When spin is Player's Choice or Opponent's Choice, use pickCategory,\n     * to get the next clue from the specificed category. This will set the\n     * currentClue.\n     * @param {number} column column index of the category.\n     * @returns {Clue} next unanswered clue in the category.\n     * @throws {Error} throws error if current spin sector does not permit\n     *  picking a category, i.e. it is not Player's Choice or Opponents Choice.\n     */\n    pickCategory(column){\n        let validOpt = [\"Player's Choice\", \"Opponent's Choice\"];\n        let specialSector = !this.currentSpin.isCategory\n        if(specialSector && validOpt.includes(this.currentSpin.sectorName)){\n            let category = this.board.getCategory(column);\n            let clue = category.nextClue();\n            this.currentClue = clue;\n            return clue;\n        } else {\n            let msg = 'pickCategory is not allowed for current spin sector: ' + \n                this.currentSpin.sectorName;\n            throw new Error(msg);\n         }\n    }\n\n    /**\n     * When Spin resulted in a clue or pickCategory was used to set a clue, call\n     * this method if the player answered correctly, to adjust their score.\n     * @throws {Error} throws error if no clue is set to validate.\n     */\n    validAnswer(){\n        if(this.currentClue === undefined){\n            throw new Error('Check spin result, no clue was set.');\n        } else {\n            this.currentPlayerScore_.increase(this.currentClue.points);\n            this.resetTurn_();\n        }\n    }\n\n    /**\n     * When Spin resulted in a clue or pickCategory was used to set a clue, call\n     * this method if the player answered incorrectly, to adjust their score.\n     * @throws {Error} throws error if no clue is set to validate.\n     */\n    invalidAnswer(){\n        if(this.currentClue === undefined){\n            throw new Error('Check spin result, no clue was set.');\n        } else {\n            this.currentPlayerScore_.decrease(this.currentClue.points);\n        }\n    }\n\n\n    /**\n     * Private method to reset the turn: currentSpin and currentClue are set\n     * to undefined.\n     * @private\n     */\n    resetTurn_(){\n        this.currentSpin = undefined;\n        this.currentClue = undefined;\n        this.turnComplete_ = true;\n    }\n\n    /**\n     * Use a free turn token for the current player. A token may be used if the\n     * player loses his turn or answers a question incorrectly. A token cannot\n     * be used if the player spins free turn.\n     * @returns {boolean} true if succesfully used token, false otherwise.\n     * @throws {Error} throws error if player does not have any tokens.\n     * @throws {Error} throws error if the current spin is Free Turn.\n     */\n    useToken(){\n        let specialSector = !this.currentSpin.isCategory;\n        if(specialSector && this.currentSpin.sectorName == 'Free Turn'){\n            throw new Error('Free turn not allowed when sector is Free Turn')\n        } else {\n            try {\n                let token = this.currentPlayer.useToken();\n                this.resetTurn_();\n                return token;\n            } catch (e) {\n                throw e;\n            }\n        }\n    }\n\n    /**\n     * End the current players turn, should be called after a spin and\n     * validation (if applicable) is complete. This method will switch to the\n     * next player and reset the currentSpin and currentClue.\n     */\n    endTurn(){\n        this.resetTurn_();\n\n        this.currentPlayerID++;\n        if(this.currentPlayerID == this.players.length){\n            // restart from first player\n            this.currentPlayerID = 0;\n        }\n    }\n}\n\n/**\n * The WOJ game. Supports creation of board, wheel, and players which are\n * used to track game play. This class should be used to create games and add\n * rounds to ensure proper functionality.\n * \n * @example\n * let game = new Game();\n * \n * // create default boards\n * let data = [data1, data2];\n * \n * for(let i=0; i<data.length; i++){\n *      let round = game.addRound();\n *      round.board.import(JSON.stringify(data[i]));\n *      round.wheel.assignSectors();\n *      round.wheel.randomizeSectors();    \n * }\n * \n * // edit board content if needed\n * round = game.getRound(0);\n * let clue = round.board.getCategory(1).clues[2];\n * clue.question = \"What is the oldest soft drink in America?\";\n * clue.answer = \"Dr. Pepper.\";\n * \n * // start game\n * game.addPlayer(\"John\");\n * game.addPlayer(\"Jane\");\n * \n * // start first round\n * round = game.getRound(0);\n * round.start();\n * \n * // player spins\n * console.log(round.currentPlayer);\n * let spin = round.wheel.spin();\n * console.log(spin);\n * console.log(round.complete);\n */\nclass Game {\n    constructor() {\n        /** @type {Player[]} array of players. */\n        this.players = [];\n\n        /** @type {Rounds[]} array of rounds. */\n        this.rounds = [];\n\n        /** @type {number} current round number. */\n        this.currentRound = 0;\n    }\n\n    /**\n     * Stats for the game.\n     * @returns {GameStats} current stats for the game.\n     */\n    get stats(){\n        let stats = {\n            // add game wide stats\n        }\n        return stats;\n    }\n\n    /** \n     * Add a player to the game. Players are assigned an ID starting with 0 and\n     * incrementing by 1.\n     * @param {string} name the players name.\n     * @returns {number} auto assigned player ID.\n     */\n    addPlayer(name){\n        let id = this.players.length;\n        let player = new Player(id, name);\n        this.players.push(player);\n        return player;\n    }\n\n    /**\n     * Retrieve a player.\n     * @param {number} id the players id number.\n     * @returns {Player} the player at index number.\n     */\n    getPlayer(id){\n        return this.players[id];\n    }\n\n    /**\n     * Retrieve and edit a player.\n     * @param {number} id the players id number, player one is id: 0.\n     * @param {string} name the players name.\n     */    \n    editPlayer(id, name){\n        let player = this.getPlayer(id);\n        player.name = name;\n    }\n\n    /**\n     * Add and initialize a game round with an empty wheel and board. Rounds are\n     * assigned an ID starting with 0 and incrementing by 1.\n     * @returns {id} auto assigned round ID.\n     */\n    addRound(){\n        let id = this.rounds.length;\n        let board = new Board();\n        let wheel = new Wheel(board)\n        let round = new Round(id, wheel, this.players)\n        this.rounds.push(round);\n        return round;\n    }\n\n    /**\n     * Retrieve a game round by id.\n     * @param {Round} id the rounds id number, round one is id: 0.\n     */\n    getRound(id){\n        return this.rounds[id];\n    }\n\n    /**\n     * Retrieve array of players ordered by top score.\n     * @returns {Player[]} array of players ordered by total score.\n     */\n    getLeaderBoard(){\n        let leaders = this.players.slice();\n        leaders.sort(function(obj1, obj2){\n            return obj2.totalScore - obj1.totalScore;\n        });\n        return leaders;\n    }\n}\n\n// node exports\nif (typeof module !== 'undefined' && module.exports) {\n    module.exports = {\n        Game: Game,\n        Round: Round,\n        Player: Player,\n        Score: Score\n    }\n}\n\n// return {\n//     Game:Game,\n//     initDefaultGame:initDefaultGame\n// }\n\n// })();\n",
+    "content": "\"use strict\"\n/***\n * Classes and logic for the Wheel of Jeopardy (WOJ) game.\n */\n\n// let engine = (function(){\n\n/**\n * @typedef {Object} GameStats\n */\n\n/**\n * @typedef {Object} RoundStats\n * @property {number} spinsUsed number of spins used.\n * @property {number} cluesAnswered number of clues answered.\n * @property {PlayerStats} currentPlayer stats for current player.\n */\n\n/**\n * @typedef {Object} PlayerStats\n * @property {number} id current player's id.\n * @property {string} name current player's name.\n * @property {number} roundScore current player's round score.\n * @property {number} totalScore current player's total score.\n * @property {number} tokens current player's token count.\n * @property {boolean} hasToken true if current player has token.     \n */\n\n/**\n * Returns a random integer between min and max.\n * @param {number} max upper bound (exclusive).\n * @param {number} min lower bound (inclusive).\n * @returns {number} random integer.\n */\nfunction randomInt(max, min=0){\n    return Math.floor(Math.random() * (max - min) + min);\n}\n\n/**\n * Naive shuffle an array, swaps random slots 3 * array.length times.\n * @param {Object[]} arr an array to shuffle.\n * @returns {Object[]} shuffled array.\n */\nfunction shuffleArray(arr){\n    for (let j=0; j < arr.length * 3; j++){\n        let i1 = randomInt(arr.length);\n        let i2 = randomInt(arr.length);\n\n        let val1 = arr[i1];\n        let val2 = arr[i2];\n\n        arr[i2] = val1;\n        arr[i1] = val2;\n    }\n    return arr;\n}\n\n/**\n * Initialize the default game setup.\n * @returns {Game} a game intialized with default rounds and no players.\n */\nfunction initDefaultGame(){\n    let game = new Game();\n\n    let data = [data1, data2];\n    let basePoints = [200, 400]\n\n    for(let i=0; i<data.length; i++){\n        let round = game.addRound(6, 5, basePoints[i]);\n\n        round.board.import(JSON.stringify(data[i]));\n        round.wheel.assignSectors();\n        round.wheel.randomizeSectors();\n    }\n    return game;\n}\n\n/**\n * A single clue, zero indexed from the top left of the board.\n */\nclass Clue {\n    /**\n     * @param {number} column horizontal index on board.\n     * @param {number} row vertical index on board.\n     * @param {string} question the question text.\n     * @param {string} answer the answer text.\n     */\n    constructor(column, row, question, answer) {\n        this.column = column;\n        this.row = row;\n        this.question = question;\n        this.answer = answer;\n\n        /** @type {number} value of the clue. */\n        this.points = 0;\n    }\n}\n\n/** \n * A category of clues on the board. \n */\nclass Category{\n    /**\n     * @param {string} name name of the category.\n     */\n    constructor(name){\n        this.name = name;\n\n        /** @type {Object[]} a list of {@link Clue} objects. */\n        this.clues = [];\n\n        /** \n         * @type {number} number of clues in the category that have been \n         * answered. \n         */\n        this.cluesAnswered = 0;\n    }\n\n    /** @type {boolean} true if all clues in the category have been answered. */\n    get complete(){\n        return this.cluesAnswered >= this.clues.length;\n    }\n\n    /** \n     * Reset clues answered count to 0.\n     */\n    reset(){\n        this.cluesAnswered = 0;\n    }\n\n    /** \n     * Retrieve next unanswered clue in the category, increment cluesAnswered.\n     * If all clues are answered, this will return undefined.\n     * @return {Clue} the next unanswered clue.\n     * @throws {Error} throw error when category is complete.\n     */\n    nextClue(){\n        if(this.complete){\n            throw new Error(\"All clues already answered for: \" + this.name);\n        } else {\n            let clue = this.clues[this.cluesAnswered];\n            this.cluesAnswered++;\n            return clue;\n        }\n    }\n}\n\n/**\n * A WOJ board with column * row clues arranged in a grid. The top left\n * corner is indexed at 0. Each column is a {@link Category} and each row in a \n * category is a {@link Clue}. All categories must have the same number of \n * clues. Each clue in the first row has {@link Board#basePoints}. Each clue in\n * the next row equals the sum of the clue value in the prior row plus \n * basePoints.\n */\nclass Board {\n    /**\n     * @param {number} [columns=6] number of columns on the board. \n     * @param {number} [rows=5] number of rows on the board.\n     * @param {number} [basePoints=200] point value of each clues in the first \n     * row.\n     */\n    constructor(columns=6, rows=5, basePoints=200) {\n        this.columns;\n        this.rows;\n        this.basePoints = basePoints;\n\n        /** \n         * @type {Category[]} an array of Categories indexed by column \n         * position. \n         */\n        this.categories;\n\n        this.init_(columns, rows);\n    }\n\n    /** @type {boolean} true if all clues on the board have been answered. */\n    get complete(){\n        return this.cluesAnswered >= this.columns * this.rows;\n    }\n\n    /** \n     * @type {number} number of clues on the board that have been answered.\n     */\n    get cluesAnswered(){\n        let cluesAnswered = 0;\n        for(let i=0; i<this.categories.length; i++){\n            cluesAnswered += this.categories[i].cluesAnswered;\n        }\n        return cluesAnswered;\n    }\n\n    /**\n     *  @type {string[]} an array of category names indexed by column position.\n     */\n    get categoryNames(){\n        let names = [];\n        for(let i=0; i<this.categories.length; i++){\n            names.push(this.categories[i].name);\n        }\n        return names;\n    }\n\n    /**\n     * Initializes an empty board of size columns * rows with {@link Clue}'s.\n     * @private\n     * @param {number} columns number of columns on the board. \n     * @param {number} rows number of rows on the board.\n     */\n    init_(columns, rows){\n        this.categories = [];\n        this.columns = columns;\n        this.rows = rows;\n\n        for(let i=0; i<this.columns; i++){\n            let category = new Category();\n            this.categories.push(category);\n\n            for(let j=0; j<this.rows; j++){\n                let clue = new Clue();\n                clue.column = i;\n                clue.row = j;\n                clue.points = (j+1) * this.basePoints;\n                category.clues.push(clue);\n            }\n        }\n    }\n\n    /** \n     * Resets each category in the board and their cluesAnswered count to 0.\n     */\n    reset(){\n        for(let i=0; i<this.categories.length; i++){\n            this.categories[i].reset();\n        }\n    }\n\n    /**\n     * Returns a category at the specified column.\n     * @param {number} column column index of the category.\n     * @return {Category} category at the specified column.\n     */\n    getCategory(column){\n        return this.categories[column];\n    }\n\n    /**\n     * Returns a clue at the specified column and row.\n     * @param {number} column column index of the clue.\n     * @param {number} row row index of the clue.\n     * @return {Clue} clue at the specified column and row.\n     */\n    getClue(column, row){\n        return this.categories[column].clues[row];\n    }\n\n    /**\n     * Edit the name of a category at column index.\n     * @param {number} column column index of the category.\n     * @param {string} name new category name.\n     */\n    editCategory(column, name){\n        let category = this.getCategory(column);\n        category.name = name;\n    }\n\n    /**\n     * Edit the question and answer of a clue at column and row index.\n     * @param {number} column column index of the clue.\n     * @param {number} row row index of the clue.\n     * @param {string} question new question text.\n     * @param {string} answer new answer text.\n     */\n    editClue(column, row, question, answer){\n        let clue = this.getClue(column, row);\n        clue.question = question;\n        clue.answer = answer;\n    }\n\n    /** \n     * Retrieve next unanswered clue in the category at column and increment\n     * cluesAnswered for that category. If all clues are answered, this will \n     * return undefined.\n     * @param {number} column column index of the category.\n     * @return {Clue} the next unanswered clue.\n     * @throws {Error} throw error when board is complete.\n     */\n    nextClue(column) {\n        if(this.complete){\n            throw new Error(\"All clues already answered on the board\");\n        } else {\n            let category = this.getCategory(column);\n            let clue = category.nextClue();\n            return clue;\n        }\n    }\n\n    /**\n     * Import JSON board, initializing board and setting categories and clues.\n     * Data should be a string. Use JSON.stringify if data is an object literal.\n     * \n     * @param {string} data board JSON.\n     * @param {number} data.columns number of columns.\n     * @param {numnber} data.rows number of rows.\n     * @param {string[]} data.categories array of category names.\n     * @param {Object[]} data.clues array of clues, zero indexed from top left\n     * of board\n     * @param {number} data.clues.column column index of the clue.\n     * @param {number} data.clues.row row index of the clue.\n     * @param {string} data.clues.question new question text.\n     * @param {string} data.clues.answer new answer text.\n     * \n     * @see /scripts/data.js\n     */\n    import(data){\n        data = JSON.parse(data);\n\n        // reinitialize board if columns/rows different\n        if(this.columns != data.columns || this.rows != data.rows){\n            this.init_(data.columns, data.rows);\n        }\n\n        // import category names\n        for(let i=0; i<data.categories.length; i++){\n            this.editCategory(i, data.categories[i]);\n        }\n\n        // import clues\n        for(let i=0; i<data.clues.length; i++){\n            let clue = data.clues[i];\n            this.editClue(clue.column, clue.row, clue.question, clue.answer);\n        }\n    }\n\n    /**\n     * Export board content to JSON board string. See {@link Board.import} for\n     * details on JSON board structure.\n     * @returns {string} serialized board.\n     */\n    export(){\n        let data = {\n            \"columns\": this.columns,\n            \"rows\": this.rows,\n            \"categories\": this.categoryNames,\n            \"clues\": []\n        };\n\n        for(let i=0; i<this.columns; i++){\n            for(let j=0; j<this.rows; j++){\n                let clue = this.getClue(i, j);\n                data.clues.push({\n                    \"column\": i,\n                    \"row\": j,\n                    \"question\": clue.question,\n                    \"answer\": clue.answer\n                })\n            }\n        }\n\n        data = JSON.stringify(data);\n        return data;\n    }\n}\n\n/** Result of a wheel spin. */\nclass Spin {\n    /**\n     * @param {number} slot wheel slot number where spin landed.\n     * @param {number} sectorNumber corresponding sector number located at slot.\n     * @param {string} sectorName corresponding sector name located at slot.\n     * @param {boolean} isCategory true if sector is category.\n     * @param {Clue} clue if isCategory is true and spinAgain is false, next\n     * clue in the category.\n     * @param {boolean} spinAgain true if category is complete.\n     */\n    constructor(slot, sectorNumber, sectorName, isCategory, clue, spinAgain=false){\n        this.slot = slot;\n        this.sectorNumber = sectorNumber;\n        this.sectorName = sectorName;\n        this.isCategory = isCategory;\n        this.clue = clue;\n        this.spinAgain = spinAgain;\n    }\n}\n\n/** \n * A WOJ wheel for a specific board and maximum spins. The number of slots on\n * the wheel will be the number of categories + the number of special sectors\n * (6). Slots are fixed on the wheel. Each special and category is a sector.\n * Each sector can be randomly assigned to a slot on the wheel. Categories are\n * always populated in the sector list first, followed by special sectors, i.e.\n * category 0 on the board is always sector 0 on the wheel.\n */\nclass Wheel {\n    /**\n     * @param {Board} board an initialized WOJ board.\n     * @param {number} [maxSpins=50] the max spins allowed.\n     */\n    constructor(board, maxSpins=50) {\n        this.board = board;\n        this.maxSpins = maxSpins;\n\n        /**\n         * @type {string[]} a list of six special sectors.\n         */\n        this.specialSectors = [\n            \"Lose Turn\", \n            \"Free Turn\", \n            \"Bankrupt\", \n            \"Player's Choice\", \n            \"Opponent's Choice\", \n            \"Double Score\"\n        ]\n\n        /**\n         * @type {number} number of spins used.\n         */\n        this.usedSpins = 0;\n\n        /**\n         * @type {number} sector numbers in each slot.\n         */\n        this.slots = [];\n\n        this.assignSectors();\n    }\n\n    /** @type {boolean} true if all spins have been used. */\n    get complete(){\n        return this.usedSpins >= this.maxSpins;\n    }\n\n    /**\n     * @type {string[]} array of ordered sector names: categories + special\n     * sectors.\n     */\n    get sectors(){\n        return this.board.categoryNames.concat(this.specialSectors);\n    }\n\n    /** \n     * Resets used spins to 0.\n     */\n    reset(){\n        this.usedSpins = 0;\n    }\n\n    /**\n     * Assigns sectors numbers to each slot ordered by categories then special.\n     */\n    assignSectors(){\n        this.slots = [];\n\n        for(let i=0; i<this.sectors.length; i++){\n            this.slots.push(i);\n        }\n    }\n\n    /**\n     * Randomizes sectors in the slots.\n     */\n    randomizeSectors(){\n        this.slots = shuffleArray(this.slots);\n    }\n\n    /**\n     * Get sector number at a specific slot number.\n     * @param {number} slot slot number in the wheel.\n     * @return {number} sector number at the specified slot.\n     */\n    getSectorNumber(slot){\n        return this.slots[slot];\n    }\n\n    /**\n     * Get sector name for the specific sector number.\n     * @param {number} sectorNumber sector number.\n     * @return {number} sector name for the sector number.\n     */\n    getSectorName(sectorNumber){\n        return this.sectors[sectorNumber];\n    }\n\n    /**\n     * Check if the sector is a category (vs a special sector).\n     * @param {number} sectorNumber number of the sector.\n     * @return {boolean} true if the sector is a category.\n     */\n    sectorIsCategory(sectorNumber){\n        if(sectorNumber < this.board.categoryNames.length){\n            return true\n        } else {\n            return false\n        }\n    }\n\n    /**\n     * Return a random slot number from the wheel.\n     * @returns {number} a random slot number.\n     */\n    getRandomSlot(){\n        return randomInt(this.slots.length);\n    }\n\n    /**\n     * Spins the wheel and returns a random sector. Populates the {@link Spin}\n     * object with the spin results. If the result is a category, a clue will\n     * be retrieved. If all clues are used, the spin again field will be\n     * true.\n     * @returns {Spin} object summarizing result of the spin.\n     */\n    spin(){\n        let spin = new Spin();\n        spin.slot = this.getRandomSlot();\n        spin.sectorNumber = this.getSectorNumber(spin.slot);\n        spin.sectorName = this.getSectorName(spin.sectorNumber);\n        spin.isCategory = this.sectorIsCategory(spin.sectorNumber);\n\n        if(spin.isCategory){\n            let categoryColumn = spin.sectorNumber;\n            let category = this.board.getCategory(categoryColumn);\n\n            if(category.complete){\n                spin.spinAgain = true;\n            } else {\n                let clue = this.board.nextClue(categoryColumn);\n                spin.clue = clue;\n            }\n        }\n        this.usedSpins++;\n        return spin;\n    }\n}\n\n/**\n * A score keeper for a single player and round.\n */\nclass Score {\n    constructor(){\n        /** \n         * @type {number} current points for the round. \n         */\n        this.points = 0;\n    }\n\n    /** Reset points to 0. */\n    reset(){\n        this.points = 0;\n    }\n\n    /**\n     * Increase points by a number (sign ignored).\n     * @param {number} points number of points to increase.\n     */\n    increase(points){\n        this.points = this.points + Math.abs(points);\n    }\n\n    /**\n     * Decrease points by a number (sign ignored).\n     * @param {number} points number of points to decrease.\n     */\n    decrease(points){\n        this.points = this.points - Math.abs(points);\n    }\n\n    /** If points are positive, set points to 0. */\n    bankrupt(){\n        if(this.points > 0){ this.points = 0; }\n    }\n\n    /** Double points, even if negative. */\n    double(){\n        this.points = this.points + this.points;\n    }\n}\n\n/**\n * A player in the WOJ game.\n */\nclass Player {\n    /**\n     * @param {number} id A unique numeric ID for the player.\n     * @param {string} [name] the players name.\n     */\n    constructor(id, name) {\n        this.id = id;\n        this.name = name;\n\n        /**\n         * @type {number} number of tokens (free turns).\n         */\n        this.tokens = 0;\n\n        /**\n         * @type {Score[]} array of scores, indexed by round number, i.e. 0 is\n         * the first round.\n         */\n        this.scores = [];\n    }\n\n    /** @type {numbner} sum of points for all rounds. */\n    get totalScore(){\n        let points = 0;\n        for(let i=0; i<this.scores.length; i++){\n            points += this.scores[i].points;\n        }\n        return points;\n    }\n\n    /** Sets the player's tokens to 0. */\n    resetTokens(){\n        this.tokens = 0;\n    }\n\n    /**\n     *  Reset score for round to 0.\n     * @param {number} round number of the round, 0 is round 1.\n     */\n    resetScore(round){\n        this.scores[round] = new Score();\n    }\n\n    /**\n     * Return the score for a given round number.\n     * @param {number} round number of the round, 0 is round 1.\n     * @returns {number} score for the given round number.\n     */\n    getScore(round){\n        return this.scores[round];\n    }\n\n    /**\n     * Adds 1 token to the player's tokens.\n     */\n    addToken(){\n        this.tokens += 1;\n    }\n\n    /**\n     * Checks if the player has any tokens.\n     * @returns true if the player has at least one token.\n     */\n    hasToken(){\n        return this.tokens > 0;\n    }\n\n    /**\n     * Deduct a token, if the player has one.\n     * @returns {boolean} true if the token was deducted.\n     * @throws {Error} throws error if the player has no tokens.\n     */\n    useToken(){\n        if(this.hasToken()){\n            this.tokens--;\n            return true;\n        } else {\n            throw new Error('Player does not have any tokens.')\n        }\n    }\n}\n\n/**\n * A round in the WOJ game. The standard game is played with two rounds.\n */\nclass Round {\n    /**\n     * @param {number} id A unique numeric ID for the round.\n     * @param {Wheel} wheel a wheel for the round.\n     * @param {Player[]} players an array of players in the game.\n     * @param {number} [maxTime=20] maximum time to answer a question in\n     * seconds.\n     */\n    constructor(id, wheel, players, maxTime=20){\n        this.id = id;\n        this.wheel = wheel;\n        this.players = players;\n        this.maxTime = maxTime;\n\n        /**\n         * @type {Board} a board for the round.\n         */\n        this.board = wheel.board;\n\n        /**\n         * @type {number} player id of the player currently spinning.\n         */\n        this.currentPlayerID = 0\n\n        /**\n         * @type {Spin} latest Spin resulting from spin.\n         */\n        this.currentSpin;\n\n        /**\n         * @type {Clue} latest Clue resulting form spin or pickCategory.\n         */\n        this.currentClue;\n\n        /**\n         * @type {boolean} true if the round is ready to begin.\n         * @private\n         */\n        this.roundReady_ = false;\n\n        /**\n         * @type {boolean} true if the current turn is complete.\n         * @private\n         */\n        this.turnComplete_ = true; \n\n    }\n\n    /** @type {boolean} true if the round is complete. */\n    get complete(){\n        return this.wheel.complete || this.board.complete\n    }\n\n    /**\n     * Stats for the current round, including spins used, clues answered, and\n     * attributes for the player who has the current turn, e.g. score, tokens.\n     * @returns {RoundStats} current stats for the round.\n     */\n    get stats(){\n        let stats = {\n            spinsUsed: this.wheel.usedSpins,\n            cluesAnswered: this.board.cluesAnswered,\n            currentPlayer: {\n                id: this.currentPlayer.id,\n                name: this.currentPlayer.name,\n                roundScore: this.currentPlayerScore_.points,\n                totalScore: this.currentPlayer.totalScore,\n                tokens: this.currentPlayer.tokens,\n                hasToken: this.currentPlayer.hasToken()\n            }\n        }\n        return stats;\n    }\n\n    /**\n     * Current player's player object.\n     * @return {Player} current player's player object.\n     */\n    get currentPlayer(){\n        return this.players[this.currentPlayerID];\n    }\n\n    /**\n     * Current player's score object.\n     * @returns {Score} current players score object.\n     * @private\n     */\n    get currentPlayerScore_(){\n        return this.currentPlayer.scores[this.id]\n    }\n\n    /**\n     * Start the WOJ round.\n     */\n    start(){\n        this.reset();\n    }\n\n    /**\n     * Resets the current round by reseting the wheel, board, and player scores.\n     */\n    reset(){\n        this.wheel.reset();\n        this.board.reset();\n        for(let i=0; i<this.players.length; i++){\n            this.players[i].resetScore(this.id);\n        }\n        this.currentPlayerID = 0;\n        this.roundReady_ = true;\n        this.turnComplete_ = true; \n    }\n\n    /**\n     * Spins the wheel and returns the result in a Spin object. If Free Turn,\n     * Bankrupt, or Double Score are landed, the players tokens or score is\n     * adjusted. If Player's Choice or Opponent's Choice are landed, use\n     * pickCategory to get the next clue.\n     * @returns {Spin} result of the spin.\n     */\n    spin(){\n        if(this.complete){\n            // check if the round is complete\n            let msg = 'Round complete, must start new round or end the game.';\n            throw new Error(msg);\n        } else if(!this.roundReady_){\n            // did not start round\n            throw new Error('Must call start before round can begin.');\n        } else if(!this.turnComplete_) {\n            // check if turn is complete\n            let msg = `\n                Must complete current turn before spinning again by calling \n                validAnswer, endTurn, or useToken.\n            `;\n            throw new Error(msg)\n        }else{\n            // spin wheel\n            this.turnComplete_ = false;\n\n            let spin = this.wheel.spin();\n            this.currentSpin = spin;\n\n            if(spin.isCategory){\n                // category sector\n                if(!spin.spinAgain){\n                    // valid clue\n                    this.currentClue = spin.clue;\n                }\n            } else {\n                // special sector\n                switch(spin.sectorName){\n                    case \"Free Turn\":\n                        this.currentPlayer.addToken();\n                        break;\n                    case \"Lose Turn\":\n                        break;\n                    case \"Bankrupt\":\n                        this.currentPlayerScore_.bankrupt();\n                        break;\n                    case \"Player's Choice\":\n                        break;\n                    case \"Opponent's Choice\":\n                        break;\n                    case \"Double Score\":\n                        this.currentPlayerScore_.double();\n                        break;\n                    default:\n                        // do nothing\n                }\n            }\n            return spin;\n        }\n    }\n\n    /**\n     * When spin is Player's Choice or Opponent's Choice, use pickCategory,\n     * to get the next clue from the specificed category. This will set the\n     * currentClue.\n     * @param {number} column column index of the category.\n     * @returns {Clue} next unanswered clue in the category.\n     * @throws {Error} throws error if current spin sector does not permit\n     *  picking a category, i.e. it is not Player's Choice or Opponents Choice.\n     */\n    pickCategory(column){\n        let validOpt = [\"Player's Choice\", \"Opponent's Choice\"];\n        let specialSector = !this.currentSpin.isCategory\n        if(specialSector && validOpt.includes(this.currentSpin.sectorName)){\n            let category = this.board.getCategory(column);\n            let clue = category.nextClue();\n            this.currentClue = clue;\n            return clue;\n        } else {\n            let msg = 'pickCategory is not allowed for current spin sector: ' + \n                this.currentSpin.sectorName;\n            throw new Error(msg);\n         }\n    }\n\n    /**\n     * When Spin resulted in a clue or pickCategory was used to set a clue, call\n     * this method if the player answered correctly, to adjust their score.\n     * @throws {Error} throws error if no clue is set to validate.\n     */\n    validAnswer(){\n        if(this.currentClue === undefined){\n            throw new Error('Check spin result, no clue was set.');\n        } else {\n            this.currentPlayerScore_.increase(this.currentClue.points);\n            this.resetTurn_();\n        }\n    }\n\n    /**\n     * When Spin resulted in a clue or pickCategory was used to set a clue, call\n     * this method if the player answered incorrectly, to adjust their score.\n     * @throws {Error} throws error if no clue is set to validate.\n     */\n    invalidAnswer(){\n        if(this.currentClue === undefined){\n            throw new Error('Check spin result, no clue was set.');\n        } else {\n            this.currentPlayerScore_.decrease(this.currentClue.points);\n        }\n    }\n\n\n    /**\n     * Private method to reset the turn: currentSpin and currentClue are set\n     * to undefined.\n     * @private\n     */\n    resetTurn_(){\n        this.currentSpin = undefined;\n        this.currentClue = undefined;\n        this.turnComplete_ = true;\n    }\n\n    /**\n     * Use a free turn token for the current player. A token may be used if the\n     * player loses his turn or answers a question incorrectly. A token cannot\n     * be used if the player spins free turn.\n     * @returns {boolean} true if succesfully used token, false otherwise.\n     * @throws {Error} throws error if player does not have any tokens.\n     * @throws {Error} throws error if the current spin is Free Turn.\n     */\n    useToken(){\n        let specialSector = !this.currentSpin.isCategory;\n        if(specialSector && this.currentSpin.sectorName == 'Free Turn'){\n            throw new Error('Free turn not allowed when sector is Free Turn')\n        } else {\n            try {\n                let token = this.currentPlayer.useToken();\n                this.resetTurn_();\n                return token;\n            } catch (e) {\n                throw e;\n            }\n        }\n    }\n\n    /**\n     * End the current players turn, should be called after a spin and\n     * validation (if applicable) is complete. This method will switch to the\n     * next player and reset the currentSpin and currentClue.\n     */\n    endTurn(){\n        this.resetTurn_();\n\n        this.currentPlayerID++;\n        if(this.currentPlayerID == this.players.length){\n            // restart from first player\n            this.currentPlayerID = 0;\n        }\n    }\n}\n\n/**\n * The WOJ game. Supports creation of board, wheel, and players which are\n * used to track game play. This class should be used to create games and add\n * rounds to ensure proper functionality.\n * \n * @example\n * let game = new Game();\n * \n * // create default boards\n * let data = [data1, data2];\n * \n * for(let i=0; i<data.length; i++){\n *      let round = game.addRound();\n *      round.board.import(JSON.stringify(data[i]));\n *      round.wheel.assignSectors();\n *      round.wheel.randomizeSectors();    \n * }\n * \n * // edit board content if needed\n * round = game.getRound(0);\n * let clue = round.board.getCategory(1).clues[2];\n * clue.question = \"What is the oldest soft drink in America?\";\n * clue.answer = \"Dr. Pepper.\";\n * \n * // start game\n * game.addPlayer(\"John\");\n * game.addPlayer(\"Jane\");\n * \n * // start first round\n * round = game.getRound(0);\n * round.start();\n * \n * // player spins\n * console.log(round.currentPlayer);\n * let spin = round.wheel.spin();\n * console.log(spin);\n * console.log(round.complete);\n */\nclass Game {\n    constructor() {\n        /** @type {Player[]} array of players. */\n        this.players = [];\n\n        /** @type {Rounds[]} array of rounds. */\n        this.rounds = [];\n\n        /** @type {number} current round number. */\n        this.currentRound = 0;\n    }\n\n    /**\n     * Stats for the game.\n     * @returns {GameStats} current stats for the game.\n     */\n    get stats(){\n        let stats = {\n            // add game wide stats\n        }\n        return stats;\n    }\n\n    /** \n     * Add a player to the game. Players are assigned an ID starting with 0 and\n     * incrementing by 1.\n     * @param {string} name the players name.\n     * @returns {number} auto assigned player ID.\n     */\n    addPlayer(name){\n        let id = this.players.length;\n        let player = new Player(id, name);\n        this.players.push(player);\n        return player;\n    }\n\n    /**\n     * Retrieve a player.\n     * @param {number} id the players id number.\n     * @returns {Player} the player at index number.\n     */\n    getPlayer(id){\n        return this.players[id];\n    }\n\n    /**\n     * Retrieve and edit a player.\n     * @param {number} id the players id number, player one is id: 0.\n     * @param {string} name the players name.\n     */    \n    editPlayer(id, name){\n        let player = this.getPlayer(id);\n        player.name = name;\n    }\n\n    /**\n     * Add and initialize a game round with an empty wheel and board. Rounds are\n     * assigned an ID starting with 0 and incrementing by 1.\n     * @param {number} [columns=6] number of columns on the board.\n     * @param {number} [rows=5] number of rows on the board.\n     * @param {number} [basePoints=200] point value of each clues in the first\n     * row.\n     * @returns {id} auto assigned round ID.\n     */\n    addRound(columns = 6, rows = 5, basePoints = 200){\n        let id = this.rounds.length;\n        let board = new Board(columns, rows, basePoints);\n        let wheel = new Wheel(board)\n        let round = new Round(id, wheel, this.players)\n        this.rounds.push(round);\n        return round;\n    }\n\n    /**\n     * Retrieve a game round by id.\n     * @param {Round} id the rounds id number, round one is id: 0.\n     */\n    getRound(id){\n        return this.rounds[id];\n    }\n\n    /**\n     * Retrieve array of players ordered by top score.\n     * @returns {Player[]} array of players ordered by total score.\n     */\n    getLeaderBoard(){\n        let leaders = this.players.slice();\n        leaders.sort(function(obj1, obj2){\n            return obj2.totalScore - obj1.totalScore;\n        });\n        return leaders;\n    }\n}\n\n// node exports\nif (typeof module !== 'undefined' && module.exports) {\n    module.exports = {\n        Game: Game,\n        Round: Round,\n        Player: Player,\n        Score: Score\n    }\n}\n\n// return {\n//     Game:Game,\n//     initDefaultGame:initDefaultGame\n// }\n\n// })();\n",
     "static": true,
     "longname": "/Users/bmw/Documents/education/jhu/EN.605.601.81.SU18 Foundations of Software Engineering/teamvelocity.github.io/scripts/engine.js",
     "access": "public",
@@ -856,7 +856,7 @@
     "importPath": "./scripts/engine.js",
     "importStyle": null,
     "description": "A single clue, zero indexed from the top left of the board.",
-    "lineNumber": 80,
+    "lineNumber": 81,
     "interface": false
   },
   {
@@ -870,7 +870,7 @@
     "longname": "scripts/engine.js~Clue#constructor",
     "access": "public",
     "description": "",
-    "lineNumber": 87,
+    "lineNumber": 88,
     "params": [
       {
         "nullable": null,
@@ -923,7 +923,7 @@
     "longname": "scripts/engine.js~Clue#column",
     "access": "public",
     "description": null,
-    "lineNumber": 88,
+    "lineNumber": 89,
     "undocument": true,
     "type": {
       "types": [
@@ -941,7 +941,7 @@
     "longname": "scripts/engine.js~Clue#row",
     "access": "public",
     "description": null,
-    "lineNumber": 89,
+    "lineNumber": 90,
     "undocument": true,
     "type": {
       "types": [
@@ -959,7 +959,7 @@
     "longname": "scripts/engine.js~Clue#question",
     "access": "public",
     "description": null,
-    "lineNumber": 90,
+    "lineNumber": 91,
     "undocument": true,
     "type": {
       "types": [
@@ -977,7 +977,7 @@
     "longname": "scripts/engine.js~Clue#answer",
     "access": "public",
     "description": null,
-    "lineNumber": 91,
+    "lineNumber": 92,
     "undocument": true,
     "type": {
       "types": [
@@ -995,7 +995,7 @@
     "longname": "scripts/engine.js~Clue#points",
     "access": "public",
     "description": null,
-    "lineNumber": 94,
+    "lineNumber": 95,
     "type": {
       "nullable": null,
       "types": [
@@ -1017,7 +1017,7 @@
     "importPath": "./scripts/engine.js",
     "importStyle": null,
     "description": "A category of clues on the board. ",
-    "lineNumber": 101,
+    "lineNumber": 102,
     "interface": false
   },
   {
@@ -1031,7 +1031,7 @@
     "longname": "scripts/engine.js~Category#constructor",
     "access": "public",
     "description": "",
-    "lineNumber": 105,
+    "lineNumber": 106,
     "params": [
       {
         "nullable": null,
@@ -1054,7 +1054,7 @@
     "longname": "scripts/engine.js~Category#name",
     "access": "public",
     "description": null,
-    "lineNumber": 106,
+    "lineNumber": 107,
     "undocument": true,
     "type": {
       "types": [
@@ -1072,7 +1072,7 @@
     "longname": "scripts/engine.js~Category#clues",
     "access": "public",
     "description": null,
-    "lineNumber": 109,
+    "lineNumber": 110,
     "type": {
       "nullable": null,
       "types": [
@@ -1091,7 +1091,7 @@
     "longname": "scripts/engine.js~Category#cluesAnswered",
     "access": "public",
     "description": "",
-    "lineNumber": 115,
+    "lineNumber": 116,
     "type": {
       "nullable": null,
       "types": [
@@ -1112,7 +1112,7 @@
     "longname": "scripts/engine.js~Category#complete",
     "access": "public",
     "description": null,
-    "lineNumber": 119,
+    "lineNumber": 120,
     "type": {
       "nullable": null,
       "types": [
@@ -1133,7 +1133,7 @@
     "longname": "scripts/engine.js~Category#reset",
     "access": "public",
     "description": "Reset clues answered count to 0.",
-    "lineNumber": 126,
+    "lineNumber": 127,
     "params": [],
     "return": null
   },
@@ -1148,7 +1148,7 @@
     "longname": "scripts/engine.js~Category#nextClue",
     "access": "public",
     "description": "Retrieve next unanswered clue in the category, increment cluesAnswered.\nIf all clues are answered, this will return undefined.",
-    "lineNumber": 136,
+    "lineNumber": 137,
     "return": {
       "nullable": null,
       "types": [
@@ -1179,7 +1179,7 @@
     "importPath": "./scripts/engine.js",
     "importStyle": null,
     "description": "A WOJ board with column * row clues arranged in a grid. The top left\ncorner is indexed at 0. Each column is a {@link Category} and each row in a \ncategory is a {@link Clue}. All categories must have the same number of \nclues. Each clue in the first row has {@link Board#basePoints}. Each clue in\nthe next row equals the sum of the clue value in the prior row plus \nbasePoints.",
-    "lineNumber": 155,
+    "lineNumber": 156,
     "interface": false
   },
   {
@@ -1193,7 +1193,7 @@
     "longname": "scripts/engine.js~Board#constructor",
     "access": "public",
     "description": "",
-    "lineNumber": 162,
+    "lineNumber": 163,
     "params": [
       {
         "nullable": null,
@@ -1242,7 +1242,7 @@
     "longname": "scripts/engine.js~Board#basePoints",
     "access": "public",
     "description": null,
-    "lineNumber": 165,
+    "lineNumber": 166,
     "undocument": true,
     "type": {
       "types": [
@@ -1262,7 +1262,7 @@
     "longname": "scripts/engine.js~Board#complete",
     "access": "public",
     "description": null,
-    "lineNumber": 177,
+    "lineNumber": 178,
     "type": {
       "nullable": null,
       "types": [
@@ -1283,7 +1283,7 @@
     "longname": "scripts/engine.js~Board#cluesAnswered",
     "access": "public",
     "description": "",
-    "lineNumber": 184,
+    "lineNumber": 185,
     "type": {
       "nullable": null,
       "types": [
@@ -1304,7 +1304,7 @@
     "longname": "scripts/engine.js~Board#categoryNames",
     "access": "public",
     "description": "",
-    "lineNumber": 195,
+    "lineNumber": 196,
     "type": {
       "nullable": null,
       "types": [
@@ -1325,7 +1325,7 @@
     "longname": "scripts/engine.js~Board#init_",
     "access": "private",
     "description": "Initializes an empty board of size columns * rows with {@link Clue}'s.",
-    "lineNumber": 209,
+    "lineNumber": 210,
     "params": [
       {
         "nullable": null,
@@ -1359,7 +1359,7 @@
     "longname": "scripts/engine.js~Board#categories",
     "access": "public",
     "description": null,
-    "lineNumber": 210,
+    "lineNumber": 211,
     "undocument": true,
     "type": {
       "types": [
@@ -1377,7 +1377,7 @@
     "longname": "scripts/engine.js~Board#columns",
     "access": "public",
     "description": null,
-    "lineNumber": 211,
+    "lineNumber": 212,
     "undocument": true,
     "type": {
       "types": [
@@ -1395,7 +1395,7 @@
     "longname": "scripts/engine.js~Board#rows",
     "access": "public",
     "description": null,
-    "lineNumber": 212,
+    "lineNumber": 213,
     "undocument": true,
     "type": {
       "types": [
@@ -1415,7 +1415,7 @@
     "longname": "scripts/engine.js~Board#reset",
     "access": "public",
     "description": "Resets each category in the board and their cluesAnswered count to 0.",
-    "lineNumber": 231,
+    "lineNumber": 232,
     "params": [],
     "return": null
   },
@@ -1430,7 +1430,7 @@
     "longname": "scripts/engine.js~Board#getCategory",
     "access": "public",
     "description": "Returns a category at the specified column.",
-    "lineNumber": 242,
+    "lineNumber": 243,
     "params": [
       {
         "nullable": null,
@@ -1463,7 +1463,7 @@
     "longname": "scripts/engine.js~Board#getClue",
     "access": "public",
     "description": "Returns a clue at the specified column and row.",
-    "lineNumber": 252,
+    "lineNumber": 253,
     "params": [
       {
         "nullable": null,
@@ -1506,7 +1506,7 @@
     "longname": "scripts/engine.js~Board#editCategory",
     "access": "public",
     "description": "Edit the name of a category at column index.",
-    "lineNumber": 261,
+    "lineNumber": 262,
     "params": [
       {
         "nullable": null,
@@ -1542,7 +1542,7 @@
     "longname": "scripts/engine.js~Board#editClue",
     "access": "public",
     "description": "Edit the question and answer of a clue at column and row index.",
-    "lineNumber": 273,
+    "lineNumber": 274,
     "params": [
       {
         "nullable": null,
@@ -1598,7 +1598,7 @@
     "longname": "scripts/engine.js~Board#nextClue",
     "access": "public",
     "description": "Retrieve next unanswered clue in the category at column and increment\ncluesAnswered for that category. If all clues are answered, this will \nreturn undefined.",
-    "lineNumber": 287,
+    "lineNumber": 288,
     "params": [
       {
         "nullable": null,
@@ -1642,7 +1642,7 @@
     "see": [
       "/scripts/data.js"
     ],
-    "lineNumber": 314,
+    "lineNumber": 315,
     "params": [
       {
         "nullable": null,
@@ -1748,7 +1748,7 @@
     "longname": "scripts/engine.js~Board#export",
     "access": "public",
     "description": "Export board content to JSON board string. See {@link Board.import} for\ndetails on JSON board structure.",
-    "lineNumber": 339,
+    "lineNumber": 340,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1777,7 +1777,7 @@
     "importPath": "./scripts/engine.js",
     "importStyle": null,
     "description": "Result of a wheel spin.",
-    "lineNumber": 365,
+    "lineNumber": 366,
     "interface": false
   },
   {
@@ -1791,7 +1791,7 @@
     "longname": "scripts/engine.js~Spin#constructor",
     "access": "public",
     "description": "",
-    "lineNumber": 375,
+    "lineNumber": 376,
     "params": [
       {
         "nullable": null,
@@ -1864,7 +1864,7 @@
     "longname": "scripts/engine.js~Spin#slot",
     "access": "public",
     "description": null,
-    "lineNumber": 376,
+    "lineNumber": 377,
     "undocument": true,
     "type": {
       "types": [
@@ -1882,7 +1882,7 @@
     "longname": "scripts/engine.js~Spin#sectorNumber",
     "access": "public",
     "description": null,
-    "lineNumber": 377,
+    "lineNumber": 378,
     "undocument": true,
     "type": {
       "types": [
@@ -1900,7 +1900,7 @@
     "longname": "scripts/engine.js~Spin#sectorName",
     "access": "public",
     "description": null,
-    "lineNumber": 378,
+    "lineNumber": 379,
     "undocument": true,
     "type": {
       "types": [
@@ -1918,7 +1918,7 @@
     "longname": "scripts/engine.js~Spin#isCategory",
     "access": "public",
     "description": null,
-    "lineNumber": 379,
+    "lineNumber": 380,
     "undocument": true,
     "type": {
       "types": [
@@ -1936,7 +1936,7 @@
     "longname": "scripts/engine.js~Spin#clue",
     "access": "public",
     "description": null,
-    "lineNumber": 380,
+    "lineNumber": 381,
     "undocument": true,
     "type": {
       "types": [
@@ -1954,7 +1954,7 @@
     "longname": "scripts/engine.js~Spin#spinAgain",
     "access": "public",
     "description": null,
-    "lineNumber": 381,
+    "lineNumber": 382,
     "undocument": true,
     "type": {
       "types": [
@@ -1975,7 +1975,7 @@
     "importPath": "./scripts/engine.js",
     "importStyle": null,
     "description": "A WOJ wheel for a specific board and maximum spins. The number of slots on\nthe wheel will be the number of categories + the number of special sectors\n(6). Slots are fixed on the wheel. Each special and category is a sector.\nEach sector can be randomly assigned to a slot on the wheel. Categories are\nalways populated in the sector list first, followed by special sectors, i.e.\ncategory 0 on the board is always sector 0 on the wheel.",
-    "lineNumber": 393,
+    "lineNumber": 394,
     "interface": false
   },
   {
@@ -1989,7 +1989,7 @@
     "longname": "scripts/engine.js~Wheel#constructor",
     "access": "public",
     "description": "",
-    "lineNumber": 398,
+    "lineNumber": 399,
     "params": [
       {
         "nullable": null,
@@ -2024,7 +2024,7 @@
     "longname": "scripts/engine.js~Wheel#board",
     "access": "public",
     "description": null,
-    "lineNumber": 399,
+    "lineNumber": 400,
     "undocument": true,
     "type": {
       "types": [
@@ -2042,7 +2042,7 @@
     "longname": "scripts/engine.js~Wheel#maxSpins",
     "access": "public",
     "description": null,
-    "lineNumber": 400,
+    "lineNumber": 401,
     "undocument": true,
     "type": {
       "types": [
@@ -2060,7 +2060,7 @@
     "longname": "scripts/engine.js~Wheel#specialSectors",
     "access": "public",
     "description": "",
-    "lineNumber": 405,
+    "lineNumber": 406,
     "type": {
       "nullable": null,
       "types": [
@@ -2079,7 +2079,7 @@
     "longname": "scripts/engine.js~Wheel#usedSpins",
     "access": "public",
     "description": "",
-    "lineNumber": 417,
+    "lineNumber": 418,
     "type": {
       "nullable": null,
       "types": [
@@ -2098,7 +2098,7 @@
     "longname": "scripts/engine.js~Wheel#slots",
     "access": "public",
     "description": "",
-    "lineNumber": 422,
+    "lineNumber": 423,
     "type": {
       "nullable": null,
       "types": [
@@ -2119,7 +2119,7 @@
     "longname": "scripts/engine.js~Wheel#complete",
     "access": "public",
     "description": null,
-    "lineNumber": 428,
+    "lineNumber": 429,
     "type": {
       "nullable": null,
       "types": [
@@ -2140,7 +2140,7 @@
     "longname": "scripts/engine.js~Wheel#sectors",
     "access": "public",
     "description": "",
-    "lineNumber": 436,
+    "lineNumber": 437,
     "type": {
       "nullable": null,
       "types": [
@@ -2161,7 +2161,7 @@
     "longname": "scripts/engine.js~Wheel#reset",
     "access": "public",
     "description": "Resets used spins to 0.",
-    "lineNumber": 443,
+    "lineNumber": 444,
     "params": [],
     "return": null
   },
@@ -2176,7 +2176,7 @@
     "longname": "scripts/engine.js~Wheel#assignSectors",
     "access": "public",
     "description": "Assigns sectors numbers to each slot ordered by categories then special.",
-    "lineNumber": 450,
+    "lineNumber": 451,
     "params": [],
     "return": null
   },
@@ -2191,7 +2191,7 @@
     "longname": "scripts/engine.js~Wheel#randomizeSectors",
     "access": "public",
     "description": "Randomizes sectors in the slots.",
-    "lineNumber": 461,
+    "lineNumber": 462,
     "params": [],
     "return": null
   },
@@ -2206,7 +2206,7 @@
     "longname": "scripts/engine.js~Wheel#getSectorNumber",
     "access": "public",
     "description": "Get sector number at a specific slot number.",
-    "lineNumber": 470,
+    "lineNumber": 471,
     "params": [
       {
         "nullable": null,
@@ -2239,7 +2239,7 @@
     "longname": "scripts/engine.js~Wheel#getSectorName",
     "access": "public",
     "description": "Get sector name for the specific sector number.",
-    "lineNumber": 479,
+    "lineNumber": 480,
     "params": [
       {
         "nullable": null,
@@ -2272,7 +2272,7 @@
     "longname": "scripts/engine.js~Wheel#sectorIsCategory",
     "access": "public",
     "description": "Check if the sector is a category (vs a special sector).",
-    "lineNumber": 488,
+    "lineNumber": 489,
     "params": [
       {
         "nullable": null,
@@ -2305,7 +2305,7 @@
     "longname": "scripts/engine.js~Wheel#getRandomSlot",
     "access": "public",
     "description": "Return a random slot number from the wheel.",
-    "lineNumber": 500,
+    "lineNumber": 501,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2333,7 +2333,7 @@
     "longname": "scripts/engine.js~Wheel#spin",
     "access": "public",
     "description": "Spins the wheel and returns a random sector. Populates the {@link Spin}\nobject with the spin results. If the result is a category, a clue will\nbe retrieved. If all clues are used, the spin again field will be\ntrue.",
-    "lineNumber": 511,
+    "lineNumber": 512,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2362,7 +2362,7 @@
     "importPath": "./scripts/engine.js",
     "importStyle": null,
     "description": "A score keeper for a single player and round.",
-    "lineNumber": 537,
+    "lineNumber": 538,
     "interface": false
   },
   {
@@ -2376,7 +2376,7 @@
     "longname": "scripts/engine.js~Score#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 538,
+    "lineNumber": 539,
     "undocument": true,
     "ignore": true
   },
@@ -2389,7 +2389,7 @@
     "longname": "scripts/engine.js~Score#points",
     "access": "public",
     "description": "",
-    "lineNumber": 542,
+    "lineNumber": 543,
     "type": {
       "nullable": null,
       "types": [
@@ -2410,7 +2410,7 @@
     "longname": "scripts/engine.js~Score#reset",
     "access": "public",
     "description": "Reset points to 0.",
-    "lineNumber": 546,
+    "lineNumber": 547,
     "params": [],
     "return": null
   },
@@ -2425,7 +2425,7 @@
     "longname": "scripts/engine.js~Score#increase",
     "access": "public",
     "description": "Increase points by a number (sign ignored).",
-    "lineNumber": 554,
+    "lineNumber": 555,
     "params": [
       {
         "nullable": null,
@@ -2451,7 +2451,7 @@
     "longname": "scripts/engine.js~Score#decrease",
     "access": "public",
     "description": "Decrease points by a number (sign ignored).",
-    "lineNumber": 562,
+    "lineNumber": 563,
     "params": [
       {
         "nullable": null,
@@ -2477,7 +2477,7 @@
     "longname": "scripts/engine.js~Score#bankrupt",
     "access": "public",
     "description": "If points are positive, set points to 0.",
-    "lineNumber": 567,
+    "lineNumber": 568,
     "params": [],
     "return": null
   },
@@ -2492,7 +2492,7 @@
     "longname": "scripts/engine.js~Score#double",
     "access": "public",
     "description": "Double points, even if negative.",
-    "lineNumber": 572,
+    "lineNumber": 573,
     "params": [],
     "return": null
   },
@@ -2508,7 +2508,7 @@
     "importPath": "./scripts/engine.js",
     "importStyle": null,
     "description": "A player in the WOJ game.",
-    "lineNumber": 580,
+    "lineNumber": 581,
     "interface": false
   },
   {
@@ -2522,7 +2522,7 @@
     "longname": "scripts/engine.js~Player#constructor",
     "access": "public",
     "description": "",
-    "lineNumber": 585,
+    "lineNumber": 586,
     "params": [
       {
         "nullable": null,
@@ -2555,7 +2555,7 @@
     "longname": "scripts/engine.js~Player#id",
     "access": "public",
     "description": null,
-    "lineNumber": 586,
+    "lineNumber": 587,
     "undocument": true,
     "type": {
       "types": [
@@ -2573,7 +2573,7 @@
     "longname": "scripts/engine.js~Player#name",
     "access": "public",
     "description": null,
-    "lineNumber": 587,
+    "lineNumber": 588,
     "undocument": true,
     "type": {
       "types": [
@@ -2591,7 +2591,7 @@
     "longname": "scripts/engine.js~Player#tokens",
     "access": "public",
     "description": "",
-    "lineNumber": 592,
+    "lineNumber": 593,
     "type": {
       "nullable": null,
       "types": [
@@ -2610,7 +2610,7 @@
     "longname": "scripts/engine.js~Player#scores",
     "access": "public",
     "description": "",
-    "lineNumber": 598,
+    "lineNumber": 599,
     "type": {
       "nullable": null,
       "types": [
@@ -2631,7 +2631,7 @@
     "longname": "scripts/engine.js~Player#totalScore",
     "access": "public",
     "description": null,
-    "lineNumber": 602,
+    "lineNumber": 603,
     "type": {
       "nullable": null,
       "types": [
@@ -2652,7 +2652,7 @@
     "longname": "scripts/engine.js~Player#resetTokens",
     "access": "public",
     "description": "Sets the player's tokens to 0.",
-    "lineNumber": 611,
+    "lineNumber": 612,
     "params": [],
     "return": null
   },
@@ -2667,7 +2667,7 @@
     "longname": "scripts/engine.js~Player#resetScore",
     "access": "public",
     "description": " Reset score for round to 0.",
-    "lineNumber": 619,
+    "lineNumber": 620,
     "params": [
       {
         "nullable": null,
@@ -2693,7 +2693,7 @@
     "longname": "scripts/engine.js~Player#getScore",
     "access": "public",
     "description": "Return the score for a given round number.",
-    "lineNumber": 628,
+    "lineNumber": 629,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2732,7 +2732,7 @@
     "longname": "scripts/engine.js~Player#addToken",
     "access": "public",
     "description": "Adds 1 token to the player's tokens.",
-    "lineNumber": 635,
+    "lineNumber": 636,
     "params": [],
     "return": null
   },
@@ -2747,7 +2747,7 @@
     "longname": "scripts/engine.js~Player#hasToken",
     "access": "public",
     "description": "Checks if the player has any tokens.",
-    "lineNumber": 643,
+    "lineNumber": 644,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2775,7 +2775,7 @@
     "longname": "scripts/engine.js~Player#useToken",
     "access": "public",
     "description": "Deduct a token, if the player has one.",
-    "lineNumber": 652,
+    "lineNumber": 653,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2812,7 +2812,7 @@
     "importPath": "./scripts/engine.js",
     "importStyle": null,
     "description": "A round in the WOJ game. The standard game is played with two rounds.",
-    "lineNumber": 665,
+    "lineNumber": 666,
     "interface": false
   },
   {
@@ -2826,7 +2826,7 @@
     "longname": "scripts/engine.js~Round#constructor",
     "access": "public",
     "description": "",
-    "lineNumber": 673,
+    "lineNumber": 674,
     "params": [
       {
         "nullable": null,
@@ -2881,7 +2881,7 @@
     "longname": "scripts/engine.js~Round#id",
     "access": "public",
     "description": null,
-    "lineNumber": 674,
+    "lineNumber": 675,
     "undocument": true,
     "type": {
       "types": [
@@ -2899,7 +2899,7 @@
     "longname": "scripts/engine.js~Round#wheel",
     "access": "public",
     "description": null,
-    "lineNumber": 675,
+    "lineNumber": 676,
     "undocument": true,
     "type": {
       "types": [
@@ -2917,7 +2917,7 @@
     "longname": "scripts/engine.js~Round#players",
     "access": "public",
     "description": null,
-    "lineNumber": 676,
+    "lineNumber": 677,
     "undocument": true,
     "type": {
       "types": [
@@ -2935,7 +2935,7 @@
     "longname": "scripts/engine.js~Round#maxTime",
     "access": "public",
     "description": null,
-    "lineNumber": 677,
+    "lineNumber": 678,
     "undocument": true,
     "type": {
       "types": [
@@ -2953,7 +2953,7 @@
     "longname": "scripts/engine.js~Round#board",
     "access": "public",
     "description": "",
-    "lineNumber": 682,
+    "lineNumber": 683,
     "type": {
       "nullable": null,
       "types": [
@@ -2972,7 +2972,7 @@
     "longname": "scripts/engine.js~Round#currentPlayerID",
     "access": "public",
     "description": "",
-    "lineNumber": 687,
+    "lineNumber": 688,
     "type": {
       "nullable": null,
       "types": [
@@ -2991,7 +2991,7 @@
     "longname": "scripts/engine.js~Round#roundReady_",
     "access": "private",
     "description": "",
-    "lineNumber": 703,
+    "lineNumber": 704,
     "type": {
       "nullable": null,
       "types": [
@@ -3010,7 +3010,7 @@
     "longname": "scripts/engine.js~Round#turnComplete_",
     "access": "private",
     "description": "",
-    "lineNumber": 709,
+    "lineNumber": 710,
     "type": {
       "nullable": null,
       "types": [
@@ -3031,7 +3031,7 @@
     "longname": "scripts/engine.js~Round#complete",
     "access": "public",
     "description": null,
-    "lineNumber": 714,
+    "lineNumber": 715,
     "type": {
       "nullable": null,
       "types": [
@@ -3052,7 +3052,7 @@
     "longname": "scripts/engine.js~Round#stats",
     "access": "public",
     "description": "Stats for the current round, including spins used, clues answered, and\nattributes for the player who has the current turn, e.g. score, tokens.",
-    "lineNumber": 723,
+    "lineNumber": 724,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3084,7 +3084,7 @@
     "longname": "scripts/engine.js~Round#currentPlayer",
     "access": "public",
     "description": "Current player's player object.",
-    "lineNumber": 743,
+    "lineNumber": 744,
     "return": {
       "nullable": null,
       "types": [
@@ -3110,7 +3110,7 @@
     "longname": "scripts/engine.js~Round#currentPlayerScore_",
     "access": "private",
     "description": "Current player's score object.",
-    "lineNumber": 752,
+    "lineNumber": 753,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3142,7 +3142,7 @@
     "longname": "scripts/engine.js~Round#start",
     "access": "public",
     "description": "Start the WOJ round.",
-    "lineNumber": 759,
+    "lineNumber": 760,
     "params": [],
     "return": null
   },
@@ -3157,7 +3157,7 @@
     "longname": "scripts/engine.js~Round#reset",
     "access": "public",
     "description": "Resets the current round by reseting the wheel, board, and player scores.",
-    "lineNumber": 766,
+    "lineNumber": 767,
     "params": [],
     "return": null
   },
@@ -3172,7 +3172,7 @@
     "longname": "scripts/engine.js~Round#spin",
     "access": "public",
     "description": "Spins the wheel and returns the result in a Spin object. If Free Turn,\nBankrupt, or Double Score are landed, the players tokens or score is\nadjusted. If Player's Choice or Opponent's Choice are landed, use\npickCategory to get the next clue.",
-    "lineNumber": 784,
+    "lineNumber": 785,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3198,7 +3198,7 @@
     "longname": "scripts/engine.js~Round#currentSpin",
     "access": "public",
     "description": null,
-    "lineNumber": 804,
+    "lineNumber": 805,
     "undocument": true,
     "type": {
       "types": [
@@ -3216,7 +3216,7 @@
     "longname": "scripts/engine.js~Round#currentClue",
     "access": "public",
     "description": null,
-    "lineNumber": 810,
+    "lineNumber": 811,
     "undocument": true,
     "type": {
       "types": [
@@ -3236,7 +3236,7 @@
     "longname": "scripts/engine.js~Round#pickCategory",
     "access": "public",
     "description": "When spin is Player's Choice or Opponent's Choice, use pickCategory,\nto get the next clue from the specificed category. This will set the\ncurrentClue.",
-    "lineNumber": 847,
+    "lineNumber": 848,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3283,7 +3283,7 @@
     "longname": "scripts/engine.js~Round#validAnswer",
     "access": "public",
     "description": "When Spin resulted in a clue or pickCategory was used to set a clue, call\nthis method if the player answered correctly, to adjust their score.",
-    "lineNumber": 867,
+    "lineNumber": 868,
     "throws": [
       {
         "types": [
@@ -3306,7 +3306,7 @@
     "longname": "scripts/engine.js~Round#invalidAnswer",
     "access": "public",
     "description": "When Spin resulted in a clue or pickCategory was used to set a clue, call\nthis method if the player answered incorrectly, to adjust their score.",
-    "lineNumber": 881,
+    "lineNumber": 882,
     "throws": [
       {
         "types": [
@@ -3329,7 +3329,7 @@
     "longname": "scripts/engine.js~Round#resetTurn_",
     "access": "private",
     "description": "Private method to reset the turn: currentSpin and currentClue are set\nto undefined.",
-    "lineNumber": 895,
+    "lineNumber": 896,
     "params": [],
     "return": null
   },
@@ -3344,7 +3344,7 @@
     "longname": "scripts/engine.js~Round#useToken",
     "access": "public",
     "description": "Use a free turn token for the current player. A token may be used if the\nplayer loses his turn or answers a question incorrectly. A token cannot\nbe used if the player spins free turn.",
-    "lineNumber": 909,
+    "lineNumber": 910,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3386,7 +3386,7 @@
     "longname": "scripts/engine.js~Round#endTurn",
     "access": "public",
     "description": "End the current players turn, should be called after a spin and\nvalidation (if applicable) is complete. This method will switch to the\nnext player and reset the currentSpin and currentClue.",
-    "lineNumber": 929,
+    "lineNumber": 930,
     "params": [],
     "return": null
   },
@@ -3405,7 +3405,7 @@
     "examples": [
       "let game = new Game();\n\n// create default boards\nlet data = [data1, data2];\n\nfor(let i=0; i<data.length; i++){\n     let round = game.addRound();\n     round.board.import(JSON.stringify(data[i]));\n     round.wheel.assignSectors();\n     round.wheel.randomizeSectors();    \n}\n\n// edit board content if needed\nround = game.getRound(0);\nlet clue = round.board.getCategory(1).clues[2];\nclue.question = \"What is the oldest soft drink in America?\";\nclue.answer = \"Dr. Pepper.\";\n\n// start game\ngame.addPlayer(\"John\");\ngame.addPlayer(\"Jane\");\n\n// start first round\nround = game.getRound(0);\nround.start();\n\n// player spins\nconsole.log(round.currentPlayer);\nlet spin = round.wheel.spin();\nconsole.log(spin);\nconsole.log(round.complete);"
     ],
-    "lineNumber": 978,
+    "lineNumber": 979,
     "interface": false
   },
   {
@@ -3419,7 +3419,7 @@
     "longname": "scripts/engine.js~Game#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 979,
+    "lineNumber": 980,
     "undocument": true,
     "ignore": true
   },
@@ -3432,7 +3432,7 @@
     "longname": "scripts/engine.js~Game#players",
     "access": "public",
     "description": null,
-    "lineNumber": 981,
+    "lineNumber": 982,
     "type": {
       "nullable": null,
       "types": [
@@ -3451,7 +3451,7 @@
     "longname": "scripts/engine.js~Game#rounds",
     "access": "public",
     "description": null,
-    "lineNumber": 984,
+    "lineNumber": 985,
     "type": {
       "nullable": null,
       "types": [
@@ -3470,7 +3470,7 @@
     "longname": "scripts/engine.js~Game#currentRound",
     "access": "public",
     "description": null,
-    "lineNumber": 987,
+    "lineNumber": 988,
     "type": {
       "nullable": null,
       "types": [
@@ -3491,7 +3491,7 @@
     "longname": "scripts/engine.js~Game#stats",
     "access": "public",
     "description": "Stats for the game.",
-    "lineNumber": 994,
+    "lineNumber": 995,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3523,7 +3523,7 @@
     "longname": "scripts/engine.js~Game#addPlayer",
     "access": "public",
     "description": "Add a player to the game. Players are assigned an ID starting with 0 and\nincrementing by 1.",
-    "lineNumber": 1007,
+    "lineNumber": 1008,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3562,7 +3562,7 @@
     "longname": "scripts/engine.js~Game#getPlayer",
     "access": "public",
     "description": "Retrieve a player.",
-    "lineNumber": 1019,
+    "lineNumber": 1020,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3601,7 +3601,7 @@
     "longname": "scripts/engine.js~Game#editPlayer",
     "access": "public",
     "description": "Retrieve and edit a player.",
-    "lineNumber": 1028,
+    "lineNumber": 1029,
     "params": [
       {
         "nullable": null,
@@ -3637,11 +3637,49 @@
     "longname": "scripts/engine.js~Game#addRound",
     "access": "public",
     "description": "Add and initialize a game round with an empty wheel and board. Rounds are\nassigned an ID starting with 0 and incrementing by 1.",
-    "lineNumber": 1038,
+    "lineNumber": 1043,
     "unknown": [
       {
         "tagName": "@returns",
         "tagValue": "{id} auto assigned round ID."
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "6",
+        "defaultRaw": 6,
+        "name": "columns",
+        "description": "number of columns on the board."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "5",
+        "defaultRaw": 5,
+        "name": "rows",
+        "description": "number of rows on the board."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "200",
+        "defaultRaw": 200,
+        "name": "basePoints",
+        "description": "point value of each clues in the first\nrow."
       }
     ],
     "return": {
@@ -3651,8 +3689,7 @@
       ],
       "spread": false,
       "description": "auto assigned round ID."
-    },
-    "params": []
+    }
   },
   {
     "__docId__": 189,
@@ -3665,7 +3702,7 @@
     "longname": "scripts/engine.js~Game#getRound",
     "access": "public",
     "description": "Retrieve a game round by id.",
-    "lineNumber": 1051,
+    "lineNumber": 1056,
     "params": [
       {
         "nullable": null,
@@ -3695,7 +3732,7 @@
     "longname": "scripts/engine.js~Game#getLeaderBoard",
     "access": "public",
     "description": "Retrieve array of players ordered by top score.",
-    "lineNumber": 1059,
+    "lineNumber": 1064,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3716,7 +3753,7 @@
     "__docId__": 191,
     "kind": "file",
     "name": "scripts/ui.js",
-    "content": "\"use strict\"\n/**\n * @file UI setup and interaction.\n */\n\n// globals\nlet game;\nlet round;\nlet spin;\nlet playerCount = 3;\nlet categorySelectable = false;\n\nlet category_editable = false;\nlet trivia_editable = false;\n\n// keep track of some elements of the table that have been manipulated by the user\nlet fill_value = \"\";\nlet clicked_col;\nlet clicked_row;\nlet clicked_element;\n\nlet category_form;\nlet trivia_form;\nlet category_dialog;\nlet trivia_dialog;\nlet frm_name_category = $('input[name=\"frm_name_category\"]');\nlet frm_name_trivia_question = $('input[name=\"frm_name_trivia_question\"]');\nlet frm_name_trivia_answer = $('input[name=\"frm_name_trivia_answer\"]');\nlet tips = $( \".validateTips\" );\n\n$(document).ready(function() {\n    // hide panels\n    hidePanels();\n\n    // click - hide alert\n    $(\"#btn-alert\").click(function() {\n        $(\"#alert\").hide(); \n    });\n\n    // click - start editing\n    $(\"#btn-start-edit\").click(function() {\n        $(\".start-panel\").hide();\n        $(\".edit-panel\").show();\n\n        toggleCategoryClicks();\n        toggleTriviaClicks();\n\n        // set the game board to the first round before starting edits\n        initGameBoardFromRound(0);\n        $('select>option:eq(0)').prop('selected', true);\n    });\n\n    // click - finish edit\n    $(\"#btn-stop-edit\").click(function() {\n        $(\".edit-panel\").hide();\n        $(\".start-panel\").show();\n\n        toggleCategoryClicks();\n        toggleTriviaClicks();\n\n        // set the game board to the first round after edits\n        initGameBoardFromRound(0);\n    });\n\n    // click - export board\n    $(\"#btn-export\").click(function() {\n        let roundID = $(\"#select-round\").val() - 1;\n        let round = game.getRound(roundID)\n        download('board.json', round.board.export());\n    });\n\n    // click - add player\n    $(\"#btn-add-player\").click(function() {\n        if (playerCount < 3) {\n            $(\"#player\" + playerCount).show();\n            playerCount++;\n        } else {\n            Alert.danger('Maximum of three players supported');\n            Alert.hide(2000);\n        }\n    });\n\n    // click - del player\n    $(\"#btn-del-player\").click(function() {\n        if (playerCount > 1) {\n            playerCount--;\n            $(\"#player\" + playerCount).hide();\n        } else {\n            Alert.danger('Minimum of one player supported');\n            Alert.hide(2000);\n        }\n    });\n\n    // click - start game\n    $(\"#btn-play\").click(function () {\n        // set object visibility\n        $(\".start-panel\").hide();\n        $(\".play-panel\").show();\n        $(\".spin-phase\").show();\n\n        // add players to game api\n        for (let i = 0; i < playerCount; i++) {\n            let playerName = $(\"#player\" + i).val();\n            $(\"#player\" + i + \" input\").prop(\"readonly\", true);\n\n            if (playerName == \"\"){\n                playerName = \"Player \" + (i + 1);\n            }\n            game.addPlayer(playerName);\n        }\n\n        // start api round\n        let id = 0;\n        round = game.getRound(id);\n        round.start();\n\n        // update wheel\n        wheel.buildCreate(round);\n\n        // set player 0 as first\n        player.startTurn(0);\n    });\n\n    // click - spin\n    $(\"#btn-spin\").click(function () {\n\n        if(round.complete){\n            if(game.complete){\n                display.endGame();\n                return;\n\n            } else {\n                dialog.endRound();\n\n                // start new round\n                game.currentRound++;\n                let roundID = game.currentRound;\n\n                round = game.getRound(roundID);\n                round.start();\n\n                wheel.buildCreate(round);\n                initGameBoardFromRound(roundID);\n\n                clueText.empty();\n                playPanel.reset();\n                playPanel.setRound(roundID + 1);\n                return\n            }\n        }\n\n        spin = round.spin();\n\n        // update play panel spin count\n        playPanel.deductSpin();\n\n        // spin the wheel\n        wheel.rotate(spin.slot, function(){\n            // selected sector is a category but complete\n            if (spin.spinAgain) {\n                clueText.write(\"Category complete, spin again\");                \n                round.endTurn();\n\n            // selected sector is a category\n            } else if (spin.isCategory) {\n                displayClue();\n\n            // selected category is a special category\n            } else {\n                // update the players UI stats\n                let currentPlayer = round.currentPlayer;\n                player.setPoints(currentPlayer.id, currentPlayer.totalScore);\n                player.setTokens(currentPlayer.id, currentPlayer.tokens);\n\n                // special sector\n                switch (spin.sectorName) {\n                    case \"Free Turn\":\n                        clueText.write(\"You landed on Free Turn!\");                        \n                        switchPlayer();\n                        break;\n                        \n                    case \"Lose Turn\":\n                        clueText.write(\"You landed on Lose Turn!\");\n                        if (currentPlayer.hasToken()){\n                            // present option to use token\n                            $(\".answer-phase\").hide();\n                            $(\".token-phase\").show();\n                        } else {\n                            // switch to next player\n                            switchPlayer();\n                        }\n                        break;\n\n                    case \"Bankrupt\":\n                        clueText.write(\"You landed on Bankrupt!\");\n                        switchPlayer();\n                        break;\n\n                    case \"Player's Choice\":\n                        clueText.write(\"You landed on Player's Choice!\\nSelect an open category on the board\");\n                        categorySelectable = true;\n                        $(\".spin-phase\").hide();\n                        break;\n\n                    case \"Opponent's Choice\":\n                        clueText.write(\"You landed on Opponent's Choice!\\nSelect an open category on the board\");\n                        categorySelectable = true;\n                        $(\".spin-phase\").hide();\n                        break;\n\n                    case \"Double Score\":\n                        clueText.write(\"You landed on Double Score!\");\n                        switchPlayer();\n                        break;\n                    default:\n                    // do nothing\n                }\n            }\n        });\n    });\n\n    // click - answer\n    $(\"#btn-answer\").click(function () {\n        wheel.stopTimer();\n        clueText.write(round.currentClue.answer);\n\n        $(\".answer-phase\").hide();\n        $(\".validate-phase\").show();\n    });\n\n    // click - valid\n    $(\"#btn-valid\").click(function () {\n        wheel.resetTimer();\n\n        // update board UI\n        let clue = round.currentClue;\n        board.setValidClue(clue.column, clue.row);\n\n        // update players score in api\n        round.validAnswer();\n\n        // update players score in UI\n        let currentPlayer = round.currentPlayer;\n        player.setPoints(currentPlayer.id, currentPlayer.totalScore);\n\n        $(\".validate-phase\").hide();\n        $(\".spin-phase\").show();\n    });\n\n    // click - invalid\n    $(\"#btn-invalid\").click(function () {\n        wheel.resetTimer();\n\n        let clue = round.currentClue;\n        board.setInvalidClue(clue.column, clue.row);\n\n        // update players score in api\n        round.invalidAnswer();\n\n        // update players score in UI\n        let currentPlayer = round.currentPlayer;\n        player.setPoints(currentPlayer.id, currentPlayer.totalScore);\n\n        if (currentPlayer.hasToken()) {\n            // present option to use token\n            $(\".validate-phase\").hide();\n            $(\".token-phase\").show();\n        } else {\n            // switch to next player\n            switchPlayer();\n            $(\".validate-phase\").hide();\n            $(\".spin-phase\").show();\n        }\n    });\n\n    // click - token\n    $(\"#btn-token\").click(function () {\n        round.useToken();\n\n        let currentPlayer = round.currentPlayer;\n        player.setTokens(currentPlayer.id, currentPlayer.tokens);\n\n        $(\".token-phase\").hide();\n        $(\".spin-phase\").show();\n    });\n\n    // click - end turn\n    $(\"#btn-end-turn\").click(function () {\n        switchPlayer();\n        $(\".token-phase\").hide();\n        $(\".spin-phase\").show();\n    });\n\n    // click - reset\n    $(\"#btn-reset\").click(function () {\n        game.getRound(0).reset();\n        game.getRound(1).reset();\n\n        round = game.getRound(0);\n        categorySelectable = false;\n        \n        wheel.buildCreate(round);\n        initGameBoardFromRound(roundID);\n\n        clueText.empty();\n        playPanel.reset();\n        player.reset();\n\n        wheel.rotate();\n        wheel.resetTimer();\n\n        hidePanels();\n        $(\".start-panel\").show();\n    }); \n\n    // set up the edit category dialog\n    category_dialog = $(\"#category-form\").dialog({\n        autoOpen: false,\n        height: 400,\n        width: 350,\n        modal: true,\n        buttons: {\n            \"Edit Category\": editCategory,\n            Cancel: function () {\n                category_dialog.dialog(\"close\");\n            }\n        },\n        close: function () { frm_name_category.removeClass(\"ui-state-error\"); }\n    });\n\n    // setup the edit trivia dialog\n    trivia_dialog = $(\"#trivia-form\").dialog({\n        autoOpen: false,\n        height: 400,\n        width: 350,\n        modal: true,\n        buttons: {\n            \"Edit Trivia\": editTrivia,\n            Cancel: function () {\n                trivia_dialog.dialog(\"close\");\n            }\n        },\n        close: function () {\n            frm_name_trivia_question.removeClass(\"ui-state-error\");\n            frm_name_trivia_answer.removeClass(\"ui-state-error\");\n        }\n    });\n\n    // set up the form to edit the category text\n    category_form = category_dialog.find(\"form\").on(\"submit\", function (submit_event) {\n        submit_event.preventDefault();\n        frm_name_category.val(\"\");\n    });\n\n    // set up the form to edit the trivia text\n    trivia_form = trivia_dialog.find(\"form\").on(\"submit\", function (submit_event) {\n        submit_event.preventDefault();\n    });\n\n    // setup the selection handler for the select ddl\n    $(\"#select-round\").change(function( clicked_object ) {\n        let round_selected = $(this).children(\":selected\").html();\n        console.log(\"Round changed! \" + round_selected);\n        let selected_round = parseInt( round_selected) - 1;\n        // redraw the category information\n        initGameBoardFromRound(selected_round);\n    });\n\n    // set up the click event for the trivia elements\n    $(\"#triviaTable td\").click(function( clicked_object ) {\n\n        clicked_col = parseInt( $(this).index());\n        clicked_row = parseInt( $(this).parent().index());\n\n        clicked_element = clicked_object;\n        if ( trivia_editable ) {\n            // ensure the form is populated with the current value of the table element before open\n            // trivia will extract the current value from the stored (local storage) values depending on the td value read\n            let roundID = $(\"#select-round\").val() - 1;\n            let clue;\n            let output = \"Trivia: clicked_row = \" + clicked_row + \",  clicked_col = \" + clicked_col;\n            console.log(output);\n            // get the game round if necessary\n            round = game.getRound(roundID);\n            clue = round.board.getClue(clicked_col, clicked_row);\n\n            // get the q & a for the current round           \n            let question = clue.question;\n            let answer = clue.answer;\n            \n            if (typeof question == 'undefined'){ question = \"<empty>\"; }           \n            if (typeof answer == 'undefined'){ answer = \"<empty>\"; }\n\n            //output = \"Clue: Question: \" + \" | \" + question + \"\\nAnswer: \" + answer;\n            //console.log(output);\n            \n            // pre-populate the trivia information before modal open\n            frm_name_trivia_question.val(question);\n            frm_name_trivia_answer.val(answer);\n\n            trivia_dialog.dialog( \"open\" );\n        }\n\n        // player or opponent choice\n        if (categorySelectable) {\n            Alert.warning(\"Select a Category Above.\")\n        }\n    });\n\n    // set up the click event for the category elements\n    $(\"#triviaTable th\").click(function( clicked_object ) {\n        clicked_element = clicked_object;\n\n        clicked_col = parseInt( $(this).index());\n        clicked_row = parseInt( $(this).parent().index());        \n\n        if ( category_editable ) {\n\n            let roundID = $(\"#select-round\").val() - 1;\n            let output = \"Category: clicked_row = \" + clicked_row + \",  clicked_col = \" + clicked_col;\n            console.log(output);\n            // get the game round so categories are edited correctly\n            round = game.getRound(roundID);\n\n            // ensure the form is populated with the current value of the table element before open\n            frm_name_category.val($(this).text());\n            category_dialog.dialog( \"open\" );\n        }\n\n        // player or opponent choice\n        if (categorySelectable){\n            let category = round.board.getCategory(clicked_col);\n\n            // category is already finished\n            if(category.complete){\n                let msg = 'Select a different category, ' + category.name + ' is complete'\n                Alert.warning(msg);\n                Alert.hide(2000);\n            } else {\n                round.pickCategory(clicked_col);\n                categorySelectable = false;\n                displayClue();\n            }\n        }\n    });\n\n    // setup the default UI and API\n    let roundID = 0;\n\n    // init api objects\n    game = engine.initDefaultGame();\n    round = game.getRound(roundID);\n\n    // init ui wheel\n    wheel.init();\n    wheel.buildCreate(round);\n\n    // init ui board\n    initGameBoard();\n\n});\n\n// function used to update the trivia modal dialog\nfunction populateTriviaFromEngine(clicked_col, clicked_row) {\n\n    let roundID = 0;\n    let round;\n\n    // the update given -1 will read from the UI widget -- e.g. editing mode\n    if (gameRound == -1) {\n        // get the round chosen from the round drop down box\n        roundID = $(\"#select-round\").val() - 1;\n        round = game.getRound(roundID);\n    }\n\n    round = game.getRound(gameRound);\n    // fetch the clue from the engine\n    cell_content = round.board.getClue(clicked_col, clicked_row);\n\n}\n\nfunction initGameBoardFromRound(roundChoice) {\n\n    console.log(\"Board redraw - round: \" + roundChoice);\n    let edit_round = game.getRound(roundChoice);\n\n    // setup the points (cells) for the game as chosen in the drop down box\n    $(\"#triviaTable tbody tr\").each(function (row_index, row) {\n        let current_row = $(row);\n        let cols = 6;\n        let column_index = 0;\n        let current_clue;\n        // iterate through the table, adjusting the points to those associated\n        // with the chosen board's point value\n        for (column_index = 0; column_index < cols; column_index++) {\n            let current_column = current_row[0].cells[column_index];\n            //console.log(\"Column Index: \" + column_index + \", column text: \" + current_column.innerHTML);\n            current_clue = edit_round.board.getClue(column_index, row_index);\n            current_column.innerHTML = current_clue.points;\n        }\n    });\n\n    // setup the categories\n    let current_categories = edit_round.board.categoryNames;\n    $(\"#triviaTable thead th\").each(function (category_index, category) {\n        let current_category_cell = $(category);\n        //console.log(\"category Index: \" + category_index);\n        //console.log(\"category name: \" + current_categories[category_index]);\n        //console.log($(category));\n        $(category)[0].innerHTML = current_categories[category_index];\n    });\n\n    // reset board css\n    for(let column=0; column<round.board.columns; column++){\n        for (let row = 0; row<round.board.rows; row++) {\n            board.removeStyle(column, row);\n        }\n    }\n}\n\nfunction initGameBoard() {\n    // setup the game board assuming round 0\n    initGameBoardFromRound(0);\n}\n\nfunction toggleClicks() {\n    toggleCategoryClicks();\n    toggleTriviaClicks();\n}\n\nfunction toggleCategoryClicks() {\n    if (category_editable) { category_editable = false; }\n    else { category_editable = true; }\n}\n\nfunction toggleTriviaClicks() {\n    if (trivia_editable) { trivia_editable = false; }\n    else { trivia_editable = true; }\n}\n\nfunction editCategory() {\n    let valid = true;\n    frm_name_category.removeClass(\"ui-state-error\");\n    valid = valid && checkLength(frm_name_category, \"category\", 3, 32);\n    valid = valid && checkRegexp(frm_name_category, /^[0-9a-zA-Z]([0-9a-zA-Z_\\s,\\&\\^\\%\\$\\#\\@\\!\\)\\(\\*\\[\\]\\{\\}\\-\\_\\.\\?\\'\\‘\\’])+$/i, \"Input must begin with letters, or numbers; it may contain special characters.\");\n\n    // validates the form's input field, and closes the modal\n    if (valid) {\n        let category_updated = frm_name_category.val();\n        clicked_element.target.innerHTML = category_updated;\n        console.log(\"Input: Category Update: \" + category_updated);\n        round.board.editCategory(clicked_col, category_updated);\n        category_dialog.dialog(\"close\");\n    }\n    return valid;\n}\n\nfunction editTrivia() {\n    let valid = true;\n    frm_name_trivia_question.removeClass(\"ui-state-error\");\n    frm_name_trivia_answer.removeClass(\"ui-state-error\");\n\n    valid = valid && checkLength(frm_name_trivia_question, \"trivia\", 3, 256);\n    valid = valid && checkRegexp(frm_name_trivia_question, /^[0-9a-zA-Z]([0-9a-zA-Z_\\s,\\&\\^\\%\\$\\#\\@\\!\\)\\(\\*\\[\\]\\{\\}\\-\\_\\.\\?\\'\\‘\\’])+$/i, \"Input must begin with letters, or numbers; it may contain special characters.\");\n    valid = valid && checkLength(frm_name_trivia_answer, \"trivia\", 3, 256);\n    valid = valid && checkRegexp(frm_name_trivia_answer, /^[0-9a-zA-Z]([0-9a-zA-Z_\\s,\\&\\^\\%\\$\\#\\@\\!\\)\\(\\*\\[\\]\\{\\}\\-\\_\\.\\?\\'\\‘\\’])+$/i, \"Input must begin with letters, or numbers; it may contain special characters.\");\n\n    // validates the form's input field, and closes the modal\n    if (valid) {\n        // store the user's trivia information in the local session table\n        let question = frm_name_trivia_question.val();\n        let answer = frm_name_trivia_answer.val();\n        console.log(\"Input: \\nQuestion: \" + question + \"\\nAnswer: \" + answer);\n        round.board.editClue(clicked_col, clicked_row, question, answer);\n\n        trivia_dialog.dialog(\"close\");\n    }\n    return valid;\n}\n\nfunction updateTips(t) {\n    tips\n        .text(t)\n        .addClass(\"ui-state-highlight\");\n    setTimeout(function () {\n        tips.removeClass(\"ui-state-highlight\", 3000);\n    }, 1500);\n}\n\nfunction checkLength(o, n, min, max) {\n    if (o.val().length > max || o.val().length < min) {\n        o.addClass(\"ui-state-error\");\n        updateTips(\"Length of \" + n + \" must be between \" + min + \" and \" + max + \".\");\n        return false;\n    } else {\n        return true;\n    }\n}\n\nfunction checkRegexp(o, regexp, n) {\n    if (!(regexp.test(o.val()))) {\n        o.addClass(\"ui-state-error\");\n        updateTips(n);\n        return false;\n    } else { return true; }\n}\n\nlet player = {\n    setPoints: function (id, points){\n        $(\"#player\" + id + \" .points\").text(points);\n    },\n\n    setTokens: function (id, tokens){\n        $(\"#player\" + id + \" .tokens\").text(tokens);\n    },\n\n    startTurn: function(id){\n        $(\"#player\" + id + \" input\").toggleClass(\"current-turn\", true);\n    },\n    \n    endTurn: function (id) {\n        $(\"#player\" + id + \" input\").toggleClass(\"current-turn\", false);\n    },\n\n    readOnlyOn: function (id){\n        $(\"#player\" + id + \" input\").prop(\"readonly\", true);\n    },\n\n    readOnlyOff: function (id) {\n        $(\"#player\" + id + \" input\").prop(\"readonly\", false);\n    },\n\n    reset: function(){\n        for(let i=0; i<playerCount; i++){\n            player.setPoints(i, 0);\n            player.setTokens(i, 0);\n            player.startTurn(i);\n            player.endTurn(i);\n            player.readOnlyOff(i);\n        }\n        player.startTurn(0);\n        playerCount = 3;\n    }\n}\n\nlet playPanel = {\n    getRound: function () {\n        return $(\"#txt-round\").text();\n    },\n    setRound: function(round){\n        $(\"#txt-round\").text(round);\n    },\n    getSpins: function () {\n        return $(\"#txt-spins\").text();\n    },\n    setSpins: function (spins) {\n        $(\"#txt-spins\").text(spins);\n    },\n    getClues: function () {\n        return $(\"#txt-clues\").text();\n    },\n    setClues: function (clues) {\n        $(\"#txt-clues\").text(clues);\n    },\n    deductSpin: function(i=1) {\n        playPanel.setSpins(playPanel.getSpins() - i);\n    },\n    deductClue: function (i=1) {\n        playPanel.setClues(playPanel.getClues() - i);\n    },\n    reset: function(){\n        playPanel.setRound(1);\n        playPanel.setSpins(50);\n        playPanel.setClues(30);\n    }\n}\n\nlet clueText = {\n    empty: function(){\n        $(\"#clue-text\").text(\"\");\n    },\n    write: function(txt){\n        $(\"#clue-text\").text(txt);\n    }\n}\n\nlet wheel = {\n    init: function (svgID = \"#wheel\") {\n        let svg = d3.select(svgID);\n        let width = +svg.attr(\"width\");\n        let height = +svg.attr(\"height\");\n        wheel.radius = Math.min(width, height) / 2;\n        wheel.base = svg.append(\"g\")\n            .attr(\"transform\", \"translate(\" + width/2 + \",\" + height/2 + \")\");\n        wheel.g = wheel.base\n            .append(\"g\");\n        wheel.oldAngle = 0;\n        wheel.newAngle = 0;\n\n        wheel.width = width;\n        wheel.height = height;\n    },\n\n    specialSectorLabels: {\n        \"Bankrupt\": '\\uf1e2',\n        \"Opponent's Choice\": '\\uf0c0',\n        \"Lose Turn\": '\\uf119',\n        \"Double Score\": '\\uf155\\uf155',\n        \"Player's Choice\": '\\uf007',\n        \"Free Turn\": '\\uf51e'\n    },\n\n    buildCreate: function(round){\n        let data = wheel.buildData(round);\n        wheel.create(data);\n    },\n\n    buildData: function(round) {\n        let w = round.wheel;\n        let data = [];\n        \n        for(let i=0; i<w.slots.length; i++){\n            let slot = {};\n            let sectorNumber = w.slots[i];\n            let sectorName = w.getSectorName(sectorNumber);\n            slot['slot'] = i;\n            slot['sector'] = sectorNumber;\n            slot['name'] = sectorName;\n\n            if(w.sectorIsCategory(sectorNumber)){\n                slot['label'] = 1 + sectorNumber;\n            } else {\n                slot['label'] = wheel.specialSectorLabels[sectorName];\n            }\n            data.push(slot);\n        }\n        return data;\n    },\n\n    create: function (data) {\n        wheel.data = data;\n\n        wheel.g.selectAll(\"*\").remove();\n\n        let color = d3.scaleOrdinal(d3.schemeSet3);\n\n        let pie = d3.pie()\n            .sort(null)\n            .value(function (d) { return 1; });\n\n        let path = d3.arc()\n            .outerRadius(wheel.radius - 10)\n            .innerRadius(40);\n\n        wheel.label = d3.arc()\n            .outerRadius(wheel.radius - 40)\n            .innerRadius(wheel.radius - 40);\n\n        let arc = wheel.g.selectAll(\".arc\")\n            .data(pie(wheel.data))\n            .enter().append(\"g\")\n            .attr(\"class\", \"arc\");\n\n        arc.append(\"path\")\n            .attr(\"d\", path)\n            .attr(\"fill\", function (d) { return color(d.data.slot); });\n\n        wheel.text = arc.append(\"text\")\n            .attr(\"transform\", function (d) {\n                return \"translate(\" + wheel.label.centroid(d) + \")\";\n            })\n            .attr(\"dy\", \"0.35em\")\n            .text(function (d) { return d.data.label; });\n\n        wheel.timerCircle = wheel.base.append(\"circle\")\n            .attr(\"r\", \"40\")\n            .attr(\"fill\", \"#adc9e2\");\n\n        wheel.timerText = wheel.base.append(\"text\")\n            .attr(\"text-anchor\", \"middle\")\n            .attr(\"alignment-baseline\", \"central\")\n            .attr(\"font-size\", 32)\n            .text(\"\\uf017\")\n            .attr(\"id\", \"timer\")\n            .classed(\"fa\", true);\n\n        var symbol = d3.symbol()\n            .type(d3.symbolTriangle)\n            .size(200);\n\n        let pointerY = wheel.radius - 10;\n        wheel.base.append(\"path\")\n            .attr('d', symbol)\n            .attr('transform', 'rotate(180) translate(0, ' + pointerY + ')');\n\n    },\n\n    rotate: function (slot = 0, callback=function(){}) {\n        let arcLength = 360 / wheel.data.length;\n        let slotArcCenter = arcLength * slot + arcLength / 2;\n\n        wheel.newAngle = 1440 - slotArcCenter;\n        let textAngle = 360 - slotArcCenter;\n\n        function rotTween() {\n            let i = d3.interpolate(wheel.oldAngle % 360, wheel.newAngle);\n            return function (t) {\n                return \"rotate(\" + i(t) + \")\";\n            };\n        }\n\n        wheel.g.transition()\n            .attrTween(\"transform\", rotTween)\n            .duration(3000)\n            .on(\"end\", function () {\n                wheel.oldAngle = wheel.newAngle;\n                callback();\n            });\n\n        wheel.text.transition()\n            .attr(\"transform\", function (dd) {\n                let ctr = wheel.label.centroid(dd);\n                return \"translate(\" + ctr + \") rotate(\" + (-textAngle) + \")\";\n            })\n            .duration(2000);\n    },\n\n    startTimer: function(duration=20){\n        wheel.timerText.text(\"20\");\n        wheel.timer = d3.interval(function(elapsed){\n            wheel.timerText.transition()\n                .duration(750)\n                .text(duration - Math.floor(elapsed/1000));\n            if (elapsed > duration * 1000){\n                wheel.timer.stop();\n                wheel.timerCircle.attr(\"fill\", \"red\");\n            }\n        }, 1000)\n    },\n\n    stopTimer: function(){\n        wheel.timer.stop();\n    },\n\n    resetTimer: function(){\n        wheel.stopTimer();\n        wheel.timerText.text(\"\\uf017\");\n        wheel.timerCircle.attr(\"fill\", \"#adc9e2\");\n    }\n}\n\nlet board = {\n    setActiveClue: function(column, row){\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"current-clue\", true);\n    },\n\n    setValidClue: function(column, row){\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"current-clue\", false);\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"valid-clue\", true);\n    },\n\n    setInvalidClue: function (column, row) {\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"current-clue\", false);\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"invalid-clue\", true);\n    },\n    removeStyle: function(column, row){\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"current-clue\", false);\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"valid-clue\", false);\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"invalid-clue\", false);\n    }\n\n}\n\nlet dialog = {\n    show: function (title, text) {\n        $(\"#dialog\").attr(\"title\", title)\n            .html(\"<p>\" + text + \"</p>\");\n\n        $(\"#dialog\").dialog({\n            modal: true,\n            buttons: [{\n                text: \"OK\",\n                click: function () {\n                    $(this).dialog(\"close\");\n                }\n            }],\n            close: function (event, ui) {\n                wheel.rotate();\n            }\n        });\n    },\n\n    endRound: function () {\n        let title = \"Round Complete\";\n        let roundNumber = game.currentRound + 1;\n        let text = \"Round \" + roundNumber + \" is complete.<br><br>\"\n\n        let leaders = game.getLeaderBoard();\n        for (let i = 0; i < leaders.length; i++) {\n            text += leaders[i].name + \": \" + leaders[i].totalScore + \"<br>\";\n        }\n        dialog.show(title, text);\n    },\n\n    endGame: function () {\n        let title = \"Game Complete\";\n        let roundNumber = game.currentRound + 1;\n        let text = \"Game is complete.<br><br>\"\n\n        let leaders = game.getLeaderBoard();\n        for (let i = 0; i < leaders.length; i++) {\n            text += leaders[i].name + \": \" + leaders[i].totalScore + \"<br>\";\n        }\n        dialog.show(title, text);\n    }\n}\n\nfunction displayClue(){\n    $(\".spin-phase\").hide();\n    $(\".answer-phase\").show();\n    \n    playPanel.deductClue();\n\n    let clue = round.currentClue;\n    let points = clue.points;\n    let category = round.board.getCategory(clue.column).name;\n\n    board.setActiveClue(clue.column, clue.row);\n    clueText.write(category + \" (\" + points +\")\\n\" + clue.question);\n\n    wheel.startTimer();\n}\n\nfunction switchPlayer(){\n    // end current players turn and toggle UI\n    player.endTurn(round.currentPlayerID);\n    round.endTurn();\n    player.startTurn(round.currentPlayerID);\n}\n\nfunction hidePanels(){\n    $(\".edit-panel\").hide();\n    $(\".play-panel\").hide();\n    $(\".spin-phase\").hide();\n    $(\".answer-phase\").hide();\n    $(\".validate-phase\").hide();\n    $(\".token-phase\").hide();\n}\n\nfunction download(filename, text) {\n    // source: https://goo.gl/VWW2sT\n    var element = document.createElement('a');\n    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));\n    element.setAttribute('download', filename);\n    element.style.display = 'none';\n    document.body.appendChild(element);\n\n    element.click();\n    document.body.removeChild(element);\n}\n\nclass Alert {\n    static success(msg) {\n        let a = $(\"#alert\");\n        a.removeClass(\"alert-danger alert-success alert-warning\")\n            .addClass(\"alert-success\");\n        a.find(\"#alert-text\").empty().text(msg);\n        a.show();\n    };\n\n    static danger(msg) {\n        let a = $(\"#alert\");\n        a.removeClass(\"alert-danger alert-success alert-warning\")\n            .addClass(\"alert-danger\");\n        a.find(\"#alert-text\").empty().html(msg);\n        a.show();\n    };\n\n    static warning(msg) {\n        let a = $(\"#alert\");\n        a.removeClass(\"alert-danger alert-success alert-warning\")\n            .addClass(\"alert-warning\");\n        a.find(\"#alert-text\").empty().html(msg);\n        a.show();\n    };\n\n    static hide(ms) {\n        // set milliseconds to delay hide\n        if (ms) {\n            setTimeout(function () { $(\"#alert\").hide(\"slow\") }, ms);\n        } else {\n            $(\"#alert\").hide();\n        }\n    };\n}\n",
+    "content": "\"use strict\"\n/**\n * @file UI setup and interaction.\n */\n\n// globals\nlet debug = false;\nlet game;\nlet round;\nlet spin;\nlet playerCount = 3;\nlet categorySelectable = false;\n\nlet category_editable = false;\nlet trivia_editable = false;\n\n// keep track of some elements of the table that have been manipulated by the user\nlet fill_value = \"\";\nlet clicked_col;\nlet clicked_row;\nlet clicked_element;\n\nlet category_form;\nlet trivia_form;\nlet category_dialog;\nlet trivia_dialog;\nlet frm_name_category = $('input[name=\"frm_name_category\"]');\nlet frm_name_trivia_question = $('input[name=\"frm_name_trivia_question\"]');\nlet frm_name_trivia_answer = $('input[name=\"frm_name_trivia_answer\"]');\nlet tips = $( \".validateTips\" );\n\n$(document).ready(function() {\n    // hide panels\n    hidePanels();\n\n    // click - hide alert\n    $(\"#btn-alert\").click(function() {\n        $(\"#alert\").hide(); \n    });\n\n    // click - start editing\n    $(\"#btn-start-edit\").click(function() {\n        $(\".start-panel\").hide();\n        $(\".edit-panel\").show();\n\n        toggleCategoryClicks();\n        toggleTriviaClicks();\n\n        // set the game board to the first round before starting edits\n        initGameBoardFromRound(0);\n        $('select>option:eq(0)').prop('selected', true);\n    });\n\n    // click - finish edit\n    $(\"#btn-stop-edit\").click(function() {\n        $(\".edit-panel\").hide();\n        $(\".start-panel\").show();\n\n        toggleCategoryClicks();\n        toggleTriviaClicks();\n\n        // set the game board to the first round after edits\n        initGameBoardFromRound(0);\n    });\n\n    // click - export board\n    $(\"#btn-export\").click(function() {\n        let roundID = $(\"#select-round\").val() - 1;\n        let round = game.getRound(roundID)\n        download('board.json', round.board.export());\n    });\n\n    // click - add player\n    $(\"#btn-add-player\").click(function() {\n        if (playerCount < 3) {\n            $(\"#player\" + playerCount).show();\n            playerCount++;\n        } else {\n            Alert.danger('Maximum of three players supported');\n            Alert.hide(2000);\n        }\n    });\n\n    // click - del player\n    $(\"#btn-del-player\").click(function() {\n        if (playerCount > 1) {\n            playerCount--;\n            $(\"#player\" + playerCount).hide();\n        } else {\n            Alert.danger('Minimum of one player supported');\n            Alert.hide(2000);\n        }\n    });\n\n    // click - start game\n    $(\"#btn-play\").click(function () {\n        // set object visibility\n        $(\".start-panel\").hide();\n        $(\".play-panel\").show();\n        $(\".spin-phase\").show();\n\n        // add players to game api\n        for (let i = 0; i < playerCount; i++) {\n            let playerName = $(\"#player\" + i).val();\n            $(\"#player\" + i + \" input\").prop(\"readonly\", true);\n\n            if (playerName == \"\"){\n                playerName = \"Player \" + (i + 1);\n            }\n            game.addPlayer(playerName);\n        }\n\n        // start api round\n        let id = 0;\n        round = game.getRound(id);\n        round.start();\n\n        // update wheel\n        wheel.buildCreate(round);\n\n        // set player 0 as first\n        player.startTurn(0);\n    });\n\n    // click - spin\n    $(\"#btn-spin\").click(function () {\n\n        if(round.complete){\n            if(game.complete){\n                display.endGame();\n                return;\n\n            } else {\n                dialog.endRound();\n\n                // start new round\n                game.currentRound++;\n                let roundID = game.currentRound;\n\n                round = game.getRound(roundID);\n                round.start();\n\n                wheel.buildCreate(round);\n                initGameBoardFromRound(roundID);\n\n                clueText.empty();\n                playPanel.reset();\n                playPanel.setRound(roundID + 1);\n                return\n            }\n        }\n\n        spin = round.spin();\n\n        // update play panel spin count\n        playPanel.deductSpin();\n\n        // spin the wheel\n        wheel.rotate(spin.slot, function(){\n            // selected sector is a category but complete\n            if (spin.spinAgain) {\n                clueText.write(\"Category complete, spin again\");                \n                round.endTurn();\n\n            // selected sector is a category\n            } else if (spin.isCategory) {\n                displayClue();\n\n            // selected category is a special category\n            } else {\n                // update the players UI stats\n                let currentPlayer = round.currentPlayer;\n                player.setPoints(currentPlayer.id, currentPlayer.totalScore);\n                player.setTokens(currentPlayer.id, currentPlayer.tokens);\n\n                // special sector\n                switch (spin.sectorName) {\n                    case \"Free Turn\":\n                        clueText.write(\"You landed on Free Turn!\");                        \n                        switchPlayer();\n                        break;\n                        \n                    case \"Lose Turn\":\n                        clueText.write(\"You landed on Lose Turn!\");\n                        if (currentPlayer.hasToken()){\n                            // present option to use token\n                            $(\".answer-phase\").hide();\n                            $(\".token-phase\").show();\n                        } else {\n                            // switch to next player\n                            switchPlayer();\n                        }\n                        break;\n\n                    case \"Bankrupt\":\n                        clueText.write(\"You landed on Bankrupt!\");\n                        switchPlayer();\n                        break;\n\n                    case \"Player's Choice\":\n                        clueText.write(\"You landed on Player's Choice!\\nSelect an open category on the board\");\n                        categorySelectable = true;\n                        $(\".spin-phase\").hide();\n                        break;\n\n                    case \"Opponent's Choice\":\n                        clueText.write(\"You landed on Opponent's Choice!\\nSelect an open category on the board\");\n                        categorySelectable = true;\n                        $(\".spin-phase\").hide();\n                        break;\n\n                    case \"Double Score\":\n                        clueText.write(\"You landed on Double Score!\");\n                        switchPlayer();\n                        break;\n                    default:\n                    // do nothing\n                }\n            }\n        });\n    });\n\n    // click - answer\n    $(\"#btn-answer\").click(function () {\n        wheel.stopTimer();\n        clueText.write(round.currentClue.answer);\n\n        $(\".answer-phase\").hide();\n        $(\".validate-phase\").show();\n    });\n\n    // click - valid\n    $(\"#btn-valid\").click(function () {\n        wheel.resetTimer();\n\n        // update board UI\n        let clue = round.currentClue;\n        board.setValidClue(clue.column, clue.row);\n\n        // update players score in api\n        round.validAnswer();\n\n        // update players score in UI\n        let currentPlayer = round.currentPlayer;\n        player.setPoints(currentPlayer.id, currentPlayer.totalScore);\n\n        $(\".validate-phase\").hide();\n        $(\".spin-phase\").show();\n    });\n\n    // click - invalid\n    $(\"#btn-invalid\").click(function () {\n        wheel.resetTimer();\n\n        let clue = round.currentClue;\n        board.setInvalidClue(clue.column, clue.row);\n\n        // update players score in api\n        round.invalidAnswer();\n\n        // update players score in UI\n        let currentPlayer = round.currentPlayer;\n        player.setPoints(currentPlayer.id, currentPlayer.totalScore);\n\n        if (currentPlayer.hasToken()) {\n            // present option to use token\n            $(\".validate-phase\").hide();\n            $(\".token-phase\").show();\n        } else {\n            // switch to next player\n            switchPlayer();\n            $(\".validate-phase\").hide();\n            $(\".spin-phase\").show();\n        }\n    });\n\n    // click - token\n    $(\"#btn-token\").click(function () {\n        round.useToken();\n\n        let currentPlayer = round.currentPlayer;\n        player.setTokens(currentPlayer.id, currentPlayer.tokens);\n\n        $(\".token-phase\").hide();\n        $(\".spin-phase\").show();\n    });\n\n    // click - end turn\n    $(\"#btn-end-turn\").click(function () {\n        switchPlayer();\n        $(\".token-phase\").hide();\n        $(\".spin-phase\").show();\n    });\n\n    // click - reset\n    $(\"#btn-reset\").click(function () {\n        game.getRound(0).reset();\n        game.getRound(1).reset();\n\n        round = game.getRound(0);\n        categorySelectable = false;\n        \n        wheel.buildCreate(round);\n        initGameBoardFromRound(roundID);\n\n        clueText.empty();\n        playPanel.reset();\n        player.reset();\n\n        wheel.rotate();\n        wheel.resetTimer();\n\n        hidePanels();\n        $(\".start-panel\").show();\n    }); \n\n    // set up the edit category dialog\n    category_dialog = $(\"#category-form\").dialog({\n        autoOpen: false,\n        height: 400,\n        width: 350,\n        modal: true,\n        buttons: {\n            \"Edit Category\": editCategory,\n            Cancel: function () {\n                category_dialog.dialog(\"close\");\n            }\n        },\n        close: function () { frm_name_category.removeClass(\"ui-state-error\"); }\n    });\n\n    // setup the edit trivia dialog\n    trivia_dialog = $(\"#trivia-form\").dialog({\n        autoOpen: false,\n        height: 400,\n        width: 350,\n        modal: true,\n        buttons: {\n            \"Edit Trivia\": editTrivia,\n            Cancel: function () {\n                trivia_dialog.dialog(\"close\");\n            }\n        },\n        close: function () {\n            frm_name_trivia_question.removeClass(\"ui-state-error\");\n            frm_name_trivia_answer.removeClass(\"ui-state-error\");\n        }\n    });\n\n    // set up the form to edit the category text\n    category_form = category_dialog.find(\"form\").on(\"submit\", function (submit_event) {\n        submit_event.preventDefault();\n        frm_name_category.val(\"\");\n    });\n\n    // set up the form to edit the trivia text\n    trivia_form = trivia_dialog.find(\"form\").on(\"submit\", function (submit_event) {\n        submit_event.preventDefault();\n    });\n\n    // setup the selection handler for the select ddl\n    $(\"#select-round\").change(function( clicked_object ) {\n        let round_selected = $(this).children(\":selected\").html();\n        console.log(\"Round changed! \" + round_selected);\n        let selected_round = parseInt( round_selected) - 1;\n        // redraw the category information\n        initGameBoardFromRound(selected_round);\n    });\n\n    // set up the click event for the trivia elements\n    $(\"#triviaTable td\").click(function( clicked_object ) {\n\n        clicked_col = parseInt( $(this).index());\n        clicked_row = parseInt( $(this).parent().index());\n\n        clicked_element = clicked_object;\n        if ( trivia_editable ) {\n            // ensure the form is populated with the current value of the table element before open\n            // trivia will extract the current value from the stored (local storage) values depending on the td value read\n            let roundID = $(\"#select-round\").val() - 1;\n            let clue;\n            let output = \"Trivia: clicked_row = \" + clicked_row + \",  clicked_col = \" + clicked_col;\n            console.log(output);\n            // get the game round if necessary\n            round = game.getRound(roundID);\n            clue = round.board.getClue(clicked_col, clicked_row);\n\n            // get the q & a for the current round           \n            let question = clue.question;\n            let answer = clue.answer;\n            \n            if (typeof question == 'undefined'){ question = \"<empty>\"; }           \n            if (typeof answer == 'undefined'){ answer = \"<empty>\"; }\n\n            //output = \"Clue: Question: \" + \" | \" + question + \"\\nAnswer: \" + answer;\n            //console.log(output);\n            \n            // pre-populate the trivia information before modal open\n            frm_name_trivia_question.val(question);\n            frm_name_trivia_answer.val(answer);\n\n            trivia_dialog.dialog( \"open\" );\n        }\n\n        // player or opponent choice\n        if (categorySelectable) {\n            Alert.warning(\"Select a Category Above.\")\n        }\n    });\n\n    // set up the click event for the category elements\n    $(\"#triviaTable th\").click(function( clicked_object ) {\n        clicked_element = clicked_object;\n\n        clicked_col = parseInt( $(this).index());\n        clicked_row = parseInt( $(this).parent().index());        \n\n        if ( category_editable ) {\n\n            let roundID = $(\"#select-round\").val() - 1;\n            let output = \"Category: clicked_row = \" + clicked_row + \",  clicked_col = \" + clicked_col;\n            console.log(output);\n            // get the game round so categories are edited correctly\n            round = game.getRound(roundID);\n\n            // ensure the form is populated with the current value of the table element before open\n            frm_name_category.val($(this).text());\n            category_dialog.dialog( \"open\" );\n        }\n\n        // player or opponent choice\n        if (categorySelectable){\n            let category = round.board.getCategory(clicked_col);\n\n            // category is already finished\n            if(category.complete){\n                let msg = 'Select a different category, ' + category.name + ' is complete'\n                Alert.warning(msg);\n                Alert.hide(2000);\n            } else {\n                round.pickCategory(clicked_col);\n                categorySelectable = false;\n                displayClue();\n            }\n        }\n    });\n\n    // setup the default UI and API\n    let roundID = 0;\n\n    // init api objects\n    game = engine.initDefaultGame();\n    round = game.getRound(roundID);\n\n    // init ui wheel\n    wheel.init();\n    wheel.buildCreate(round);\n\n    // init ui board\n    initGameBoard();\n\n});\n\n// function used to update the trivia modal dialog\nfunction populateTriviaFromEngine(clicked_col, clicked_row) {\n\n    let roundID = 0;\n    let round;\n\n    // the update given -1 will read from the UI widget -- e.g. editing mode\n    if (gameRound == -1) {\n        // get the round chosen from the round drop down box\n        roundID = $(\"#select-round\").val() - 1;\n        round = game.getRound(roundID);\n    }\n\n    round = game.getRound(gameRound);\n    // fetch the clue from the engine\n    cell_content = round.board.getClue(clicked_col, clicked_row);\n\n}\n\nfunction initGameBoardFromRound(roundChoice) {\n\n    console.log(\"Board redraw - round: \" + roundChoice);\n    let edit_round = game.getRound(roundChoice);\n\n    // setup the points (cells) for the game as chosen in the drop down box\n    $(\"#triviaTable tbody tr\").each(function (row_index, row) {\n        let current_row = $(row);\n        let cols = 6;\n        let column_index = 0;\n        let current_clue;\n        // iterate through the table, adjusting the points to those associated\n        // with the chosen board's point value\n        for (column_index = 0; column_index < cols; column_index++) {\n            let current_column = current_row[0].cells[column_index];\n            //console.log(\"Column Index: \" + column_index + \", column text: \" + current_column.innerHTML);\n            current_clue = edit_round.board.getClue(column_index, row_index);\n            current_column.innerHTML = current_clue.points;\n        }\n    });\n\n    // setup the categories\n    let current_categories = edit_round.board.categoryNames;\n    $(\"#triviaTable thead th\").each(function (category_index, category) {\n        let current_category_cell = $(category);\n        //console.log(\"category Index: \" + category_index);\n        //console.log(\"category name: \" + current_categories[category_index]);\n        //console.log($(category));\n        $(category)[0].innerHTML = current_categories[category_index];\n    });\n\n    // reset board css\n    for(let column=0; column<round.board.columns; column++){\n        for (let row = 0; row<round.board.rows; row++) {\n            board.removeStyle(column, row);\n        }\n    }\n}\n\nfunction initGameBoard() {\n    // setup the game board assuming round 0\n    initGameBoardFromRound(0);\n}\n\nfunction toggleClicks() {\n    toggleCategoryClicks();\n    toggleTriviaClicks();\n}\n\nfunction toggleCategoryClicks() {\n    if (category_editable) { category_editable = false; }\n    else { category_editable = true; }\n}\n\nfunction toggleTriviaClicks() {\n    if (trivia_editable) { trivia_editable = false; }\n    else { trivia_editable = true; }\n}\n\nfunction editCategory() {\n    let valid = true;\n    frm_name_category.removeClass(\"ui-state-error\");\n    valid = valid && checkLength(frm_name_category, \"category\", 3, 32);\n    valid = valid && checkRegexp(frm_name_category, /^[0-9a-zA-Z]([0-9a-zA-Z_\\s,\\&\\^\\%\\$\\#\\@\\!\\)\\(\\*\\[\\]\\{\\}\\-\\_\\.\\?\\'\\‘\\’])+$/i, \"Input must begin with letters, or numbers; it may contain special characters.\");\n\n    // validates the form's input field, and closes the modal\n    if (valid) {\n        let category_updated = frm_name_category.val();\n        clicked_element.target.innerHTML = category_updated;\n        console.log(\"Input: Category Update: \" + category_updated);\n        round.board.editCategory(clicked_col, category_updated);\n        category_dialog.dialog(\"close\");\n    }\n    return valid;\n}\n\nfunction editTrivia() {\n    let valid = true;\n    frm_name_trivia_question.removeClass(\"ui-state-error\");\n    frm_name_trivia_answer.removeClass(\"ui-state-error\");\n\n    valid = valid && checkLength(frm_name_trivia_question, \"trivia\", 3, 256);\n    valid = valid && checkRegexp(frm_name_trivia_question, /^[0-9a-zA-Z]([0-9a-zA-Z_\\s,\\&\\^\\%\\$\\#\\@\\!\\)\\(\\*\\[\\]\\{\\}\\-\\_\\.\\?\\'\\‘\\’])+$/i, \"Input must begin with letters, or numbers; it may contain special characters.\");\n    valid = valid && checkLength(frm_name_trivia_answer, \"trivia\", 3, 256);\n    valid = valid && checkRegexp(frm_name_trivia_answer, /^[0-9a-zA-Z]([0-9a-zA-Z_\\s,\\&\\^\\%\\$\\#\\@\\!\\)\\(\\*\\[\\]\\{\\}\\-\\_\\.\\?\\'\\‘\\’])+$/i, \"Input must begin with letters, or numbers; it may contain special characters.\");\n\n    // validates the form's input field, and closes the modal\n    if (valid) {\n        // store the user's trivia information in the local session table\n        let question = frm_name_trivia_question.val();\n        let answer = frm_name_trivia_answer.val();\n        console.log(\"Input: \\nQuestion: \" + question + \"\\nAnswer: \" + answer);\n        round.board.editClue(clicked_col, clicked_row, question, answer);\n\n        trivia_dialog.dialog(\"close\");\n    }\n    return valid;\n}\n\nfunction updateTips(t) {\n    tips\n        .text(t)\n        .addClass(\"ui-state-highlight\");\n    setTimeout(function () {\n        tips.removeClass(\"ui-state-highlight\", 3000);\n    }, 1500);\n}\n\nfunction checkLength(o, n, min, max) {\n    if (o.val().length > max || o.val().length < min) {\n        o.addClass(\"ui-state-error\");\n        updateTips(\"Length of \" + n + \" must be between \" + min + \" and \" + max + \".\");\n        return false;\n    } else {\n        return true;\n    }\n}\n\nfunction checkRegexp(o, regexp, n) {\n    if (!(regexp.test(o.val()))) {\n        o.addClass(\"ui-state-error\");\n        updateTips(n);\n        return false;\n    } else { return true; }\n}\n\nlet player = {\n    setPoints: function (id, points){\n        $(\"#player\" + id + \" .points\").text(points);\n    },\n\n    setTokens: function (id, tokens){\n        $(\"#player\" + id + \" .tokens\").text(tokens);\n    },\n\n    startTurn: function(id){\n        $(\"#player\" + id + \" input\").toggleClass(\"current-turn\", true);\n    },\n    \n    endTurn: function (id) {\n        $(\"#player\" + id + \" input\").toggleClass(\"current-turn\", false);\n    },\n\n    readOnlyOn: function (id){\n        $(\"#player\" + id + \" input\").prop(\"readonly\", true);\n    },\n\n    readOnlyOff: function (id) {\n        $(\"#player\" + id + \" input\").prop(\"readonly\", false);\n    },\n\n    reset: function(){\n        for(let i=0; i<playerCount; i++){\n            player.setPoints(i, 0);\n            player.setTokens(i, 0);\n            player.startTurn(i);\n            player.endTurn(i);\n            player.readOnlyOff(i);\n        }\n        player.startTurn(0);\n        playerCount = 3;\n    }\n}\n\nlet playPanel = {\n    getRound: function () {\n        return $(\"#txt-round\").text();\n    },\n    setRound: function(round){\n        $(\"#txt-round\").text(round);\n    },\n    getSpins: function () {\n        return $(\"#txt-spins\").text();\n    },\n    setSpins: function (spins) {\n        $(\"#txt-spins\").text(spins);\n    },\n    getClues: function () {\n        return $(\"#txt-clues\").text();\n    },\n    setClues: function (clues) {\n        $(\"#txt-clues\").text(clues);\n    },\n    deductSpin: function(i=1) {\n        playPanel.setSpins(playPanel.getSpins() - i);\n    },\n    deductClue: function (i=1) {\n        playPanel.setClues(playPanel.getClues() - i);\n    },\n    reset: function(){\n        playPanel.setRound(1);\n        playPanel.setSpins(50);\n        playPanel.setClues(30);\n    }\n}\n\nlet clueText = {\n    empty: function(){\n        $(\"#clue-text\").text(\"\");\n    },\n    write: function(txt){\n        $(\"#clue-text\").text(txt);\n    }\n}\n\nlet wheel = {\n    init: function (svgID = \"#wheel\") {\n        let svg = d3.select(svgID);\n        let width = +svg.attr(\"width\");\n        let height = +svg.attr(\"height\");\n        wheel.radius = Math.min(width, height) / 2;\n        wheel.base = svg.append(\"g\")\n            .attr(\"transform\", \"translate(\" + width/2 + \",\" + height/2 + \")\");\n        wheel.g = wheel.base\n            .append(\"g\");\n        wheel.oldAngle = 0;\n        wheel.newAngle = 0;\n\n        wheel.width = width;\n        wheel.height = height;\n    },\n\n    specialSectorLabels: {\n        \"Bankrupt\": '\\uf1e2',\n        \"Opponent's Choice\": '\\uf0c0',\n        \"Lose Turn\": '\\uf119',\n        \"Double Score\": '\\uf155\\uf155',\n        \"Player's Choice\": '\\uf007',\n        \"Free Turn\": '\\uf51e'\n    },\n\n    buildCreate: function(round){\n        let data = wheel.buildData(round);\n        wheel.create(data);\n    },\n\n    buildData: function(round) {\n        let w = round.wheel;\n        let data = [];\n        \n        for(let i=0; i<w.slots.length; i++){\n            let slot = {};\n            let sectorNumber = w.slots[i];\n            let sectorName = w.getSectorName(sectorNumber);\n            slot['slot'] = i;\n            slot['sector'] = sectorNumber;\n            slot['name'] = sectorName;\n\n            if(w.sectorIsCategory(sectorNumber)){\n                slot['label'] = 1 + sectorNumber;\n            } else {\n                slot['label'] = wheel.specialSectorLabels[sectorName];\n            }\n            data.push(slot);\n        }\n        return data;\n    },\n\n    create: function (data) {\n        wheel.data = data;\n\n        wheel.g.selectAll(\"*\").remove();\n\n        let color = d3.scaleOrdinal(d3.schemeSet3);\n\n        let pie = d3.pie()\n            .sort(null)\n            .value(function (d) { return 1; });\n\n        let path = d3.arc()\n            .outerRadius(wheel.radius - 10)\n            .innerRadius(40);\n\n        wheel.label = d3.arc()\n            .outerRadius(wheel.radius - 40)\n            .innerRadius(wheel.radius - 40);\n\n        let arc = wheel.g.selectAll(\".arc\")\n            .data(pie(wheel.data))\n            .enter().append(\"g\")\n            .attr(\"class\", \"arc\");\n\n        arc.append(\"path\")\n            .attr(\"d\", path)\n            .attr(\"fill\", function (d) { return color(d.data.slot); });\n\n        wheel.text = arc.append(\"text\")\n            .attr(\"transform\", function (d) {\n                return \"translate(\" + wheel.label.centroid(d) + \")\";\n            })\n            .attr(\"dy\", \"0.35em\")\n            .text(function (d) { return d.data.label; });\n\n        wheel.timerCircle = wheel.base.append(\"circle\")\n            .attr(\"r\", \"40\")\n            .attr(\"fill\", \"#adc9e2\");\n\n        wheel.timerText = wheel.base.append(\"text\")\n            .attr(\"text-anchor\", \"middle\")\n            .attr(\"alignment-baseline\", \"central\")\n            .attr(\"font-size\", 32)\n            .text(\"\\uf017\")\n            .attr(\"id\", \"timer\")\n            .classed(\"fa\", true);\n\n        var symbol = d3.symbol()\n            .type(d3.symbolTriangle)\n            .size(200);\n\n        let pointerY = wheel.radius - 10;\n        wheel.base.append(\"path\")\n            .attr('d', symbol)\n            .attr('transform', 'rotate(180) translate(0, ' + pointerY + ')');\n\n    },\n\n    rotate: function (slot = 0, callback=function(){}) {\n        let arcLength = 360 / wheel.data.length;\n        let slotArcCenter = arcLength * slot + arcLength / 2;\n\n        wheel.newAngle = 1440 - slotArcCenter;\n        let textAngle = 360 - slotArcCenter;\n\n        function rotTween() {\n            let i = d3.interpolate(wheel.oldAngle % 360, wheel.newAngle);\n            return function (t) {\n                return \"rotate(\" + i(t) + \")\";\n            };\n        }\n\n        if(debug){\n            let sectorDuration = 0;\n            let textDuration = 0;\n        } else {\n            let sectorDuration = 3000;\n            let textDuration = 2000;\n        }\n\n        wheel.g.transition()\n            .attrTween(\"transform\", rotTween)\n            .duration(function(){\n                return (debug) ? 0 : 3000;\n            })\n            .on(\"end\", function () {\n                wheel.oldAngle = wheel.newAngle;\n                callback();\n            });\n\n        wheel.text.transition()\n            .attr(\"transform\", function (dd) {\n                let ctr = wheel.label.centroid(dd);\n                return \"translate(\" + ctr + \") rotate(\" + (-textAngle) + \")\";\n            })\n            .duration(function(){\n                return (debug) ? 0 : 2000;\n            });\n    },\n\n    startTimer: function(duration=20){\n        wheel.timerText.text(\"20\");\n        wheel.timer = d3.interval(function(elapsed){\n            wheel.timerText.transition()\n                .duration(750)\n                .text(duration - Math.floor(elapsed/1000));\n            if (elapsed > duration * 1000){\n                wheel.timer.stop();\n                wheel.timerCircle.attr(\"fill\", \"red\");\n            }\n        }, 1000)\n    },\n\n    stopTimer: function(){\n        wheel.timer.stop();\n    },\n\n    resetTimer: function(){\n        wheel.stopTimer();\n        wheel.timerText.text(\"\\uf017\");\n        wheel.timerCircle.attr(\"fill\", \"#adc9e2\");\n    }\n}\n\nlet board = {\n    setActiveClue: function(column, row){\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"current-clue\", true);\n    },\n\n    setValidClue: function(column, row){\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"current-clue\", false);\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"valid-clue\", true);\n    },\n\n    setInvalidClue: function (column, row) {\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"current-clue\", false);\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"invalid-clue\", true);\n    },\n    removeStyle: function(column, row){\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"current-clue\", false);\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"valid-clue\", false);\n        $(\"#t_\" + column + \"_\" + row).toggleClass(\"invalid-clue\", false);\n    }\n\n}\n\nlet dialog = {\n    show: function (title, text) {\n        $(\"#dialog\").attr(\"title\", title)\n            .html(\"<p>\" + text + \"</p>\");\n\n        $(\"#dialog\").dialog({\n            modal: true,\n            buttons: [{\n                text: \"OK\",\n                click: function () {\n                    $(this).dialog(\"close\");\n                }\n            }],\n            close: function (event, ui) {\n                wheel.rotate();\n            }\n        });\n    },\n\n    endRound: function () {\n        let title = \"Round Complete\";\n        let roundNumber = game.currentRound + 1;\n        let text = \"Round \" + roundNumber + \" is complete.<br><br>\"\n\n        let leaders = game.getLeaderBoard();\n        for (let i = 0; i < leaders.length; i++) {\n            text += leaders[i].name + \": \" + leaders[i].totalScore + \"<br>\";\n        }\n        dialog.show(title, text);\n    },\n\n    endGame: function () {\n        let title = \"Game Complete\";\n        let roundNumber = game.currentRound + 1;\n        let text = \"Game is complete.<br><br>\"\n\n        let leaders = game.getLeaderBoard();\n        for (let i = 0; i < leaders.length; i++) {\n            text += leaders[i].name + \": \" + leaders[i].totalScore + \"<br>\";\n        }\n        dialog.show(title, text);\n    }\n}\n\nfunction displayClue(){\n    $(\".spin-phase\").hide();\n    $(\".answer-phase\").show();\n    \n    playPanel.deductClue();\n\n    let clue = round.currentClue;\n    let points = clue.points;\n    let category = round.board.getCategory(clue.column).name;\n\n    board.setActiveClue(clue.column, clue.row);\n    clueText.write(category + \" (\" + points +\")\\n\" + clue.question);\n\n    wheel.startTimer();\n}\n\nfunction switchPlayer(){\n    // end current players turn and toggle UI\n    player.endTurn(round.currentPlayerID);\n    round.endTurn();\n    player.startTurn(round.currentPlayerID);\n}\n\nfunction hidePanels(){\n    $(\".edit-panel\").hide();\n    $(\".play-panel\").hide();\n    $(\".spin-phase\").hide();\n    $(\".answer-phase\").hide();\n    $(\".validate-phase\").hide();\n    $(\".token-phase\").hide();\n}\n\nfunction download(filename, text) {\n    // source: https://goo.gl/VWW2sT\n    var element = document.createElement('a');\n    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));\n    element.setAttribute('download', filename);\n    element.style.display = 'none';\n    document.body.appendChild(element);\n\n    element.click();\n    document.body.removeChild(element);\n}\n\nclass Alert {\n    static success(msg) {\n        let a = $(\"#alert\");\n        a.removeClass(\"alert-danger alert-success alert-warning\")\n            .addClass(\"alert-success\");\n        a.find(\"#alert-text\").empty().text(msg);\n        a.show();\n    };\n\n    static danger(msg) {\n        let a = $(\"#alert\");\n        a.removeClass(\"alert-danger alert-success alert-warning\")\n            .addClass(\"alert-danger\");\n        a.find(\"#alert-text\").empty().html(msg);\n        a.show();\n    };\n\n    static warning(msg) {\n        let a = $(\"#alert\");\n        a.removeClass(\"alert-danger alert-success alert-warning\")\n            .addClass(\"alert-warning\");\n        a.find(\"#alert-text\").empty().html(msg);\n        a.show();\n    };\n\n    static hide(ms) {\n        // set milliseconds to delay hide\n        if (ms) {\n            setTimeout(function () { $(\"#alert\").hide(\"slow\") }, ms);\n        } else {\n            $(\"#alert\").hide();\n        }\n    };\n}\n",
     "static": true,
     "longname": "/Users/bmw/Documents/education/jhu/EN.605.601.81.SU18 Foundations of Software Engineering/teamvelocity.github.io/scripts/ui.js",
     "access": "public",
@@ -3725,6 +3762,31 @@
   },
   {
     "__docId__": 192,
+    "kind": "variable",
+    "name": "debug",
+    "memberof": "scripts/ui.js",
+    "static": true,
+    "longname": "scripts/ui.js~debug",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/ui.js",
+    "importStyle": null,
+    "description": "",
+    "lineNumber": 7,
+    "unknown": [
+      {
+        "tagName": "@file",
+        "tagValue": "UI setup and interaction."
+      }
+    ],
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 193,
     "kind": "variable",
     "name": "playerCount",
     "memberof": "scripts/ui.js",
@@ -3735,7 +3797,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 10,
+    "lineNumber": 11,
     "undocument": true,
     "type": {
       "types": [
@@ -3745,7 +3807,7 @@
     "ignore": true
   },
   {
-    "__docId__": 193,
+    "__docId__": 194,
     "kind": "variable",
     "name": "categorySelectable",
     "memberof": "scripts/ui.js",
@@ -3756,28 +3818,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 11,
-    "undocument": true,
-    "type": {
-      "types": [
-        "boolean"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 194,
-    "kind": "variable",
-    "name": "category_editable",
-    "memberof": "scripts/ui.js",
-    "static": true,
-    "longname": "scripts/ui.js~category_editable",
-    "access": "public",
-    "export": false,
-    "importPath": "./scripts/ui.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 13,
+    "lineNumber": 12,
     "undocument": true,
     "type": {
       "types": [
@@ -3789,10 +3830,10 @@
   {
     "__docId__": 195,
     "kind": "variable",
-    "name": "trivia_editable",
+    "name": "category_editable",
     "memberof": "scripts/ui.js",
     "static": true,
-    "longname": "scripts/ui.js~trivia_editable",
+    "longname": "scripts/ui.js~category_editable",
     "access": "public",
     "export": false,
     "importPath": "./scripts/ui.js",
@@ -3810,6 +3851,27 @@
   {
     "__docId__": 196,
     "kind": "variable",
+    "name": "trivia_editable",
+    "memberof": "scripts/ui.js",
+    "static": true,
+    "longname": "scripts/ui.js~trivia_editable",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 197,
+    "kind": "variable",
     "name": "fill_value",
     "memberof": "scripts/ui.js",
     "static": true,
@@ -3819,7 +3881,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 17,
+    "lineNumber": 18,
     "undocument": true,
     "type": {
       "types": [
@@ -3829,33 +3891,12 @@
     "ignore": true
   },
   {
-    "__docId__": 197,
+    "__docId__": 198,
     "kind": "variable",
     "name": "frm_name_category",
     "memberof": "scripts/ui.js",
     "static": true,
     "longname": "scripts/ui.js~frm_name_category",
-    "access": "public",
-    "export": false,
-    "importPath": "./scripts/ui.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 26,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 198,
-    "kind": "variable",
-    "name": "frm_name_trivia_question",
-    "memberof": "scripts/ui.js",
-    "static": true,
-    "longname": "scripts/ui.js~frm_name_trivia_question",
     "access": "public",
     "export": false,
     "importPath": "./scripts/ui.js",
@@ -3873,10 +3914,10 @@
   {
     "__docId__": 199,
     "kind": "variable",
-    "name": "frm_name_trivia_answer",
+    "name": "frm_name_trivia_question",
     "memberof": "scripts/ui.js",
     "static": true,
-    "longname": "scripts/ui.js~frm_name_trivia_answer",
+    "longname": "scripts/ui.js~frm_name_trivia_question",
     "access": "public",
     "export": false,
     "importPath": "./scripts/ui.js",
@@ -3894,10 +3935,10 @@
   {
     "__docId__": 200,
     "kind": "variable",
-    "name": "tips",
+    "name": "frm_name_trivia_answer",
     "memberof": "scripts/ui.js",
     "static": true,
-    "longname": "scripts/ui.js~tips",
+    "longname": "scripts/ui.js~frm_name_trivia_answer",
     "access": "public",
     "export": false,
     "importPath": "./scripts/ui.js",
@@ -3914,6 +3955,27 @@
   },
   {
     "__docId__": 201,
+    "kind": "variable",
+    "name": "tips",
+    "memberof": "scripts/ui.js",
+    "static": true,
+    "longname": "scripts/ui.js~tips",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 202,
     "kind": "function",
     "name": "populateTriviaFromEngine",
     "memberof": "scripts/ui.js",
@@ -3926,7 +3988,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 464,
+    "lineNumber": 465,
     "undocument": true,
     "params": [
       {
@@ -3946,7 +4008,7 @@
     "ignore": true
   },
   {
-    "__docId__": 202,
+    "__docId__": 203,
     "kind": "function",
     "name": "initGameBoardFromRound",
     "memberof": "scripts/ui.js",
@@ -3959,7 +4021,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 482,
+    "lineNumber": 483,
     "undocument": true,
     "params": [
       {
@@ -3973,7 +4035,7 @@
     "ignore": true
   },
   {
-    "__docId__": 203,
+    "__docId__": 204,
     "kind": "function",
     "name": "initGameBoard",
     "memberof": "scripts/ui.js",
@@ -3986,14 +4048,14 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 521,
+    "lineNumber": 522,
     "undocument": true,
     "params": [],
     "return": null,
     "ignore": true
   },
   {
-    "__docId__": 204,
+    "__docId__": 205,
     "kind": "function",
     "name": "toggleClicks",
     "memberof": "scripts/ui.js",
@@ -4006,14 +4068,14 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 526,
+    "lineNumber": 527,
     "undocument": true,
     "params": [],
     "return": null,
     "ignore": true
   },
   {
-    "__docId__": 205,
+    "__docId__": 206,
     "kind": "function",
     "name": "toggleCategoryClicks",
     "memberof": "scripts/ui.js",
@@ -4026,14 +4088,14 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 531,
+    "lineNumber": 532,
     "undocument": true,
     "params": [],
     "return": null,
     "ignore": true
   },
   {
-    "__docId__": 206,
+    "__docId__": 207,
     "kind": "function",
     "name": "toggleTriviaClicks",
     "memberof": "scripts/ui.js",
@@ -4046,14 +4108,14 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 536,
+    "lineNumber": 537,
     "undocument": true,
     "params": [],
     "return": null,
     "ignore": true
   },
   {
-    "__docId__": 207,
+    "__docId__": 208,
     "kind": "function",
     "name": "editCategory",
     "memberof": "scripts/ui.js",
@@ -4066,31 +4128,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 541,
-    "undocument": true,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 208,
-    "kind": "function",
-    "name": "editTrivia",
-    "memberof": "scripts/ui.js",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "scripts/ui.js~editTrivia",
-    "access": "public",
-    "export": false,
-    "importPath": "./scripts/ui.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 558,
+    "lineNumber": 542,
     "undocument": true,
     "params": [],
     "return": {
@@ -4103,6 +4141,30 @@
   {
     "__docId__": 209,
     "kind": "function",
+    "name": "editTrivia",
+    "memberof": "scripts/ui.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "scripts/ui.js~editTrivia",
+    "access": "public",
+    "export": false,
+    "importPath": "./scripts/ui.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 559,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 210,
+    "kind": "function",
     "name": "updateTips",
     "memberof": "scripts/ui.js",
     "generator": false,
@@ -4114,7 +4176,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 581,
+    "lineNumber": 582,
     "undocument": true,
     "params": [
       {
@@ -4128,7 +4190,7 @@
     "ignore": true
   },
   {
-    "__docId__": 210,
+    "__docId__": 211,
     "kind": "function",
     "name": "checkLength",
     "memberof": "scripts/ui.js",
@@ -4141,7 +4203,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 590,
+    "lineNumber": 591,
     "undocument": true,
     "params": [
       {
@@ -4177,7 +4239,7 @@
     "ignore": true
   },
   {
-    "__docId__": 211,
+    "__docId__": 212,
     "kind": "function",
     "name": "checkRegexp",
     "memberof": "scripts/ui.js",
@@ -4190,7 +4252,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 600,
+    "lineNumber": 601,
     "undocument": true,
     "params": [
       {
@@ -4220,7 +4282,7 @@
     "ignore": true
   },
   {
-    "__docId__": 212,
+    "__docId__": 213,
     "kind": "variable",
     "name": "player",
     "memberof": "scripts/ui.js",
@@ -4231,7 +4293,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 608,
+    "lineNumber": 609,
     "undocument": true,
     "type": {
       "types": [
@@ -4241,7 +4303,7 @@
     "ignore": true
   },
   {
-    "__docId__": 213,
+    "__docId__": 214,
     "kind": "variable",
     "name": "playPanel",
     "memberof": "scripts/ui.js",
@@ -4252,7 +4314,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 646,
+    "lineNumber": 647,
     "undocument": true,
     "type": {
       "types": [
@@ -4262,7 +4324,7 @@
     "ignore": true
   },
   {
-    "__docId__": 214,
+    "__docId__": 215,
     "kind": "variable",
     "name": "clueText",
     "memberof": "scripts/ui.js",
@@ -4273,7 +4335,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 678,
+    "lineNumber": 679,
     "undocument": true,
     "type": {
       "types": [
@@ -4283,7 +4345,7 @@
     "ignore": true
   },
   {
-    "__docId__": 215,
+    "__docId__": 216,
     "kind": "variable",
     "name": "wheel",
     "memberof": "scripts/ui.js",
@@ -4294,7 +4356,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 687,
+    "lineNumber": 688,
     "undocument": true,
     "type": {
       "types": [
@@ -4304,7 +4366,7 @@
     "ignore": true
   },
   {
-    "__docId__": 216,
+    "__docId__": 217,
     "kind": "variable",
     "name": "board",
     "memberof": "scripts/ui.js",
@@ -4315,7 +4377,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 852,
+    "lineNumber": 865,
     "undocument": true,
     "type": {
       "types": [
@@ -4325,7 +4387,7 @@
     "ignore": true
   },
   {
-    "__docId__": 217,
+    "__docId__": 218,
     "kind": "variable",
     "name": "dialog",
     "memberof": "scripts/ui.js",
@@ -4336,7 +4398,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 874,
+    "lineNumber": 887,
     "undocument": true,
     "type": {
       "types": [
@@ -4346,7 +4408,7 @@
     "ignore": true
   },
   {
-    "__docId__": 218,
+    "__docId__": 219,
     "kind": "function",
     "name": "displayClue",
     "memberof": "scripts/ui.js",
@@ -4359,14 +4421,14 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 918,
+    "lineNumber": 931,
     "undocument": true,
     "params": [],
     "return": null,
     "ignore": true
   },
   {
-    "__docId__": 219,
+    "__docId__": 220,
     "kind": "function",
     "name": "switchPlayer",
     "memberof": "scripts/ui.js",
@@ -4379,14 +4441,14 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 934,
+    "lineNumber": 947,
     "undocument": true,
     "params": [],
     "return": null,
     "ignore": true
   },
   {
-    "__docId__": 220,
+    "__docId__": 221,
     "kind": "function",
     "name": "hidePanels",
     "memberof": "scripts/ui.js",
@@ -4399,14 +4461,14 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 941,
+    "lineNumber": 954,
     "undocument": true,
     "params": [],
     "return": null,
     "ignore": true
   },
   {
-    "__docId__": 221,
+    "__docId__": 222,
     "kind": "function",
     "name": "download",
     "memberof": "scripts/ui.js",
@@ -4419,7 +4481,7 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 950,
+    "lineNumber": 963,
     "undocument": true,
     "params": [
       {
@@ -4439,7 +4501,7 @@
     "ignore": true
   },
   {
-    "__docId__": 222,
+    "__docId__": 223,
     "kind": "class",
     "name": "Alert",
     "memberof": "scripts/ui.js",
@@ -4450,13 +4512,13 @@
     "importPath": "./scripts/ui.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 962,
+    "lineNumber": 975,
     "undocument": true,
     "interface": false,
     "ignore": true
   },
   {
-    "__docId__": 223,
+    "__docId__": 224,
     "kind": "method",
     "name": "success",
     "memberof": "scripts/ui.js~Alert",
@@ -4466,31 +4528,7 @@
     "longname": "scripts/ui.js~Alert.success",
     "access": "public",
     "description": null,
-    "lineNumber": 963,
-    "undocument": true,
-    "params": [
-      {
-        "name": "msg",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "return": null,
-    "ignore": true
-  },
-  {
-    "__docId__": 224,
-    "kind": "method",
-    "name": "danger",
-    "memberof": "scripts/ui.js~Alert",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "scripts/ui.js~Alert.danger",
-    "access": "public",
-    "description": null,
-    "lineNumber": 971,
+    "lineNumber": 976,
     "undocument": true,
     "params": [
       {
@@ -4506,15 +4544,15 @@
   {
     "__docId__": 225,
     "kind": "method",
-    "name": "warning",
+    "name": "danger",
     "memberof": "scripts/ui.js~Alert",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "scripts/ui.js~Alert.warning",
+    "longname": "scripts/ui.js~Alert.danger",
     "access": "public",
     "description": null,
-    "lineNumber": 979,
+    "lineNumber": 984,
     "undocument": true,
     "params": [
       {
@@ -4530,6 +4568,30 @@
   {
     "__docId__": 226,
     "kind": "method",
+    "name": "warning",
+    "memberof": "scripts/ui.js~Alert",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "scripts/ui.js~Alert.warning",
+    "access": "public",
+    "description": null,
+    "lineNumber": 992,
+    "undocument": true,
+    "params": [
+      {
+        "name": "msg",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 227,
+    "kind": "method",
     "name": "hide",
     "memberof": "scripts/ui.js~Alert",
     "generator": false,
@@ -4538,7 +4600,7 @@
     "longname": "scripts/ui.js~Alert.hide",
     "access": "public",
     "description": null,
-    "lineNumber": 987,
+    "lineNumber": 1000,
     "undocument": true,
     "params": [
       {

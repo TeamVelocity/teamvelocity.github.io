@@ -510,6 +510,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "scripts/engine.js~game#getleaderboard",
+    "class/scripts/engine.js~Game.html#instance-method-getLeaderBoard",
+    "scripts/engine.js~Game#getLeaderBoard",
+    "method"
+  ],
+  [
     "scripts/engine.js~game#getplayer",
     "class/scripts/engine.js~Game.html#instance-method-getPlayer",
     "scripts/engine.js~Game#getPlayer",

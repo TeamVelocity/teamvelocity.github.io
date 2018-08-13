@@ -81,12 +81,7 @@ let tips = $( &quot;.validateTips&quot; );
 
 $(document).ready(function() {
     // hide panels
-    $(&quot;.edit-panel&quot;).hide();
-    $(&quot;.play-panel&quot;).hide();
-    $(&quot;.spin-phase&quot;).hide();
-    $(&quot;.answer-phase&quot;).hide();
-    $(&quot;.validate-phase&quot;).hide();
-    $(&quot;.token-phase&quot;).hide();
+    hidePanels();
 
     // click - hide alert
     $(&quot;#btn-alert&quot;).click(function() {
@@ -156,14 +151,17 @@ $(document).ready(function() {
 
         // add players to game api
         for (let i = 0; i &lt; playerCount; i++) {
-            let player = $(&quot;#player&quot; + i);
+            let playerName = $(&quot;#player&quot; + i).val();
             $(&quot;#player&quot; + i + &quot; input&quot;).prop(&quot;readonly&quot;, true);
-            game.addPlayer($(&quot;input&quot;, player).val());
+
+            if (playerName == &quot;&quot;){
+                playerName = &quot;Player &quot; + (i + 1);
+            }
+            game.addPlayer(playerName);
         }
 
-        let id = 0;
-
         // start api round
+        let id = 0;
         round = game.getRound(id);
         round.start();
 
@@ -177,31 +175,27 @@ $(document).ready(function() {
     // click - spin
     $(&quot;#btn-spin&quot;).click(function () {
 
-        // test dialog
-        $(&quot;#dialog&quot;).dialog({
-            modal: true,
-            title: &quot;Round Complete&quot;,
-            buttons: [{
-                text: &quot;OK&quot;,
-                click: function () {
-                    $(this).dialog(&quot;close&quot;);
-                }
-            }],
-            close: function (event, ui) {
-
-            }
-        });
-
         if(round.complete){
             if(game.complete){
-                // display end of game modal
+                display.endGame();
                 return;
-            } else {
-                // display end of round modal
 
-                // update wheel
-                // update board
-                // start round
+            } else {
+                dialog.endRound();
+
+                // start new round
+                game.currentRound++;
+                let roundID = game.currentRound;
+
+                round = game.getRound(roundID);
+                round.start();
+
+                wheel.buildCreate(round);
+                initGameBoardFromRound(roundID);
+
+                clueText.empty();
+                playPanel.reset();
+                playPanel.setRound(roundID + 1);
                 return
             }
         }
@@ -256,11 +250,13 @@ $(document).ready(function() {
                     case &quot;Player&apos;s Choice&quot;:
                         clueText.write(&quot;You landed on Player&apos;s Choice!\nSelect an open category on the board&quot;);
                         categorySelectable = true;
+                        $(&quot;.spin-phase&quot;).hide();
                         break;
 
                     case &quot;Opponent&apos;s Choice&quot;:
                         clueText.write(&quot;You landed on Opponent&apos;s Choice!\nSelect an open category on the board&quot;);
                         categorySelectable = true;
+                        $(&quot;.spin-phase&quot;).hide();
                         break;
 
                     case &quot;Double Score&quot;:
@@ -339,12 +335,34 @@ $(document).ready(function() {
         $(&quot;.spin-phase&quot;).show();
     });
 
+    // click - end turn
     $(&quot;#btn-end-turn&quot;).click(function () {
         switchPlayer();
         $(&quot;.token-phase&quot;).hide();
         $(&quot;.spin-phase&quot;).show();
     });
 
+    // click - reset
+    $(&quot;#btn-reset&quot;).click(function () {
+        game.getRound(0).reset();
+        game.getRound(1).reset();
+
+        round = game.getRound(0);
+        categorySelectable = false;
+        
+        wheel.buildCreate(round);
+        initGameBoardFromRound(roundID);
+
+        clueText.empty();
+        playPanel.reset();
+        player.reset();
+
+        wheel.rotate();
+        wheel.resetTimer();
+
+        hidePanels();
+        $(&quot;.start-panel&quot;).show();
+    }); 
 
     // set up the edit category dialog
     category_dialog = $(&quot;#category-form&quot;).dialog({
@@ -432,6 +450,11 @@ $(document).ready(function() {
             frm_name_trivia_answer.val(answer);
 
             trivia_dialog.dialog( &quot;open&quot; );
+        }
+
+        // player or opponent choice
+        if (categorySelectable) {
+            Alert.warning(&quot;Select a Category Above.&quot;)
         }
     });
 
@@ -537,6 +560,13 @@ function initGameBoardFromRound(roundChoice) {
         //console.log($(category));
         $(category)[0].innerHTML = current_categories[category_index];
     });
+
+    // reset board css
+    for(let column=0; column&lt;round.board.columns; column++){
+        for (let row = 0; row&lt;round.board.rows; row++) {
+            board.removeStyle(column, row);
+        }
+    }
 }
 
 function initGameBoard() {
@@ -641,6 +671,26 @@ let player = {
     
     endTurn: function (id) {
         $(&quot;#player&quot; + id + &quot; input&quot;).toggleClass(&quot;current-turn&quot;, false);
+    },
+
+    readOnlyOn: function (id){
+        $(&quot;#player&quot; + id + &quot; input&quot;).prop(&quot;readonly&quot;, true);
+    },
+
+    readOnlyOff: function (id) {
+        $(&quot;#player&quot; + id + &quot; input&quot;).prop(&quot;readonly&quot;, false);
+    },
+
+    reset: function(){
+        for(let i=0; i&lt;playerCount; i++){
+            player.setPoints(i, 0);
+            player.setTokens(i, 0);
+            player.startTurn(i);
+            player.endTurn(i);
+            player.readOnlyOff(i);
+        }
+        player.startTurn(0);
+        playerCount = 3;
     }
 }
 
@@ -668,6 +718,11 @@ let playPanel = {
     },
     deductClue: function (i=1) {
         playPanel.setClues(playPanel.getClues() - i);
+    },
+    reset: function(){
+        playPanel.setRound(1);
+        playPanel.setSpins(50);
+        playPanel.setClues(30);
     }
 }
 
@@ -788,10 +843,10 @@ let wheel = {
         wheel.base.append(&quot;path&quot;)
             .attr(&apos;d&apos;, symbol)
             .attr(&apos;transform&apos;, &apos;rotate(180) translate(0, &apos; + pointerY + &apos;)&apos;);
-;
+
     },
 
-    rotate: function (slot = 0, callback) {
+    rotate: function (slot = 0, callback=function(){}) {
         let arcLength = 360 / wheel.data.length;
         let slotArcCenter = arcLength * slot + arcLength / 2;
 
@@ -858,8 +913,57 @@ let board = {
     setInvalidClue: function (column, row) {
         $(&quot;#t_&quot; + column + &quot;_&quot; + row).toggleClass(&quot;current-clue&quot;, false);
         $(&quot;#t_&quot; + column + &quot;_&quot; + row).toggleClass(&quot;invalid-clue&quot;, true);
+    },
+    removeStyle: function(column, row){
+        $(&quot;#t_&quot; + column + &quot;_&quot; + row).toggleClass(&quot;current-clue&quot;, false);
+        $(&quot;#t_&quot; + column + &quot;_&quot; + row).toggleClass(&quot;valid-clue&quot;, false);
+        $(&quot;#t_&quot; + column + &quot;_&quot; + row).toggleClass(&quot;invalid-clue&quot;, false);
     }
 
+}
+
+let dialog = {
+    show: function (title, text) {
+        $(&quot;#dialog&quot;).attr(&quot;title&quot;, title)
+            .html(&quot;&lt;p&gt;&quot; + text + &quot;&lt;/p&gt;&quot;);
+
+        $(&quot;#dialog&quot;).dialog({
+            modal: true,
+            buttons: [{
+                text: &quot;OK&quot;,
+                click: function () {
+                    $(this).dialog(&quot;close&quot;);
+                }
+            }],
+            close: function (event, ui) {
+                wheel.rotate();
+            }
+        });
+    },
+
+    endRound: function () {
+        let title = &quot;Round Complete&quot;;
+        let roundNumber = game.currentRound + 1;
+        let text = &quot;Round &quot; + roundNumber + &quot; is complete.&lt;br&gt;&lt;br&gt;&quot;
+
+        let leaders = game.getLeaderBoard();
+        for (let i = 0; i &lt; leaders.length; i++) {
+            text += leaders[i].name + &quot;: &quot; + leaders[i].totalScore + &quot;&lt;br&gt;&quot;;
+        }
+        dialog.show(title, text);
+    },
+
+    endGame: function () {
+        let title = &quot;Game Complete&quot;;
+        let roundNumber = game.currentRound + 1;
+        let text = &quot;Game is complete.&lt;br&gt;&lt;br&gt;&quot;
+
+        let leaders = game.getLeaderBoard();
+        for (let i = 0; i &lt; leaders.length; i++) {
+            text += leaders[i].name + &quot;: &quot; + leaders[i].totalScore + &quot;&lt;br&gt;&quot;;
+        }
+        dialog.show(title, text);
+    }
 }
 
 function displayClue(){
@@ -883,6 +987,15 @@ function switchPlayer(){
     player.endTurn(round.currentPlayerID);
     round.endTurn();
     player.startTurn(round.currentPlayerID);
+}
+
+function hidePanels(){
+    $(&quot;.edit-panel&quot;).hide();
+    $(&quot;.play-panel&quot;).hide();
+    $(&quot;.spin-phase&quot;).hide();
+    $(&quot;.answer-phase&quot;).hide();
+    $(&quot;.validate-phase&quot;).hide();
+    $(&quot;.token-phase&quot;).hide();
 }
 
 function download(filename, text) {

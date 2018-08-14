@@ -193,9 +193,11 @@
                     </div>
                 </form>
             </div>
-            <div class="col-8 text-right">
-                <button id="btn-import" type="button" class="btn btn-outline-info">Import</button>
-                <button id="btn-export" type="button" class="btn btn-outline-info">Export</button>
+                <div class="col-8 text-right">
+                <label id="btn-import" class="btn btn-outline-info btn-file mb-0">
+                    Import <input type="file" style="display: none;" onchange="upload(event)">
+                </label>
+                    <button id="btn-export" type="button" class="btn btn-outline-info">Export</button>
             </div>
         </div>
         

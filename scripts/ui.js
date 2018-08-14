@@ -1001,6 +1001,28 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
+function upload(event){
+    let input = event.target;
+
+    let reader = new FileReader();
+    reader.onload = function () {
+        // should prob add some validation...
+        let roundID = $("#select-round").val() - 1;
+        let round = game.getRound(roundID)
+        round.board.import(reader.result);
+        initGameBoardFromRound(roundID);
+        Alert.success('Loaded: ' + input.files[0].name);
+        Alert.hide(2000);
+    };
+
+    reader.onerror = function (event) {
+        Alert.warning('File error: ' + event.target.error.code);
+        Alert.hide(2000);
+    };
+
+    reader.readAsText(input.files[0]);
+}
+
 class Alert {
     static success(msg) {
         let a = $("#alert");

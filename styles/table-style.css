@@ -18,6 +18,10 @@
     background: #cca8b4;
 }
 
+.expired-clue {
+    color:#000000;
+    background: #a3a1a2;
+}
 
 #triviaTable {
     font-size: 1em;

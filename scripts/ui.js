@@ -844,9 +844,33 @@ let wheel = {
             wheel.timerText.transition()
                 .duration(750)
                 .text(duration - Math.floor(elapsed/1000));
-            if (elapsed > duration * 1000){
-                wheel.timer.stop();
+
+            // 25% of time remains
+            if (elapsed > duration * 0.75 * 1000) {
                 wheel.timerCircle.attr("fill", "red");
+            }
+
+            // time expires
+            if (elapsed > duration * 1000){
+                wheel.resetTimer();
+
+                let clue = round.currentClue;
+                board.setExpiredClue(clue.column, clue.row);
+
+                clueText.write("Time Expired!");
+                $(".answer-phase").hide();
+                if (round.currentPlayer.hasToken()) {
+                    // present option to use token
+                    $(".token-phase").show();
+                } else {
+                    // switch to next player
+                    switchPlayer();
+                    $(".spin-phase").show();
+                }
+
+                wheel.timerText.transition()
+                    .duration(750)
+                    .text("\uf017");
             }
         }, 1000)
     },
@@ -876,11 +900,16 @@ let board = {
         $("#t_" + column + "_" + row).toggleClass("current-clue", false);
         $("#t_" + column + "_" + row).toggleClass("invalid-clue", true);
     },
+    setExpiredClue: function (column, row) {
+        $("#t_" + column + "_" + row).toggleClass("current-clue", false);
+        $("#t_" + column + "_" + row).toggleClass("expired-clue", true);
+    },
     removeStyle: function(column, row){
         $("#t_" + column + "_" + row).toggleClass("current-clue", false);
         $("#t_" + column + "_" + row).toggleClass("valid-clue", false);
         $("#t_" + column + "_" + row).toggleClass("invalid-clue", false);
-    }
+        $("#t_" + column + "_" + row).toggleClass("expired-clue", false);
+        }
 
 }
 

@@ -639,7 +639,6 @@ let player = {
             player.endTurn(i);
             player.readOnlyOff(i);
         }
-        player.startTurn(0);
         playerCount = 3;
     }
 }

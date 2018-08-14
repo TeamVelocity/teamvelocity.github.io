@@ -231,6 +231,7 @@ $(document).ready(function() {
 
     // click - valid
     $("#btn-valid").click(function () {
+        wheel.stopTimer();
         wheel.resetTimer();
 
         // update board UI
@@ -250,6 +251,7 @@ $(document).ready(function() {
 
     // click - invalid
     $("#btn-invalid").click(function () {
+        wheel.stopTimer();
         wheel.resetTimer();
 
         let clue = round.currentClue;
@@ -294,6 +296,7 @@ $(document).ready(function() {
 
     // click - reset
     $("#btn-reset").click(function () {
+        game.players = [];
         game.getRound(0).reset();
         game.getRound(1).reset();
 
@@ -851,6 +854,7 @@ let wheel = {
 
             // time expires
             if (elapsed > duration * 1000){
+                wheel.stopTimer();
                 wheel.resetTimer();
 
                 let clue = round.currentClue;
@@ -879,7 +883,6 @@ let wheel = {
     },
 
     resetTimer: function(){
-        wheel.stopTimer();
         wheel.timerText.text("\uf017");
         wheel.timerCircle.attr("fill", "#adc9e2");
     }

@@ -47,3 +47,11 @@ body {
 #clue-text {
     background-color: white;
 }
+
+#jarchive-gameid{
+    width: 100px;
+}
+
+#disclaimer{
+    font-size: 10px;
+}

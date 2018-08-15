@@ -63,10 +63,32 @@ $(document).ready(function() {
         initGameBoardFromRound(0);
     });
 
+    // click - j-archive
+    $("#btn-jarchive").click(function () {
+        let gameID = $("#jarchive-gameid").val();
+        let roundID = $("#select-round").val() - 1;
+
+        jarchive.get(gameID, roundID, function(data){
+            try {
+                let obj = jarchive.parsePage(data, roundID);
+                let round = game.getRound(roundID);
+
+                round.board.import(obj);
+                initGameBoardFromRound(roundID);
+                
+                Alert.success('Loaded Game-ID: ' + gameID);
+                Alert.hide(2000);
+            } catch (error) {
+                Alert.danger('No game exists for Game-ID: ' + gameID);
+                Alert.hide(2000);
+            }
+        });
+    });
+
     // click - export board
     $("#btn-export").click(function() {
         let roundID = $("#select-round").val() - 1;
-        let round = game.getRound(roundID)
+        let round = game.getRound(roundID);
         download('board.json', round.board.export());
     });
 

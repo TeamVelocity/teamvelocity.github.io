@@ -193,7 +193,13 @@
                     </div>
                 </form>
             </div>
-                <div class="col-8 text-right">
+            <div class="col-4 text-center">
+                <form class="form-inline">
+                    <button id="btn-jarchive" type="button" class="btn btn-outline-primary btn">J-Archive</button>
+                    <input type="text" class="form-control" id="jarchive-gameid" placeholder="Game-ID">
+                </form>
+            </div>
+            <div class="col-4 text-right">
                 <label id="btn-import" class="btn btn-outline-info btn-file mb-0">
                     Import <input type="file" style="display: none;" onchange="upload(event)">
                 </label>
@@ -257,6 +263,20 @@
                 </a>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <p id="disclaimer">
+                    The Jeopardy! game show and all elements thereof, including 
+                    but not limited to copyright and trademark thereto, are the 
+                    property of Jeopardy Productions, Inc. and are protected 
+                    under law. This website is not affiliated with, sponsored
+                    by, or operated by Jeopardy Productions, Inc. The J! Archive
+                    is created by fans, for fans.
+                </p>
+            </div>
+        </div>
+
     </div>
     
     <!-- floating elements - not in container -->
@@ -306,6 +326,7 @@
     <script src="scripts/data.js"></script>
     <script src="scripts/engine.js"></script>
     <script src="scripts/ui.js"></script>
+    <script src="scripts/jarchive.js"></script>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 let jarchive = {
     get: function (gameId, round=1, callback){
-        let webUrl = 'http://www.whateverorigin.org/get?url=';
+        let webUrl = 'https://whatever-origin.herokuapp.com/get?url=';
         let jaUrl = 'http://www.j-archive.com/showgame.php?game_id=' + gameId + '&callback=?';
 
         $.getJSON(webUrl + jaUrl, function (data) {

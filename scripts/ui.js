@@ -318,25 +318,28 @@ $(document).ready(function() {
 
     // click - reset
     $("#btn-reset").click(function () {
-        game.players = [];
-        game.getRound(0).reset();
-        game.getRound(1).reset();
+        location.reload();
+        // game.players = [];
+        // game.getRound(0).reset();
+        // game.getRound(1).reset();
 
-        round = game.getRound(0);
-        categorySelectable = false;
+        // round = game.getRound(0);
+        // categorySelectable = false;
+
+        // // wheel.rotate();
+        // wheel.stopTimer();
+        // wheel.resetTimer();
         
-        wheel.buildCreate(round);
-        initGameBoardFromRound(roundID);
+        // wheel.buildCreate(round);
+        // wheel.rotate();
+        // initGameBoardFromRound(roundID);
 
-        clueText.empty();
-        playPanel.reset();
-        player.reset();
+        // clueText.empty();
+        // playPanel.reset();
+        // player.reset();
 
-        wheel.rotate();
-        wheel.resetTimer();
-
-        hidePanels();
-        $(".start-panel").show();
+        // hidePanels();
+        // $(".start-panel").show();
     }); 
 
     // set up the edit category dialog
